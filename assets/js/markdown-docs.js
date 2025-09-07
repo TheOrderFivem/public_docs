@@ -1906,8 +1906,12 @@ class CommunityBridgeDocumentation {
                 contributorsSet.add(member.login);
             }
 
-            // Fetch contributors from each repository (limited to avoid rate limits)
-            for (const repo of repos.slice(0, 5)) { // Limit to first 5 repos to avoid rate limits
+            // Only process original repositories (not forks) to show actual contributors to your organization's work
+            // Filter out repositories we want to exclude and only include non-forked repos
+            const excludedRepos = ['RecipeImages', 'ox_inventory', 'ox_target', 'ox_doorlock'];
+            const filteredRepos = repos.filter(repo => !excludedRepos.includes(repo.name) && !repo.fork);
+            
+            for (const repo of filteredRepos.slice(0, 10)) { // Process original repos only
                 try {
                     const contributorsResponse = await fetch(`https://api.github.com/repos/TheOrderFivem/${repo.name}/contributors`);
                     if (contributorsResponse.ok) {

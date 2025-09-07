@@ -1,68 +1,59 @@
-# The Orders Recipe Overview 🍳
+# The Orders Recipe Overview
 
-Welcome to **The Orders Recipe** - your comprehensive guide to building amazing FiveM experiences with Community Bridge.
+Welcome to **The Orders Recipe** - a complete FiveM server template that gets you up and running with QBCore and enhanced features in minutes.
 
 ## What is The Orders Recipe?
 
-The Orders Recipe is a curated collection of best practices, tutorials, and real-world examples that show you how to leverage Community Bridge to create professional-grade FiveM resources. Think of it as your cookbook for FiveM development success.
+The Orders Recipe is a txAdmin recipe (YAML template) that automatically installs and configures a complete QBCore server with curated community alternatives and optimizations. No manual setup required - just one-click installation.
 
-## Why Use The Orders Recipe?
+## Why Choose The Orders Recipe?
 
-### 🚀 **Accelerated Development**
-Skip the trial and error phase with proven patterns and implementations that just work.
+### **One-Click Setup**
+Complete server installation in minutes through txAdmin - no manual configuration needed.
 
-### 📚 **Best Practices**
-Learn from experienced developers who have built successful FiveM servers and resources.
+### **Curated Components**
+Community-tested alternatives to standard QBCore resources for better performance and features.
 
-### 🔧 **Real-World Examples**
-All examples are based on actual implementations used in production servers.
+### **Pre-Configured**
+Everything works together seamlessly out of the box - database, resources, and settings.
 
-### 🌐 **Community Driven**
-Contributions from the FiveM development community ensure content stays current and relevant.
+### **Community Tested**
+Components chosen and maintained by the FiveM community for reliability and compatibility.
 
 ## What's Included
 
-### **Framework Integration Guides**
-- ESX integration patterns
-- QBCore implementation strategies  
-- Standalone resource development
-- Cross-framework compatibility
+### **Core Framework**
+- Complete QBCore framework installation
+- All essential QB resources (multicharacter, spawn, hud, phone, etc.)
+- Optimized database structure and configurations
 
-### **Common Use Cases**
-- Banking system integration
-- Inventory management
-- Player progression systems
-- Administrative tools
-- Job and business systems
+### **Enhanced Features**
+- **Modified ox_inventory** - Enhanced inventory system with QB support
+- **Community Bridge** - Compatibility and enhancement system
+- **Curated Resources** - Community-selected alternatives to base resources
 
-### **Performance Optimization**
-- Database query optimization
-- Network event efficiency
-- Memory management
-- Client-server synchronization
-
-### **Security Best Practices**
-- Input validation patterns
-- Anti-cheat integration
-- Permission systems
-- Secure event handling
+### **Automatic Configuration**
+- Pre-configured resource loading order
+- Optimized server.cfg settings
+- Database tables and relationships
+- Framework integrations
 
 ## Getting Started
 
-Ready to dive in? Check out our [Getting Started Guide](./getting-started.md) to begin your journey with The Orders Recipe.
+Ready to set up your server? Check out our [Getting Started Guide](./getting-started.md) for simple installation instructions.
 
 ## Video Tutorials
 
-Want to learn visually? Visit our [Video Tutorials](./video-tutorials.md) page for comprehensive video guides and walkthroughs.
+Want visual guidance? Visit our [Video Tutorials](./video-tutorials.md) page for step-by-step installation and customization videos.
 
-## Community & Support
+## Requirements
 
-Join our growing community of developers:
+- FiveM Server with txAdmin access
+- MySQL Database (auto-configured)
+- 2GB+ storage space
 
-- **Discord**: Get real-time help and share your creations
-- **GitHub**: Contribute examples and improvements
-- **Forums**: Discuss advanced techniques and troubleshooting
+⚠️ **Note**: Installing a recipe wipes existing server files and database data.
 
 ---
 
-*The Orders Recipe is maintained by The Order community and contributors. All examples are tested and production-ready.*
+*The Orders Recipe provides a complete, optimized QBCore server setup with community enhancements - ready to launch in minutes.*
