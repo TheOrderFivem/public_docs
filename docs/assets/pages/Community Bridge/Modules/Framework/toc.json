@@ -1,0 +1,269 @@
+{
+  "title": "Framework Module",
+  "items": [
+    {
+      "title": "Overview",
+      "anchor": "#overview"
+    },
+    {
+      "title": "Client Functions",
+      "anchor": "#client-functions",
+      "children": [
+        {
+          "title": "GetFrameworkJobs",
+          "anchor": "#function-getframeworkjobs"
+        },
+        {
+          "title": "GetFrameworkName",
+          "anchor": "#function-getframeworkname"
+        },
+        {
+          "title": "GetIsPlayerDead",
+          "anchor": "#function-getisplayerdead"
+        },
+        {
+          "title": "GetItemInfo",
+          "anchor": "#function-getiteminfo"
+        },
+        {
+          "title": "GetPlayerData",
+          "anchor": "#function-getplayerdata"
+        },
+        {
+          "title": "GetPlayerDob",
+          "anchor": "#function-getplayerdob"
+        },
+        {
+          "title": "GetPlayerIdentifier",
+          "anchor": "#function-getplayeridentifier"
+        },
+        {
+          "title": "GetPlayerInventory",
+          "anchor": "#function-getplayerinventory"
+        },
+        {
+          "title": "GetPlayerJob",
+          "anchor": "#function-getplayerjob"
+        },
+        {
+          "title": "GetPlayerJobData",
+          "anchor": "#function-getplayerjobdata"
+        },
+        {
+          "title": "GetPlayerMetaData",
+          "anchor": "#function-getplayermetadata"
+        },
+        {
+          "title": "GetPlayerName",
+          "anchor": "#function-getplayername"
+        },
+        {
+          "title": "GetVehicleProperties",
+          "anchor": "#function-getvehicleproperties"
+        },
+        {
+          "title": "HasItem",
+          "anchor": "#function-hasitem"
+        },
+        {
+          "title": "HideHelpText",
+          "anchor": "#function-hidehelptext"
+        },
+        {
+          "title": "Notify",
+          "anchor": "#function-notify"
+        },
+        {
+          "title": "SetVehicleProperties",
+          "anchor": "#function-setvehicleproperties"
+        },
+        {
+          "title": "ShowHelpText",
+          "anchor": "#function-showhelptext"
+        },
+        {
+          "title": "GetItemCount",
+          "anchor": "#function-getitemcount"
+        }
+      ]
+    },
+    {
+      "title": "Server Functions",
+      "anchor": "#server-functions",
+      "children": [
+        {
+          "title": "AddHunger",
+          "anchor": "#function-addhunger"
+        },
+        {
+          "title": "AddItem",
+          "anchor": "#function-additem"
+        },
+        {
+          "title": "AddStress",
+          "anchor": "#function-addstress"
+        },
+        {
+          "title": "AddThirst",
+          "anchor": "#function-addthirst"
+        },
+        {
+          "title": "GetFrameworkJobs",
+          "anchor": "#function-getframeworkjobs-5"
+        },
+        {
+          "title": "GetFrameworkName",
+          "anchor": "#function-getframeworkname-6"
+        },
+        {
+          "title": "GetHunger",
+          "anchor": "#function-gethunger"
+        },
+        {
+          "title": "GetIsFrameworkAdmin",
+          "anchor": "#function-getisframeworkadmin"
+        },
+        {
+          "title": "GetIsPlayerDead",
+          "anchor": "#function-getisplayerdead-9"
+        },
+        {
+          "title": "GetItem",
+          "anchor": "#function-getitem"
+        },
+        {
+          "title": "GetItemBySlot",
+          "anchor": "#function-getitembyslot"
+        },
+        {
+          "title": "GetOwnedVehicles",
+          "anchor": "#function-getownedvehicles"
+        },
+        {
+          "title": "GetPlayer",
+          "anchor": "#function-getplayer"
+        },
+        {
+          "title": "GetPlayerDob",
+          "anchor": "#function-getplayerdob-14"
+        },
+        {
+          "title": "GetPlayerDuty",
+          "anchor": "#function-getplayerduty"
+        },
+        {
+          "title": "GetPlayerGang",
+          "anchor": "#function-getplayergang"
+        },
+        {
+          "title": "GetPlayerIdentifier",
+          "anchor": "#function-getplayeridentifier-17"
+        },
+        {
+          "title": "GetPlayerInventory",
+          "anchor": "#function-getplayerinventory-18"
+        },
+        {
+          "title": "GetPlayerJob",
+          "anchor": "#function-getplayerjob-19"
+        },
+        {
+          "title": "GetPlayerJobData",
+          "anchor": "#function-getplayerjobdata-20"
+        },
+        {
+          "title": "GetPlayerMetadata",
+          "anchor": "#function-getplayermetadata"
+        },
+        {
+          "title": "GetPlayerName",
+          "anchor": "#function-getplayername-22"
+        },
+        {
+          "title": "GetPlayerPhone",
+          "anchor": "#function-getplayerphone"
+        },
+        {
+          "title": "GetPlayers",
+          "anchor": "#function-getplayers"
+        },
+        {
+          "title": "GetPlayersByJob",
+          "anchor": "#function-getplayersbyjob"
+        },
+        {
+          "title": "GetThirst",
+          "anchor": "#function-getthirst"
+        },
+        {
+          "title": "RegisterUsableItem",
+          "anchor": "#function-registerusableitem"
+        },
+        {
+          "title": "RemoveHunger",
+          "anchor": "#function-removehunger"
+        },
+        {
+          "title": "RemoveItem",
+          "anchor": "#function-removeitem"
+        },
+        {
+          "title": "RemoveStress",
+          "anchor": "#function-removestress"
+        },
+        {
+          "title": "RemoveThirst",
+          "anchor": "#function-removethirst"
+        },
+        {
+          "title": "RevivePlayer",
+          "anchor": "#function-reviveplayer"
+        },
+        {
+          "title": "SetMetadata",
+          "anchor": "#function-setmetadata"
+        },
+        {
+          "title": "SetPlayerDuty",
+          "anchor": "#function-setplayerduty"
+        },
+        {
+          "title": "SetPlayerJob",
+          "anchor": "#function-setplayerjob"
+        },
+        {
+          "title": "SetPlayerMetadata",
+          "anchor": "#function-setplayermetadata"
+        },
+        {
+          "title": "AddAccountBalance",
+          "anchor": "#function-addaccountbalance"
+        },
+        {
+          "title": "GetStatus",
+          "anchor": "#function-getstatus"
+        },
+        {
+          "title": "GetAccountBalance",
+          "anchor": "#function-getaccountbalance"
+        },
+        {
+          "title": "GetItemCount",
+          "anchor": "#function-getitemcount-40"
+        },
+        {
+          "title": "RemoveAccountBalance",
+          "anchor": "#function-removeaccountbalance"
+        },
+        {
+          "title": "GetItemInfo",
+          "anchor": "#function-getiteminfo-42"
+        },
+        {
+          "title": "HasItem",
+          "anchor": "#function-hasitem-43"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,110 @@
+{
+  "name": "Managment",
+  "icon": "🏢",
+  "description": "The Management module provides functions for handling business and organization account management. It bridges various banking and management systems for business operations.",
+  "clientFunctions": [],
+  "serverFunctions": [
+    {
+      "name": "AddAccountMoney",
+      "description": "Adds money to a specified business account with a reason for the transaction.",
+      "syntax": "Bridge.Managment.AddAccountMoney(account, amount, reason)",
+      "parameters": [
+        {
+          "name": "account",
+          "type": "string",
+          "description": "The account identifier/name"
+        },
+        {
+          "name": "amount",
+          "type": "number",
+          "description": "Amount of money to add"
+        },
+        {
+          "name": "reason",
+          "type": "string",
+          "description": "Reason for the transaction"
+        }
+      ],
+      "returns": [
+        {
+          "type": "boolean",
+          "description": "True if money was added successfully"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\nlocal success = Bridge.Managment.AddAccountMoney(\"mechanic_shop\", 5000, \"Vehicle repair payment\")\nif success then\n    print(\"Payment added to mechanic shop account\")\nelse\n    print(\"Failed to add payment\")\nend"
+    },
+    {
+      "name": "GetAccountMoney",
+      "description": "Retrieves the account details and balance for a specified business account.",
+      "syntax": "Bridge.Managment.GetAccountMoney(account)",
+      "parameters": [
+        {
+          "name": "account",
+          "type": "string",
+          "description": "The account identifier/name"
+        }
+      ],
+      "returns": [
+        {
+          "type": "table",
+          "description": "Account details including balance information"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\nlocal accountData = Bridge.Managment.GetAccountMoney(\"mechanic_shop\")\nif accountData.balance then\n    print(\"Account balance: $\" .. accountData.balance)\nend"
+    },
+    {
+      "name": "GetManagmentName",
+      "description": "Returns the name of the currently active management system.",
+      "syntax": "Bridge.Managment.GetManagmentName()",
+      "parameters": [],
+      "returns": [
+        {
+          "type": "string",
+          "description": "Name of the management system in use"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\nlocal systemName = Bridge.Managment.GetManagmentName()\nprint(\"Using management system: \" .. systemName)"
+    },
+    {
+      "name": "RemoveAccountMoney",
+      "description": "Removes money from a specified business account with a reason for the transaction.",
+      "syntax": "Bridge.Managment.RemoveAccountMoney(account, amount, reason)",
+      "parameters": [
+        {
+          "name": "account",
+          "type": "string",
+          "description": "The account identifier/name"
+        },
+        {
+          "name": "amount",
+          "type": "number",
+          "description": "Amount of money to remove"
+        },
+        {
+          "name": "reason",
+          "type": "string",
+          "description": "Reason for the transaction"
+        }
+      ],
+      "returns": [
+        {
+          "type": "boolean",
+          "description": "True if money was removed successfully"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\nlocal success = Bridge.Managment.RemoveAccountMoney(\"mechanic_shop\", 2000, \"Equipment purchase\")\nif success then\n    print(\"Money deducted from mechanic shop account\")\nelse\n    print(\"Failed to deduct money\")\nend"
+    }
+  ],
+  "compatibleResources": [
+    "fd_banking",
+    "qb-banking",
+    "esx_society (partial)"
+  ],
+  "notes": [
+    "Requires compatible banking/management system to function properly",
+    "Default implementation provides warnings when no compatible system is found",
+    "All transactions include reason logging for audit purposes",
+    "Account names should be consistent with your management system's naming convention"
+  ],
+  "sharedFunctions": []
+}

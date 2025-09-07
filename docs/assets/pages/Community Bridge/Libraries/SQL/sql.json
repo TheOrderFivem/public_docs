@@ -1,0 +1,109 @@
+{
+  "name": "SQL",
+  "icon": "🗄️",
+  "description": "The SQL library provides simplified database operations with automatic table creation, upsert functionality, and common CRUD operations. It works with oxmysql and handles common database patterns used in FiveM development.",
+  "clientFunctions": [],
+  "serverFunctions": [
+    {
+      "name": "Create",
+      "description": "Creates a table with the specified columns if it doesn't already exist. Uses CREATE TABLE IF NOT EXISTS syntax.",
+      "syntax": "SQL.Create(tableName, columns)",
+      "parameters": [
+        {
+          "name": "tableName",
+          "type": "string",
+          "description": "Name of the table to create"
+        },
+        {
+          "name": "columns",
+          "type": "table",
+          "description": "Array of column definitions with 'name' and 'type' properties"
+        }
+      ],
+      "returns": [],
+      "example": "local columns = {\n    { name = \"id\", type = \"INT AUTO_INCREMENT PRIMARY KEY\" },\n    { name = \"identifier\", type = \"VARCHAR(50) UNIQUE\" },\n    { name = \"name\", type = \"VARCHAR(100)\" },\n    { name = \"money\", type = \"INT DEFAULT 0\" }\n}\n\nSQL.Create(\"players\", columns)\nprint(\"Players table created successfully\")"
+    },
+    {
+      "name": "InsertOrUpdate",
+      "description": "Inserts a new record or updates an existing one if a duplicate key is found. Uses INSERT ... ON DUPLICATE KEY UPDATE syntax.",
+      "syntax": "SQL.InsertOrUpdate(tableName, data)",
+      "parameters": [
+        {
+          "name": "tableName",
+          "type": "string",
+          "description": "Name of the table to insert/update"
+        },
+        {
+          "name": "data",
+          "type": "table",
+          "description": "Key-value pairs representing column names and values"
+        }
+      ],
+      "returns": [],
+      "example": "local playerData = {\n    identifier = \"steam:110000103fa6fc1\",\n    name = \"John Doe\",\n    money = 5000\n}\n\nSQL.InsertOrUpdate(\"players\", playerData)\nprint(\"Player data saved successfully\")\n\n-- Update existing player\nplayerData.money = 7500\nSQL.InsertOrUpdate(\"players\", playerData)\nprint(\"Player money updated\")"
+    },
+    {
+      "name": "Get",
+      "description": "Retrieves records from a table based on a WHERE condition.",
+      "syntax": "SQL.Get(tableName, where)",
+      "parameters": [
+        {
+          "name": "tableName",
+          "type": "string",
+          "description": "Name of the table to query"
+        },
+        {
+          "name": "where",
+          "type": "string",
+          "description": "WHERE clause condition (without the WHERE keyword)"
+        }
+      ],
+      "returns": [
+        {
+          "type": "table",
+          "description": "Array of records matching the condition"
+        }
+      ],
+      "example": "-- Get specific player\nlocal result = SQL.Get(\"players\", \"identifier = 'steam:110000103fa6fc1'\")\nif #result > 0 then\n    local player = result[1]\n    print(\"Player name: \" .. player.name)\n    print(\"Player money: \" .. player.money)\nend\n\n-- Get players with money > 1000\nlocal richPlayers = SQL.Get(\"players\", \"money > 1000\")\nprint(\"Found \" .. #richPlayers .. \" rich players\")"
+    },
+    {
+      "name": "GetAll",
+      "description": "Retrieves all records from a table without any filtering.",
+      "syntax": "SQL.GetAll(tableName)",
+      "parameters": [
+        {
+          "name": "tableName",
+          "type": "string",
+          "description": "Name of the table to query"
+        }
+      ],
+      "returns": [
+        {
+          "type": "table",
+          "description": "Array of all records in the table"
+        }
+      ],
+      "example": "local allPlayers = SQL.GetAll(\"players\")\nprint(\"Total players in database: \" .. #allPlayers)\n\nfor i, player in ipairs(allPlayers) do\n    print(string.format(\"%d. %s - $%d\", i, player.name, player.money))\nend"
+    },
+    {
+      "name": "Delete",
+      "description": "Deletes records from a table based on a WHERE condition.",
+      "syntax": "SQL.Delete(tableName, where)",
+      "parameters": [
+        {
+          "name": "tableName",
+          "type": "string",
+          "description": "Name of the table to delete from"
+        },
+        {
+          "name": "where",
+          "type": "string",
+          "description": "WHERE clause condition (without the WHERE keyword)"
+        }
+      ],
+      "returns": [],
+      "example": "-- Delete specific player\nSQL.Delete(\"players\", \"identifier = 'steam:110000103fa6fc1'\")\nprint(\"Player deleted from database\")\n\n-- Delete inactive players (example condition)\nSQL.Delete(\"players\", \"last_login < DATE_SUB(NOW(), INTERVAL 30 DAY)\")\nprint(\"Inactive players cleaned up\")"
+    }
+  ],
+  "sharedFunctions": []
+}

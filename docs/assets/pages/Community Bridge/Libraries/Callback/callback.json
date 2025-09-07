@@ -1,0 +1,120 @@
+{
+  "name": "Callback",
+  "icon": "📞",
+  "description": "The Callback library provides a robust client-server communication system with support for promises, callbacks, and resource-specific cleanup. It handles bi-directional communication between client and server with automatic timeout and error handling.",
+  "clientFunctions": [
+    {
+      "name": "Register",
+      "description": "Registers a client-side callback function that can be triggered by the server.",
+      "syntax": "Bridge.Callback.Register(name, handler)",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "string",
+          "description": "Unique name for the callback"
+        },
+        {
+          "name": "handler",
+          "type": "function",
+          "description": "Function to execute when callback is triggered"
+        }
+      ],
+      "returns": [],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Register a client callback\nBridge.Callback.Register('getPlayerInfo', function()\n    local ped = PlayerPedId()\n    return {\n        health = GetEntityHealth(ped),\n        coords = GetEntityCoords(ped),\n        model = GetEntityModel(ped)\n    }\nend)"
+    },
+    {
+      "name": "RegisterRebound",
+      "description": "Registers a rebound callback that receives responses from server callbacks triggered by this client.",
+      "syntax": "Bridge.Callback.RegisterRebound(name, handler)",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "string",
+          "description": "Name of the callback to rebound from"
+        },
+        {
+          "name": "handler",
+          "type": "function",
+          "description": "Function to handle the rebound response"
+        }
+      ],
+      "returns": [],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Register a rebound callback for server responses\nBridge.Callback.RegisterRebound('validateUser', function(isValid, reason)\n    if isValid then\n        print('User validation successful')\n    else\n        print('User validation failed: ' .. reason)\n    end\nend)"
+    },
+    {
+      "name": "Trigger",
+      "description": "Triggers a server-side callback and optionally handles the response with a callback or returns a promise.",
+      "syntax": "Bridge.Callback.Trigger(name, ...)",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "string",
+          "description": "Name of the server callback to trigger"
+        },
+        {
+          "name": "...",
+          "type": "any",
+          "description": "Arguments to pass to the server callback (optional callback function as first argument)"
+        }
+      ],
+      "returns": [
+        {
+          "type": "any",
+          "description": "Return value from server callback (when not using callback function)"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Trigger with callback\nBridge.Callback.Trigger('getUserMoney', function(money)\n    print('Player has $' .. money)\nend, GetPlayerServerId(PlayerId()))\n\n-- Trigger with promise (await style)\nlocal money = Bridge.Callback.Trigger('getUserMoney', GetPlayerServerId(PlayerId()))\nprint('Player has $' .. money)"
+    }
+  ],
+  "serverFunctions": [
+    {
+      "name": "Register",
+      "description": "Registers a server-side callback function that can be triggered by clients.",
+      "syntax": "Bridge.Callback.Register(name, handler)",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "string",
+          "description": "Unique name for the callback"
+        },
+        {
+          "name": "handler",
+          "type": "function",
+          "description": "Function to execute when callback is triggered (first parameter is source player ID)"
+        }
+      ],
+      "returns": [],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Register a server callback\nBridge.Callback.Register('getUserMoney', function(source, targetId)\n    local player = Bridge.Framework.GetPlayer(targetId or source)\n    if player then\n        return player.PlayerData.money.cash\n    end\n    return 0\nend)"
+    },
+    {
+      "name": "Trigger",
+      "description": "Triggers a client-side callback on specific player(s) and optionally handles the response.",
+      "syntax": "Bridge.Callback.Trigger(name, target, ...)",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "string",
+          "description": "Name of the client callback to trigger"
+        },
+        {
+          "name": "target",
+          "type": "number | table",
+          "description": "Player ID or table of player IDs to trigger callback on"
+        },
+        {
+          "name": "...",
+          "type": "any",
+          "description": "Arguments to pass to the client callback (optional callback function as first argument)"
+        }
+      ],
+      "returns": [
+        {
+          "type": "any",
+          "description": "Return value from client callback (when not using callback function)"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Trigger on specific player with callback\nBridge.Callback.Trigger('getPlayerInfo', function(playerInfo)\n    print('Player health: ' .. playerInfo.health)\nend, playerId)\n\n-- Trigger on multiple players\nlocal playerIds = {1, 2, 3}\nlocal playerInfo = Bridge.Callback.Trigger('getPlayerInfo', playerIds)\nprint('Player info received')"
+    }
+  ],
+  "sharedFunctions": []
+}

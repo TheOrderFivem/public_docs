@@ -1,0 +1,49 @@
+{
+  "title": "Entities Library",
+  "items": [
+    {
+      "title": "Overview",
+      "anchor": "#overview"
+    },
+    {
+      "title": "Client Functions",
+      "anchor": "#client-functions",
+      "children": [
+        {
+          "title": "Register",
+          "anchor": "#function-register"
+        },
+        {
+          "title": "Unregister",
+          "anchor": "#function-unregister"
+        }
+      ]
+    },
+    {
+      "title": "Server Functions",
+      "anchor": "#server-functions",
+      "children": [
+        {
+          "title": "Create",
+          "anchor": "#function-create"
+        },
+        {
+          "title": "Delete",
+          "anchor": "#function-delete"
+        },
+        {
+          "title": "Update",
+          "anchor": "#function-update"
+        },
+        {
+          "title": "TriggerAction",
+          "anchor": "#function-triggeraction"
+        },
+        {
+          "title": "TriggerActions",
+          "anchor": "#function-triggeractions"
+        }
+      ]
+    }
+  ]
+}

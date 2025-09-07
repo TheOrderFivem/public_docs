@@ -1,0 +1,1328 @@
+{
+  "name": "Framework",
+  "icon": "🏗️",
+  "description": "Universal framework compatibility layer that provides consistent access to player data, jobs, and framework-specific functions across QB-Core, ESX, QBox, and custom frameworks. This is the foundation module that enables cross-framework development.",
+  "note": "This is a core module that automatically detects and adapts to your server's framework. All functions are framework-agnostic and return consistent data formats regardless of the underlying framework.",
+  "compatibleResources": [
+    "qb-core",
+    "qbx-core",
+    "es_extended",
+    "esx",
+    "custom frameworks"
+  ],
+  "clientFunctions": [
+    {
+      "name": "GetFrameworkJobs",
+      "syntax": "Bridge.Framework.GetFrameworkJobs()",
+      "parameters": [],
+      "returns": [
+        {
+          "type": "table",
+          "description": "Array of job objects with name, label, and grades"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nlocal jobs = Bridge.Framework.GetFrameworkJobs()\nfor _, job in pairs(jobs) do\n    print('Job:', job.name, job.label)\nend",
+      "description": "Function GetFrameworkJobs"
+    },
+    {
+      "name": "GetFrameworkName",
+      "syntax": "Bridge.Framework.GetFrameworkName()",
+      "parameters": [],
+      "returns": [
+        {
+          "type": "string",
+          "description": "The name of the detected framework ('qb-core', 'qbx_core', 'es_extended')"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nlocal frameworkName = Bridge.Framework.GetFrameworkName()\nprint('Using framework:', frameworkName)",
+      "description": "Function GetFrameworkName"
+    },
+    {
+      "name": "GetIsPlayerDead",
+      "syntax": "Bridge.Framework.GetIsPlayerDead()",
+      "parameters": [],
+      "returns": [
+        {
+          "type": "boolean",
+          "description": "Whether the player is dead/downed"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nif Bridge.Framework.GetIsPlayerDead() then\n    print('Player is down or dead')\nend",
+      "description": "Function GetIsPlayerDead"
+    },
+    {
+      "name": "GetItemInfo",
+      "syntax": "Bridge.Framework.GetItemInfo(item)",
+      "parameters": [
+        {
+          "name": "item",
+          "type": "string",
+          "description": "Item name"
+        }
+      ],
+      "returns": [
+        {
+          "type": "table",
+          "description": "Item information (name, label, weight, etc.)"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nlocal itemInfo = Bridge.Framework.GetItemInfo('phone')\nprint('Item label:', itemInfo.label)\nprint('Item weight:', itemInfo.weight)",
+      "description": "Function GetItemInfo"
+    },
+    {
+      "name": "GetPlayerData",
+      "syntax": "Bridge.Framework.GetPlayerData()",
+      "parameters": [],
+      "returns": [
+        {
+          "type": "table",
+          "description": "Player data in framework's native format"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nlocal playerData = Bridge.Framework.GetPlayerData()\nprint('Player name:', playerData.charinfo.firstname)",
+      "note": "Returns raw framework data - prefer using specific getter functions for consistency",
+      "description": "Function GetPlayerData"
+    },
+    {
+      "name": "GetPlayerDob",
+      "syntax": "Bridge.Framework.GetPlayerDob()",
+      "parameters": [],
+      "returns": [
+        {
+          "type": "string",
+          "description": "Player's date of birth"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nlocal dob = Bridge.Framework.GetPlayerDob()\nprint('Player DOB:', dob)",
+      "description": "Function GetPlayerDob"
+    },
+    {
+      "name": "GetPlayerIdentifier",
+      "syntax": "Bridge.Framework.GetPlayerIdentifier()",
+      "parameters": [],
+      "returns": [
+        {
+          "type": "string",
+          "description": "Player's unique identifier (citizenid/identifier)"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nlocal identifier = Bridge.Framework.GetPlayerIdentifier()\nprint('Player ID:', identifier)",
+      "description": "Function GetPlayerIdentifier"
+    },
+    {
+      "name": "GetPlayerInventory",
+      "syntax": "Bridge.Framework.GetPlayerInventory()",
+      "parameters": [],
+      "returns": [
+        {
+          "type": "table",
+          "description": "Player's inventory in standardized format"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nlocal inventory = Bridge.Framework.GetPlayerInventory()\nfor _, item in pairs(inventory) do\n    print('Item:', item.name, 'Count:', item.count)\nend",
+      "description": "Function GetPlayerInventory"
+    },
+    {
+      "name": "GetPlayerJob",
+      "syntax": "Bridge.Framework.GetPlayerJob()",
+      "parameters": [],
+      "returns": [
+        {
+          "type": "string, string, string, number",
+          "description": "Job name, label, grade name, grade level"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nlocal jobName, jobLabel, gradeName, gradeLevel = Bridge.Framework.GetPlayerJob()\nprint('Job:', jobName, jobLabel)",
+      "note": "Deprecated - Use GetPlayerJobData() for better structure",
+      "description": "Function GetPlayerJob"
+    },
+    {
+      "name": "GetPlayerJobData",
+      "syntax": "Bridge.Framework.GetPlayerJobData()",
+      "parameters": [],
+      "returns": [
+        {
+          "type": "table",
+          "description": "Complete job information object"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nlocal jobData = Bridge.Framework.GetPlayerJobData()\nprint('Job:', jobData.jobName)\nprint('On duty:', jobData.onDuty)\nprint('Is boss:', jobData.boss)",
+      "description": "Function GetPlayerJobData"
+    },
+    {
+      "name": "GetPlayerMetaData",
+      "syntax": "Bridge.Framework.GetPlayerMetaData(metadata)",
+      "parameters": [
+        {
+          "name": "metadata",
+          "type": "string|table",
+          "description": "Metadata key to retrieve"
+        }
+      ],
+      "returns": [
+        {
+          "type": "any",
+          "description": "The metadata value"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nlocal stress = Bridge.Framework.GetPlayerMetaData('stress')\nprint('Player stress level:', stress)",
+      "description": "Function GetPlayerMetaData"
+    },
+    {
+      "name": "GetPlayerName",
+      "syntax": "Bridge.Framework.GetPlayerName()",
+      "parameters": [],
+      "returns": [
+        {
+          "type": "string, string",
+          "description": "First name, Last name"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nlocal firstName, lastName = Bridge.Framework.GetPlayerName()\nprint('Player name:', firstName, lastName)",
+      "description": "Function GetPlayerName"
+    },
+    {
+      "name": "GetVehicleProperties",
+      "syntax": "Bridge.Framework.GetVehicleProperties(vehicle)",
+      "parameters": [
+        {
+          "name": "vehicle",
+          "type": "number",
+          "description": "Vehicle entity handle"
+        }
+      ],
+      "returns": [
+        {
+          "type": "table",
+          "description": "Vehicle properties data"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nlocal vehicle = GetVehiclePedIsIn(PlayerPedId(), false)\nlocal props = Bridge.Framework.GetVehicleProperties(vehicle)\nprint('Plate:', props.plate)",
+      "description": "Function GetVehicleProperties"
+    },
+    {
+      "name": "HasItem",
+      "syntax": "Bridge.Framework.HasItem(item)",
+      "parameters": [
+        {
+          "name": "item",
+          "type": "string",
+          "description": "Item name to check"
+        }
+      ],
+      "returns": [
+        {
+          "type": "boolean",
+          "description": "Whether player has the item"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nif Bridge.Framework.HasItem('phone') then\n    print('Player has a phone')\nend",
+      "description": "Function HasItem"
+    },
+    {
+      "name": "HideHelpText",
+      "syntax": "Bridge.Framework.HideHelpText()",
+      "parameters": [],
+      "returns": [
+        {
+          "type": "nil",
+          "description": "No description provided"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nBridge.Framework.HideHelpText()",
+      "description": "Function HideHelpText"
+    },
+    {
+      "name": "Notify",
+      "syntax": "Bridge.Framework.Notify(message, type, time)",
+      "parameters": [
+        {
+          "name": "message",
+          "type": "string",
+          "description": "Notification message"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "description": "Notification type"
+        },
+        {
+          "name": "time",
+          "type": "number",
+          "description": "Display duration"
+        }
+      ],
+      "returns": [
+        {
+          "type": "nil",
+          "description": "No description provided"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nBridge.Framework.Notify('Hello World!', 'success', 5000)",
+      "note": "Consider using Bridge.Notify module for better notification handling",
+      "description": "Function Notify"
+    },
+    {
+      "name": "SetVehicleProperties",
+      "syntax": "Bridge.Framework.SetVehicleProperties(vehicle, properties)",
+      "parameters": [
+        {
+          "name": "vehicle",
+          "type": "number",
+          "description": "Vehicle entity handle"
+        },
+        {
+          "name": "properties",
+          "type": "table",
+          "description": "Properties to apply"
+        }
+      ],
+      "returns": [
+        {
+          "type": "boolean",
+          "description": "Success status"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nlocal vehicle = GetVehiclePedIsIn(PlayerPedId(), false)\nlocal props = { plate = 'BRIDGE1' }\nBridge.Framework.SetVehicleProperties(vehicle, props)",
+      "description": "Function SetVehicleProperties"
+    },
+    {
+      "name": "ShowHelpText",
+      "syntax": "Bridge.Framework.ShowHelpText(message, position)",
+      "parameters": [
+        {
+          "name": "message",
+          "type": "string",
+          "description": "Help text message"
+        },
+        {
+          "name": "position",
+          "type": "string",
+          "description": "Text position"
+        }
+      ],
+      "returns": [
+        {
+          "type": "nil",
+          "description": "No description provided"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nBridge.Framework.ShowHelpText('Press E to interact', 'top-center')",
+      "note": "Consider using Bridge.HelpText module for better text UI handling",
+      "description": "Function ShowHelpText"
+    },
+    {
+      "name": "GetItemCount",
+      "description": "This will return the item count for the specified item in the players inventory.",
+      "syntax": "Bridge.Framework.GetItemCount(item)",
+      "parameters": [
+        {
+          "name": "item",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "returns": [
+        {
+          "type": "number",
+          "description": ""
+        }
+      ],
+      "example": "local Bridge = exports[\"community_bridge\"]:Bridge()\\n\\nBridge.Framework.GetItemCount()",
+      "_newly_added": true
+    }
+  ],
+  "serverFunctions": [
+    {
+      "name": "AddHunger",
+      "syntax": "Bridge.Framework.AddHunger(src, value)",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "number",
+          "description": "Player source ID"
+        },
+        {
+          "name": "value",
+          "type": "number",
+          "description": "Hunger amount to add"
+        }
+      ],
+      "returns": [
+        {
+          "type": "number|nil",
+          "description": "New hunger level"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nlocal newHunger = Bridge.Framework.AddHunger(source, 20)\nprint('New hunger level:', newHunger)",
+      "description": "Function AddHunger"
+    },
+    {
+      "name": "AddItem",
+      "syntax": "Bridge.Framework.AddItem(src, item, amount, slot, metadata)",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "number",
+          "description": "Player source ID"
+        },
+        {
+          "name": "item",
+          "type": "string",
+          "description": "Item name"
+        },
+        {
+          "name": "amount",
+          "type": "number",
+          "description": "Item quantity"
+        },
+        {
+          "name": "slot",
+          "type": "number",
+          "description": "Optional specific slot"
+        },
+        {
+          "name": "metadata",
+          "type": "table",
+          "description": "Optional item metadata"
+        }
+      ],
+      "returns": [
+        {
+          "type": "boolean|nil",
+          "description": "Success status"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nlocal success = Bridge.Framework.AddItem(source, 'phone', 1)\nprint('Item added:', success)",
+      "description": "Function AddItem"
+    },
+    {
+      "name": "AddStress",
+      "syntax": "Bridge.Framework.AddStress(src, value)",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "number",
+          "description": "Player source ID"
+        },
+        {
+          "name": "value",
+          "type": "number",
+          "description": "Stress amount to add"
+        }
+      ],
+      "returns": [
+        {
+          "type": "number|nil",
+          "description": "New stress level"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nlocal newStress = Bridge.Framework.AddStress(source, 10)\nprint('New stress level:', newStress)",
+      "description": "Function AddStress"
+    },
+    {
+      "name": "AddThirst",
+      "syntax": "Bridge.Framework.AddThirst(src, value)",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "number",
+          "description": "Player source ID"
+        },
+        {
+          "name": "value",
+          "type": "number",
+          "description": "Thirst amount to add"
+        }
+      ],
+      "returns": [
+        {
+          "type": "number|nil",
+          "description": "New thirst level"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nlocal newThirst = Bridge.Framework.AddThirst(source, 25)\nprint('New thirst level:', newThirst)",
+      "description": "Function AddThirst"
+    },
+    {
+      "name": "GetFrameworkJobs",
+      "syntax": "Bridge.Framework.GetFrameworkJobs()",
+      "parameters": [],
+      "returns": [
+        {
+          "type": "table",
+          "description": "Array of all framework jobs"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nlocal jobs = Bridge.Framework.GetFrameworkJobs()\nprint('Total jobs:', #jobs)",
+      "description": "Function GetFrameworkJobs"
+    },
+    {
+      "name": "GetFrameworkName",
+      "syntax": "Bridge.Framework.GetFrameworkName()",
+      "parameters": [],
+      "returns": [
+        {
+          "type": "string",
+          "description": "The name of the detected framework"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nlocal frameworkName = Bridge.Framework.GetFrameworkName()\nprint('Server using:', frameworkName)",
+      "description": "Function GetFrameworkName"
+    },
+    {
+      "name": "GetHunger",
+      "syntax": "Bridge.Framework.GetHunger(src)",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "number",
+          "description": "Player source ID"
+        }
+      ],
+      "returns": [
+        {
+          "type": "number|nil",
+          "description": "Current hunger level"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nlocal hunger = Bridge.Framework.GetHunger(source)\nprint('Player hunger:', hunger)",
+      "description": "Function GetHunger"
+    },
+    {
+      "name": "GetIsFrameworkAdmin",
+      "syntax": "Bridge.Framework.GetIsFrameworkAdmin(src)",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "number",
+          "description": "Player source ID"
+        }
+      ],
+      "returns": [
+        {
+          "type": "boolean",
+          "description": "Whether the player is an admin"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nif Bridge.Framework.GetIsFrameworkAdmin(source) then\n    print('Player is an admin')\nend",
+      "description": "Function GetIsFrameworkAdmin"
+    },
+    {
+      "name": "GetIsPlayerDead",
+      "syntax": "Bridge.Framework.GetIsPlayerDead(src)",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "number",
+          "description": "Player source ID"
+        }
+      ],
+      "returns": [
+        {
+          "type": "boolean|nil",
+          "description": "Whether the player is dead/downed"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nif Bridge.Framework.GetIsPlayerDead(source) then\n    print('Player is down')\nend",
+      "description": "Function GetIsPlayerDead"
+    },
+    {
+      "name": "GetItem",
+      "syntax": "Bridge.Framework.GetItem(src, item, metadata)",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "number",
+          "description": "Player source ID"
+        },
+        {
+          "name": "item",
+          "type": "string",
+          "description": "Item name"
+        },
+        {
+          "name": "metadata",
+          "type": "table",
+          "description": "Optional metadata filter"
+        }
+      ],
+      "returns": [
+        {
+          "type": "table|nil",
+          "description": "Item data if found"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nlocal phoneItem = Bridge.Framework.GetItem(source, 'phone')\nif phoneItem then\n    print('Player has phone with count:', phoneItem.count)\nend",
+      "description": "Function GetItem"
+    },
+    {
+      "name": "GetItemBySlot",
+      "syntax": "Bridge.Framework.GetItemBySlot(src, slot)",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "number",
+          "description": "Player source ID"
+        },
+        {
+          "name": "slot",
+          "type": "number",
+          "description": "Inventory slot number"
+        }
+      ],
+      "returns": [
+        {
+          "type": "table|nil",
+          "description": "Item in the specified slot"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nlocal item = Bridge.Framework.GetItemBySlot(source, 1)\nif item then\n    print('Slot 1 contains:', item.name)\nend",
+      "description": "Function GetItemBySlot"
+    },
+    {
+      "name": "GetOwnedVehicles",
+      "syntax": "Bridge.Framework.GetOwnedVehicles(src)",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "number",
+          "description": "Player source ID"
+        }
+      ],
+      "returns": [
+        {
+          "type": "table",
+          "description": "Array of owned vehicles with vehicle and plate"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nlocal vehicles = Bridge.Framework.GetOwnedVehicles(source)\nfor _, vehicle in pairs(vehicles) do\n    print('Vehicle:', vehicle.vehicle, 'Plate:', vehicle.plate)\nend",
+      "description": "Function GetOwnedVehicles"
+    },
+    {
+      "name": "GetPlayer",
+      "syntax": "Bridge.Framework.GetPlayer(src)",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "number",
+          "description": "Player source ID"
+        }
+      ],
+      "returns": [
+        {
+          "type": "table|nil",
+          "description": "Player object in framework's native format"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nlocal player = Bridge.Framework.GetPlayer(source)\nif player then\n    print('Found player data')\nend",
+      "note": "Returns raw framework player object - prefer using specific getter functions",
+      "description": "Function GetPlayer"
+    },
+    {
+      "name": "GetPlayerDob",
+      "syntax": "Bridge.Framework.GetPlayerDob(src)",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "number",
+          "description": "Player source ID"
+        }
+      ],
+      "returns": [
+        {
+          "type": "string|nil",
+          "description": "Player's date of birth"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nlocal dob = Bridge.Framework.GetPlayerDob(source)\nprint('DOB:', dob)",
+      "description": "Function GetPlayerDob"
+    },
+    {
+      "name": "GetPlayerDuty",
+      "syntax": "Bridge.Framework.GetPlayerDuty(src)",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "number",
+          "description": "Player source ID"
+        }
+      ],
+      "returns": [
+        {
+          "type": "boolean|nil",
+          "description": "Whether the player is on duty"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nlocal onDuty = Bridge.Framework.GetPlayerDuty(source)\nprint('On duty:', onDuty)",
+      "description": "Function GetPlayerDuty"
+    },
+    {
+      "name": "GetPlayerGang",
+      "syntax": "Bridge.Framework.GetPlayerGang(src)",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "number",
+          "description": "Player source ID"
+        }
+      ],
+      "returns": [
+        {
+          "type": "string|nil",
+          "description": "Player's gang name"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nlocal gang = Bridge.Framework.GetPlayerGang(source)\nprint('Player gang:', gang)",
+      "description": "Function GetPlayerGang"
+    },
+    {
+      "name": "GetPlayerIdentifier",
+      "syntax": "Bridge.Framework.GetPlayerIdentifier(src)",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "number",
+          "description": "Player source ID"
+        }
+      ],
+      "returns": [
+        {
+          "type": "string|nil",
+          "description": "Player's unique identifier"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nlocal identifier = Bridge.Framework.GetPlayerIdentifier(source)\nprint('Player ID:', identifier)",
+      "description": "Function GetPlayerIdentifier"
+    },
+    {
+      "name": "GetPlayerInventory",
+      "syntax": "Bridge.Framework.GetPlayerInventory(src)",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "number",
+          "description": "Player source ID"
+        }
+      ],
+      "returns": [
+        {
+          "type": "table|nil",
+          "description": "Player's complete inventory"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nlocal inventory = Bridge.Framework.GetPlayerInventory(source)\nfor _, item in pairs(inventory) do\n    print('Item:', item.name, 'Count:', item.count)\nend",
+      "description": "Function GetPlayerInventory"
+    },
+    {
+      "name": "GetPlayerJob",
+      "syntax": "Bridge.Framework.GetPlayerJob(src)",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "number",
+          "description": "Player source ID"
+        }
+      ],
+      "returns": [
+        {
+          "type": "string, string, string, number",
+          "description": "Job name, label, grade name, grade level"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nlocal jobName, jobLabel, gradeName, gradeLevel = Bridge.Framework.GetPlayerJob(source)\nprint('Job:', jobName)",
+      "note": "Deprecated - Use GetPlayerJobData() for better structure",
+      "description": "Function GetPlayerJob"
+    },
+    {
+      "name": "GetPlayerJobData",
+      "syntax": "Bridge.Framework.GetPlayerJobData(src)",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "number",
+          "description": "Player source ID"
+        }
+      ],
+      "returns": [
+        {
+          "type": "table|nil",
+          "description": "Complete job information object"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nlocal jobData = Bridge.Framework.GetPlayerJobData(source)\nif jobData then\n    print('Job:', jobData.jobName)\n    print('On duty:', jobData.onDuty)\nend",
+      "description": "Function GetPlayerJobData"
+    },
+    {
+      "name": "GetPlayerMetadata",
+      "syntax": "Bridge.Framework.GetPlayerMetadata(src, metadata)",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "number",
+          "description": "Player source ID"
+        },
+        {
+          "name": "metadata",
+          "type": "string",
+          "description": "Metadata key"
+        }
+      ],
+      "returns": [
+        {
+          "type": "any|nil",
+          "description": "Metadata value"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nlocal stress = Bridge.Framework.GetPlayerMetadata(source, 'stress')\nprint('Player stress:', stress)",
+      "description": "Function GetPlayerMetadata"
+    },
+    {
+      "name": "GetPlayerName",
+      "syntax": "Bridge.Framework.GetPlayerName(src)",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "number",
+          "description": "Player source ID"
+        }
+      ],
+      "returns": [
+        {
+          "type": "string|nil, string|nil",
+          "description": "First name, Last name"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nlocal firstName, lastName = Bridge.Framework.GetPlayerName(source)\nprint('Player:', firstName, lastName)",
+      "description": "Function GetPlayerName"
+    },
+    {
+      "name": "GetPlayerPhone",
+      "syntax": "Bridge.Framework.GetPlayerPhone(src)",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "number",
+          "description": "Player source ID"
+        }
+      ],
+      "returns": [
+        {
+          "type": "string|nil",
+          "description": "Player's phone number"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nlocal phone = Bridge.Framework.GetPlayerPhone(source)\nprint('Player phone:', phone)",
+      "description": "Function GetPlayerPhone"
+    },
+    {
+      "name": "GetPlayers",
+      "syntax": "Bridge.Framework.GetPlayers()",
+      "parameters": [],
+      "returns": [
+        {
+          "type": "table",
+          "description": "Array of all online player source IDs"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nlocal players = Bridge.Framework.GetPlayers()\nprint('Online players:', #players)",
+      "description": "Function GetPlayers"
+    },
+    {
+      "name": "GetPlayersByJob",
+      "syntax": "Bridge.Framework.GetPlayersByJob(job)",
+      "parameters": [
+        {
+          "name": "job",
+          "type": "string",
+          "description": "Job name to filter by"
+        }
+      ],
+      "returns": [
+        {
+          "type": "table",
+          "description": "Array of player source IDs with the job"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nlocal police = Bridge.Framework.GetPlayersByJob('police')\nprint('Police online:', #police)",
+      "description": "Function GetPlayersByJob"
+    },
+    {
+      "name": "GetThirst",
+      "syntax": "Bridge.Framework.GetThirst(src)",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "number",
+          "description": "Player source ID"
+        }
+      ],
+      "returns": [
+        {
+          "type": "number|nil",
+          "description": "Current thirst level"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nlocal thirst = Bridge.Framework.GetThirst(source)\nprint('Player thirst:', thirst)",
+      "description": "Function GetThirst"
+    },
+    {
+      "name": "RegisterUsableItem",
+      "syntax": "Bridge.Framework.RegisterUsableItem(itemName, callback)",
+      "parameters": [
+        {
+          "name": "itemName",
+          "type": "string",
+          "description": "Item name to register"
+        },
+        {
+          "name": "callback",
+          "type": "function",
+          "description": "Function to call when item is used"
+        }
+      ],
+      "returns": [
+        {
+          "type": "function|nil",
+          "description": "Registration result"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nBridge.Framework.RegisterUsableItem('phone', function(src, itemData)\n    print('Player', src, 'used phone')\nend)",
+      "description": "Function RegisterUsableItem"
+    },
+    {
+      "name": "RemoveHunger",
+      "syntax": "Bridge.Framework.RemoveHunger(src, value)",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "number",
+          "description": "Player source ID"
+        },
+        {
+          "name": "value",
+          "type": "number",
+          "description": "Hunger amount to remove"
+        }
+      ],
+      "returns": [
+        {
+          "type": "number|nil",
+          "description": "New hunger level"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nlocal newHunger = Bridge.Framework.RemoveHunger(source, 15)\nprint('Reduced hunger to:', newHunger)",
+      "description": "Function RemoveHunger",
+      "_not_found_in_code": true
+    },
+    {
+      "name": "RemoveItem",
+      "syntax": "Bridge.Framework.RemoveItem(src, item, amount, slot, metadata)",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "number",
+          "description": "Player source ID"
+        },
+        {
+          "name": "item",
+          "type": "string",
+          "description": "Item name"
+        },
+        {
+          "name": "amount",
+          "type": "number",
+          "description": "Item quantity"
+        },
+        {
+          "name": "slot",
+          "type": "number",
+          "description": "Optional specific slot"
+        },
+        {
+          "name": "metadata",
+          "type": "table",
+          "description": "Optional metadata filter"
+        }
+      ],
+      "returns": [
+        {
+          "type": "boolean|nil",
+          "description": "Success status"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nlocal success = Bridge.Framework.RemoveItem(source, 'phone', 1)\nprint('Item removed:', success)",
+      "description": "Function RemoveItem"
+    },
+    {
+      "name": "RemoveStress",
+      "syntax": "Bridge.Framework.RemoveStress(src, value)",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "number",
+          "description": "Player source ID"
+        },
+        {
+          "name": "value",
+          "type": "number",
+          "description": "Stress amount to remove"
+        }
+      ],
+      "returns": [
+        {
+          "type": "number|nil",
+          "description": "New stress level"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nlocal newStress = Bridge.Framework.RemoveStress(source, 5)\nprint('Reduced stress to:', newStress)",
+      "description": "Function RemoveStress"
+    },
+    {
+      "name": "RemoveThirst",
+      "syntax": "Bridge.Framework.RemoveThirst(src, value)",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "number",
+          "description": "Player source ID"
+        },
+        {
+          "name": "value",
+          "type": "number",
+          "description": "Thirst amount to remove"
+        }
+      ],
+      "returns": [
+        {
+          "type": "number|nil",
+          "description": "New thirst level"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nlocal newThirst = Bridge.Framework.RemoveThirst(source, 10)\nprint('Reduced thirst to:', newThirst)",
+      "description": "Function RemoveThirst",
+      "_not_found_in_code": true
+    },
+    {
+      "name": "RevivePlayer",
+      "syntax": "Bridge.Framework.RevivePlayer(src)",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "number",
+          "description": "Player source ID"
+        }
+      ],
+      "returns": [
+        {
+          "type": "boolean",
+          "description": "Success status"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nlocal success = Bridge.Framework.RevivePlayer(source)\nprint('Revive success:', success)",
+      "description": "Function RevivePlayer"
+    },
+    {
+      "name": "SetMetadata",
+      "syntax": "Bridge.Framework.SetMetadata(src, item, slot, metadata)",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "number",
+          "description": "Player source ID"
+        },
+        {
+          "name": "item",
+          "type": "string",
+          "description": "Item name"
+        },
+        {
+          "name": "slot",
+          "type": "number",
+          "description": "Item slot"
+        },
+        {
+          "name": "metadata",
+          "type": "table",
+          "description": "New metadata"
+        }
+      ],
+      "returns": [
+        {
+          "type": "boolean|nil",
+          "description": "Success status"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nlocal metadata = { quality = 100 }\nBridge.Framework.SetMetadata(source, 'phone', 1, metadata)",
+      "description": "Function SetMetadata"
+    },
+    {
+      "name": "SetPlayerDuty",
+      "syntax": "Bridge.Framework.SetPlayerDuty(src, status)",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "number",
+          "description": "Player source ID"
+        },
+        {
+          "name": "status",
+          "type": "boolean",
+          "description": "Duty status to set"
+        }
+      ],
+      "returns": [
+        {
+          "type": "nil",
+          "description": "No description provided"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nBridge.Framework.SetPlayerDuty(source, true)",
+      "description": "Function SetPlayerDuty"
+    },
+    {
+      "name": "SetPlayerJob",
+      "syntax": "Bridge.Framework.SetPlayerJob(src, name, grade)",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "number",
+          "description": "Player source ID"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "description": "Job name"
+        },
+        {
+          "name": "grade",
+          "type": "string|number",
+          "description": "Job grade"
+        }
+      ],
+      "returns": [
+        {
+          "type": "boolean|nil",
+          "description": "Success status"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nBridge.Framework.SetPlayerJob(source, 'police', '1')",
+      "description": "Function SetPlayerJob"
+    },
+    {
+      "name": "SetPlayerMetadata",
+      "syntax": "Bridge.Framework.SetPlayerMetadata(src, metadata, value)",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "number",
+          "description": "Player source ID"
+        },
+        {
+          "name": "metadata",
+          "type": "string",
+          "description": "Metadata key"
+        },
+        {
+          "name": "value",
+          "type": "any",
+          "description": "Value to set"
+        }
+      ],
+      "returns": [
+        {
+          "type": "boolean|nil",
+          "description": "Success status"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nBridge.Framework.SetPlayerMetadata(source, 'stress', 50)",
+      "description": "Function SetPlayerMetadata"
+    },
+    {
+      "name": "AddAccountBalance",
+      "description": "Adds the specified amount to the player's account balance of the specified type.",
+      "syntax": "Bridge.Framework.AddAccountBalance(src, _type, amount)",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "_type",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "amount",
+          "type": "number",
+          "description": ""
+        }
+      ],
+      "returns": [
+        {
+          "type": "boolean",
+          "description": "| nil"
+        }
+      ],
+      "example": "local Bridge = exports[\"community_bridge\"]:Bridge()\\n\\nBridge.Framework.AddAccountBalance()",
+      "_newly_added": true
+    },
+    {
+      "name": "GetStatus",
+      "description": "Function GetStatus",
+      "syntax": "Bridge.Framework.GetStatus(src, column)",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "any",
+          "description": "Parameter src"
+        },
+        {
+          "name": "column",
+          "type": "any",
+          "description": "Parameter column"
+        }
+      ],
+      "returns": [
+        {
+          "type": "nil",
+          "description": "No return value"
+        }
+      ],
+      "example": "local Bridge = exports[\"community_bridge\"]:Bridge()\\n\\nBridge.Framework.GetStatus()",
+      "_newly_added": true
+    },
+    {
+      "name": "GetAccountBalance",
+      "description": "Returns the player's account balance of the specified type.",
+      "syntax": "Bridge.Framework.GetAccountBalance(src, _type)",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "_type",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "returns": [
+        {
+          "type": "number",
+          "description": "| nil"
+        }
+      ],
+      "example": "local Bridge = exports[\"community_bridge\"]:Bridge()\\n\\nBridge.Framework.GetAccountBalance()",
+      "_newly_added": true
+    },
+    {
+      "name": "GetItemCount",
+      "description": "Returns the count of items matching the specified name and if passed metadata from the player's inventory.",
+      "syntax": "Bridge.Framework.GetItemCount(src, item, metadata)",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "item",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "metadata",
+          "type": "table",
+          "description": ""
+        }
+      ],
+      "returns": [
+        {
+          "type": "number",
+          "description": "| nil"
+        }
+      ],
+      "example": "local Bridge = exports[\"community_bridge\"]:Bridge()\\n\\nBridge.Framework.GetItemCount()",
+      "_newly_added": true
+    },
+    {
+      "name": "RemoveAccountBalance",
+      "description": "Removes the specified amount from the player's account balance of the specified type.",
+      "syntax": "Bridge.Framework.RemoveAccountBalance(src, _type, amount)",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "_type",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "amount",
+          "type": "number",
+          "description": ""
+        }
+      ],
+      "returns": [
+        {
+          "type": "boolean",
+          "description": "| nil"
+        }
+      ],
+      "example": "local Bridge = exports[\"community_bridge\"]:Bridge()\\n\\nBridge.Framework.RemoveAccountBalance()",
+      "_newly_added": true
+    },
+    {
+      "name": "GetItemInfo",
+      "description": "This will return a table with the item info, {name, label, stack, weight, description, image}",
+      "syntax": "Bridge.Framework.GetItemInfo(item)",
+      "parameters": [
+        {
+          "name": "item",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "returns": [
+        {
+          "type": "table",
+          "description": ""
+        }
+      ],
+      "example": "local Bridge = exports[\"community_bridge\"]:Bridge()\\n\\nBridge.Framework.GetItemInfo()",
+      "_newly_added": true
+    },
+    {
+      "name": "HasItem",
+      "description": "Returns boolean if the player has the specified item in their inventory.",
+      "syntax": "Bridge.Framework.HasItem(src, item)",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "item",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "returns": [
+        {
+          "type": "boolean",
+          "description": ""
+        }
+      ],
+      "example": "local Bridge = exports[\"community_bridge\"]:Bridge()\\n\\nBridge.Framework.HasItem()",
+      "_newly_added": true
+    }
+  ],
+  "sharedFunctions": []
+}

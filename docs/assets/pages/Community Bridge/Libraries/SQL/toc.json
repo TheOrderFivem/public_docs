@@ -1,0 +1,35 @@
+{
+  "title": "SQL Library",
+  "items": [
+    {
+      "title": "Overview",
+      "anchor": "#overview"
+    },
+    {
+      "title": "Server Functions",
+      "anchor": "#server-functions",
+      "children": [
+        {
+          "title": "Create",
+          "anchor": "#function-create"
+        },
+        {
+          "title": "InsertOrUpdate",
+          "anchor": "#function-insertorupdate"
+        },
+        {
+          "title": "Get",
+          "anchor": "#function-get"
+        },
+        {
+          "title": "GetAll",
+          "anchor": "#function-getall"
+        },
+        {
+          "title": "Delete",
+          "anchor": "#function-delete"
+        }
+      ]
+    }
+  ]
+}

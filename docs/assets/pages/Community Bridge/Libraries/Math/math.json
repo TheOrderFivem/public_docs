@@ -1,0 +1,265 @@
+{
+  "name": "Math",
+  "icon": "🔢",
+  "description": "The Math utility library provides advanced mathematical functions for game development including clamping, remapping, normalization, vector operations, and coordinate transformations. Essential for positioning, movement, and physics calculations.",
+  "clientFunctions": [],
+  "serverFunctions": [],
+  "sharedFunctions": [
+    {
+      "name": "Clamp",
+      "description": "Constrains a value between a minimum and maximum range.",
+      "syntax": "Bridge.Math.Clamp(value, min, max)",
+      "parameters": [
+        {
+          "name": "value",
+          "type": "number",
+          "description": "Value to clamp"
+        },
+        {
+          "name": "min",
+          "type": "number",
+          "description": "Minimum allowed value"
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "description": "Maximum allowed value"
+        }
+      ],
+      "returns": [
+        {
+          "type": "number",
+          "description": "Clamped value within min-max range"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\nlocal health = Bridge.Math.Clamp(150, 0, 100) -- 100\nlocal damage = Bridge.Math.Clamp(-10, 0, 100) -- 0\nlocal normal = Bridge.Math.Clamp(50, 0, 100) -- 50"
+    },
+    {
+      "name": "Remap",
+      "description": "Remaps a value from one range to another range proportionally.",
+      "syntax": "Bridge.Math.Remap(value, min, max, newMin, newMax)",
+      "parameters": [
+        {
+          "name": "value",
+          "type": "number",
+          "description": "Value to remap"
+        },
+        {
+          "name": "min",
+          "type": "number",
+          "description": "Original range minimum"
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "description": "Original range maximum"
+        },
+        {
+          "name": "newMin",
+          "type": "number",
+          "description": "Target range minimum"
+        },
+        {
+          "name": "newMax",
+          "type": "number",
+          "description": "Target range maximum"
+        }
+      ],
+      "returns": [
+        {
+          "type": "number",
+          "description": "Remapped value in new range"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Convert health (0-100) to progress bar width (0-200)\nlocal health = 75\nlocal barWidth = Bridge.Math.Remap(health, 0, 100, 0, 200) -- 150\n\n-- Convert temperature (-40 to 40) to color (0-255)\nlocal temp = 20\nlocal colorValue = Bridge.Math.Remap(temp, -40, 40, 0, 255) -- ~191"
+    },
+    {
+      "name": "PointInRadius",
+      "description": "Generates a random point within a circular radius.",
+      "syntax": "Bridge.Math.PointInRadius(radius)",
+      "parameters": [
+        {
+          "name": "radius",
+          "type": "number",
+          "description": "Radius of the circle"
+        }
+      ],
+      "returns": [
+        {
+          "type": "vector2",
+          "description": "Random point within the radius"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Generate random spawn point within 50 units\nlocal randomOffset = Bridge.Math.PointInRadius(50.0)\nlocal playerCoords = GetEntityCoords(PlayerPedId())\nlocal spawnCoords = vector3(\n    playerCoords.x + randomOffset.x,\n    playerCoords.y + randomOffset.y,\n    playerCoords.z\n)"
+    },
+    {
+      "name": "Normalize",
+      "description": "Normalizes a value to a 0-1 range based on min and max values.",
+      "syntax": "Bridge.Math.Normalize(value, min, max)",
+      "parameters": [
+        {
+          "name": "value",
+          "type": "number",
+          "description": "Value to normalize"
+        },
+        {
+          "name": "min",
+          "type": "number",
+          "description": "Minimum value of the range"
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "description": "Maximum value of the range"
+        }
+      ],
+      "returns": [
+        {
+          "type": "number",
+          "description": "Normalized value between 0 and 1"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Normalize health for progress bar\nlocal health = 75\nlocal healthPercent = Bridge.Math.Normalize(health, 0, 100) -- 0.75\n\n-- Normalize speed for effects\nlocal speed = 50\nlocal speedPercent = Bridge.Math.Normalize(speed, 0, 200) -- 0.25"
+    },
+    {
+      "name": "Normalize2D",
+      "description": "Normalizes a 2D vector to unit length, handling both vector2 and separate x,y parameters.",
+      "syntax": "Bridge.Math.Normalize2D(x, y)",
+      "parameters": [
+        {
+          "name": "x",
+          "type": "number | vector2",
+          "description": "X component or vector2 object"
+        },
+        {
+          "name": "y",
+          "type": "number | nil",
+          "description": "Y component (if x is not vector2)"
+        }
+      ],
+      "returns": [
+        {
+          "type": "vector2",
+          "description": "Normalized vector2 with unit length"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Normalize direction vector\nlocal direction = vector2(3, 4)\nlocal normalized = Bridge.Math.Normalize2D(direction)\n-- Result: vector2(0.6, 0.8) - unit vector in same direction\n\n-- Normalize separate components\nlocal normalizedXY = Bridge.Math.Normalize2D(10, 0)\n-- Result: vector2(1, 0) - pointing right"
+    },
+    {
+      "name": "Normalize3D",
+      "description": "Normalizes a 3D vector to unit length, handling both vector3 and separate x,y,z parameters.",
+      "syntax": "Bridge.Math.Normalize3D(x, y, z)",
+      "parameters": [
+        {
+          "name": "x",
+          "type": "number | vector3",
+          "description": "X component or vector3 object"
+        },
+        {
+          "name": "y",
+          "type": "number | nil",
+          "description": "Y component (if x is not vector3)"
+        },
+        {
+          "name": "z",
+          "type": "number | nil",
+          "description": "Z component (if x is not vector3)"
+        }
+      ],
+      "returns": [
+        {
+          "type": "vector3",
+          "description": "Normalized vector3 with unit length"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Normalize entity direction\nlocal playerCoords = GetEntityCoords(PlayerPedId())\nlocal targetCoords = vector3(100, 100, 20)\nlocal direction = targetCoords - playerCoords\nlocal normalized = Bridge.Math.Normalize3D(direction)\n-- Use normalized for consistent movement speed"
+    },
+    {
+      "name": "Normalize4D",
+      "description": "Normalizes a 4D vector to unit length, handling both vector4 and separate x,y,z,w parameters.",
+      "syntax": "Bridge.Math.Normalize4D(x, y, z, w)",
+      "parameters": [
+        {
+          "name": "x",
+          "type": "number | vector4",
+          "description": "X component or vector4 object"
+        },
+        {
+          "name": "y",
+          "type": "number | nil",
+          "description": "Y component (if x is not vector4)"
+        },
+        {
+          "name": "z",
+          "type": "number | nil",
+          "description": "Z component (if x is not vector4)"
+        },
+        {
+          "name": "w",
+          "type": "number | nil",
+          "description": "W component (if x is not vector4)"
+        }
+      ],
+      "returns": [
+        {
+          "type": "vector4",
+          "description": "Normalized vector4 with unit length"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Normalize quaternion or 4D data\nlocal data = vector4(1, 2, 3, 4)\nlocal normalized = Bridge.Math.Normalize4D(data)\n-- Result: Unit vector in 4D space"
+    },
+    {
+      "name": "DirectionToTarget",
+      "description": "Calculates the normalized direction vector from one point to another.",
+      "syntax": "Bridge.Math.DirectionToTarget(fromV3, toV3)",
+      "parameters": [
+        {
+          "name": "fromV3",
+          "type": "vector3",
+          "description": "Starting position"
+        },
+        {
+          "name": "toV3",
+          "type": "vector3",
+          "description": "Target position"
+        }
+      ],
+      "returns": [
+        {
+          "type": "vector3",
+          "description": "Normalized direction vector pointing from source to target"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\nlocal playerPos = GetEntityCoords(PlayerPedId())\nlocal targetPos = vector3(100, 200, 20)\n\nlocal direction = Bridge.Math.DirectionToTarget(playerPos, targetPos)\n-- Use direction to move entity toward target\nlocal moveSpeed = 5.0\nlocal newPos = playerPos + (direction * moveSpeed)"
+    },
+    {
+      "name": "GetOffsetFromMatrix",
+      "description": "Calculates world coordinates by applying rotation and offset to a base position using matrix transformation.",
+      "syntax": "Bridge.Math.GetOffsetFromMatrix(position, rotation, offset)",
+      "parameters": [
+        {
+          "name": "position",
+          "type": "vector3",
+          "description": "Base world position"
+        },
+        {
+          "name": "rotation",
+          "type": "vector3",
+          "description": "Rotation in degrees (pitch, roll, yaw)"
+        },
+        {
+          "name": "offset",
+          "type": "vector3",
+          "description": "Local offset to apply"
+        }
+      ],
+      "returns": [
+        {
+          "type": "vector3",
+          "description": "World coordinates after transformation"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Calculate position 5 units in front of rotated entity\nlocal entityPos = GetEntityCoords(someEntity)\nlocal entityRot = GetEntityRotation(someEntity)\nlocal forwardOffset = vector3(0, 5, 0) -- 5 units forward in local space\n\nlocal worldPos = Bridge.Math.GetOffsetFromMatrix(entityPos, entityRot, forwardOffset)\n-- worldPos is now 5 units in front of the entity, accounting for its rotation"
+    }
+  ]
+}

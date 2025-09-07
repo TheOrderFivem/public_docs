@@ -1,0 +1,41 @@
+{
+  "title": "Phone Module",
+  "items": [
+    {
+      "title": "Overview",
+      "anchor": "#overview"
+    },
+    {
+      "title": "Client Functions",
+      "anchor": "#client-functions",
+      "children": [
+        {
+          "title": "SendEmail",
+          "anchor": "#function-sendemail"
+        },
+        {
+          "title": "GetPhoneName",
+          "anchor": "#function-getphonename"
+        }
+      ]
+    },
+    {
+      "title": "Server Functions",
+      "anchor": "#server-functions",
+      "children": [
+        {
+          "title": "GetPhoneName",
+          "anchor": "#function-getphonename-1"
+        },
+        {
+          "title": "GetPlayerPhone",
+          "anchor": "#function-getplayerphone"
+        },
+        {
+          "title": "SendEmail",
+          "anchor": "#function-sendemail-3"
+        }
+      ]
+    }
+  ]
+}

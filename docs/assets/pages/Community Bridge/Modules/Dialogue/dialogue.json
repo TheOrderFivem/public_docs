@@ -1,0 +1,91 @@
+{
+  "name": "Dialogue",
+  "icon": "💬",
+  "description": "The Dialogue module provides a modern web-based dialogue system for NPC interactions. It features automatic camera positioning and responsive UI design.",
+  "clientFunctions": [
+    {
+      "name": "Close",
+      "description": "Closes a specific dialogue instance.",
+      "syntax": "Bridge.Dialogue.Close(name)",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "string",
+          "description": "Name of the dialogue to close"
+        }
+      ],
+      "returns": [
+        {
+          "type": "nil",
+          "description": "No return value"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Close a specific dialogue\nBridge.Dialogue.Close(\"shop_keeper\")",
+      "_not_found_in_code": true
+    },
+    {
+      "name": "Open",
+      "description": "Opens a dialogue interface with NPC and presents options to the player.",
+      "syntax": "Bridge.Dialogue.Open(name, dialogue, characterOptions, dialogueOptions, onSelected)",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "string",
+          "description": "Unique identifier for this dialogue instance"
+        },
+        {
+          "name": "dialogue",
+          "type": "string",
+          "description": "The text that the NPC says"
+        },
+        {
+          "name": "characterOptions",
+          "type": "number|table",
+          "description": "Entity handle or table with entity, offset, and rotationOffset"
+        },
+        {
+          "name": "dialogueOptions",
+          "type": "table",
+          "description": "Array of dialogue choices with id and label"
+        },
+        {
+          "name": "onSelected",
+          "type": "function",
+          "optional": true,
+          "description": "Callback function when player selects an option"
+        }
+      ],
+      "returns": [
+        {
+          "type": "string",
+          "description": "ID of the selected dialogue option"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Simple dialogue with entity handle\nlocal npc = GetClosestPed(GetEntityCoords(PlayerPedId()), 5.0)\nlocal choice = Bridge.Dialogue.Open(\n    \"shop_keeper\",\n    \"Welcome to my shop! What can I help you with?\",\n    npc,\n    {\n        {id = \"buy\", label = \"I want to buy something\"},\n        {id = \"sell\", label = \"I want to sell items\"},\n        {id = \"leave\", label = \"Just browsing, thanks\"}\n    }\n)\n\nif choice == \"buy\" then\n    -- Open shop interface\nelseif choice == \"sell\" then\n    -- Open sell interface\nend",
+      "_not_found_in_code": true
+    }
+  ],
+  "serverFunctions": [],
+  "advancedUsage": [
+    {
+      "title": "Advanced Character Options",
+      "description": "Use a table for characterOptions to fine-tune camera positioning",
+      "example": "local characterOptions = {\n    entity = npcEntity,\n    offset = vector3(0.5, 0, 0.1), -- Camera offset from NPC\n    rotationOffset = vector3(0, 0, 15) -- Camera rotation adjustment\n}\n\nlocal choice = Bridge.Dialogue.Open(\n    \"custom_dialogue\",\n    \"This dialogue has custom camera positioning!\",\n    characterOptions,\n    dialogueOptions\n)"
+    },
+    {
+      "title": "Async/Await Pattern",
+      "description": "The dialogue system returns a promise that resolves with the selected option",
+      "example": "-- Using with callback\nBridge.Dialogue.Open(\n    \"npc_talk\",\n    \"Hello there!\",\n    npc,\n    options,\n    function(selectedId)\n        print(\"Player selected: \" .. selectedId)\n    end\n)\n\n-- Using return value\nlocal selected = Bridge.Dialogue.Open(\"npc_talk\", \"Hello!\", npc, options)\nprint(\"Selected: \" .. selected)"
+    }
+  ],
+  "notes": [
+    "Features automatic camera positioning focused on the NPC",
+    "Supports custom camera offsets and rotation for fine-tuning",
+    "Web-based UI with modern React components",
+    "Responsive design works across all screen sizes",
+    "Dialogue instances are uniquely named to prevent conflicts",
+    "Camera management is optimized to prevent flickering between dialogues",
+    "NUI focus is automatically managed for proper input handling"
+  ],
+  "sharedFunctions": []
+}

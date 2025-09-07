@@ -1,0 +1,97 @@
+{
+  "name": "HelpText",
+  "icon": "💬",
+  "description": "The HelpText module provides functions for displaying and hiding help text messages on the player's screen. It supports various text UI systems.",
+  "clientFunctions": [
+    {
+      "name": "HideHelpText",
+      "description": "Hides the currently displayed help text message.",
+      "syntax": "Bridge.HelpText.HideHelpText()",
+      "parameters": [],
+      "returns": [
+        {
+          "type": "nil",
+          "description": "No return value"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Hide any currently displayed help text\nBridge.HelpText.HideHelpText()"
+    },
+    {
+      "name": "ShowHelpText",
+      "description": "Displays a help text message on the screen at the specified position.",
+      "syntax": "Bridge.HelpText.ShowHelpText(message, position)",
+      "parameters": [
+        {
+          "name": "message",
+          "type": "string",
+          "description": "The help text message to display"
+        },
+        {
+          "name": "position",
+          "type": "string",
+          "optional": true,
+          "description": "Position on screen (top, center, bottom, etc.)"
+        }
+      ],
+      "returns": [
+        {
+          "type": "nil",
+          "description": "No return value"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Show help text at default position\nBridge.HelpText.ShowHelpText(\"Press [E] to interact\")\n\n-- Show help text at specific position\nBridge.HelpText.ShowHelpText(\"Hold [F] to enter vehicle\", \"center\")"
+    }
+  ],
+  "serverFunctions": [
+    {
+      "name": "HideHelpText",
+      "description": "Hides help text for a specific player.",
+      "syntax": "Bridge.HelpText.HideHelpText(src)",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "number",
+          "description": "Player server ID to hide help text for"
+        }
+      ],
+      "returns": [
+        {
+          "type": "nil",
+          "description": "No return value"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Hide help text for specific player\nBridge.HelpText.HideHelpText(source)"
+    },
+    {
+      "name": "ShowHelpText",
+      "description": "Shows help text to a specific player.",
+      "syntax": "Bridge.HelpText.ShowHelpText(src, message, position)",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "number",
+          "description": "Player server ID to show help text to"
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "description": "The help text message to display"
+        },
+        {
+          "name": "position",
+          "type": "string",
+          "optional": true,
+          "description": "Position on screen (top, center, bottom, etc.)"
+        }
+      ],
+      "returns": [
+        {
+          "type": "nil",
+          "description": "No return value"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Show help text to specific player\nBridge.HelpText.ShowHelpText(source, \"Welcome! Press [F1] for help\")\n\n-- Show help text at bottom of screen\nBridge.HelpText.ShowHelpText(source, \"You are now in a safe zone\", \"bottom\")"
+    }
+  ],
+  "sharedFunctions": []
+}

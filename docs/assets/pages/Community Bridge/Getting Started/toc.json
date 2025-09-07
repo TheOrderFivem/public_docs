@@ -1,0 +1,47 @@
+{
+  "title": "Getting Started Guide",
+  "items": [
+    {
+      "title": "Installation",
+      "anchor": "#installation",
+      "children": [
+        {
+          "title": "Manual Installation",
+          "anchor": "#manual-installation"
+        }
+      ]
+    },
+    {
+      "title": "Basic Setup",
+      "anchor": "#basic-setup",
+      "children": [
+        {
+          "title": "1. Configuration",
+          "anchor": "#1-configuration"
+        },
+        {
+          "title": "2. Initialize the Bridge",
+          "anchor": "#2-initialize-the-bridge"
+        },
+        {
+          "title": "3. Using Bridge Functions",
+          "anchor": "#3-using-bridge-functions"
+        }
+      ]
+    },
+    {
+      "title": "Next Steps",
+      "anchor": "#next-steps"
+    },
+    {
+      "title": "Troubleshooting",
+      "anchor": "#troubleshooting",
+      "children": [
+        {
+          "title": "Common Issues",
+          "anchor": "#common-issues"
+        }
+      ]
+    }
+  ]
+}
