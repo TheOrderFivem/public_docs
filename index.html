@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Order Of the Sacred Framework's Documentation</title>
+    <meta name="description" content="Comprehensive documentation for Community Bridge FiveM modules and libraries">
+    <link rel="stylesheet" href="assets/css/styles.css?v=4">
+    <!-- Marked.js for markdown parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js"></script>
+    <!-- Highlight.js for syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/lua.min.js"></script>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏗️</text></svg>">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <button id="mobile-nav-toggle" class="mobile-nav-toggle" style="display: none;">☰</button>
+            <h1>🏗️ The Order Of the Sacred Framework's Documentation</h1>
+        </div>
+
+        <div class="header-controls">
+            <div class="search-container">
+                <span class="search-icon">🔍</span>
+                <input
+                    type="text"
+                    id="search-input"
+                    class="search-input"
+                    placeholder="Search modules and functions..."
+                    autocomplete="off"
+                >
+                <div class="search-results"></div>
+            </div>
+
+            <button id="theme-toggle" class="theme-toggle">🌙 Dark</button>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar" id="sidebar">
+            <div id="nav-menu">
+                <!-- Navigation will be dynamically populated -->
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <div id="loading" class="loading" style="display: none;">Loading documentation...</div>
+            <div id="search-results" class="search-results-area" style="display: none;"></div>
+            <div id="content-area" class="content-area">
+                <!-- Content will be dynamically populated -->
+            </div>
+        </main>
+
+        <!-- Table of Contents -->
+        <aside class="toc" id="toc-container" style="display: none;">
+            <div class="toc-header">On This Page</div>
+            <div id="toc-content">
+                <!-- TOC will be dynamically populated -->
+            </div>
+        </aside>
+    </div>
+
+    <!-- Scripts -->
+    <!-- Highlight.js for syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/lua.min.js"></script>
+    <script>
+        hljs.highlightAll();
+
+        // Minimal fix for keyword issue - remove only problematic token text
+        setTimeout(() => {
+            document.querySelectorAll('pre code').forEach(code => {
+                if (code.innerHTML.includes('keyword>')) {
+                    code.innerHTML = code.innerHTML.replace(/keyword>/g, '');
+                }
+            });
+        }, 100);
+    </script>
+    <script src="assets/js/markdown-docs.js?v=42"></script>
+</body>
+</html>
