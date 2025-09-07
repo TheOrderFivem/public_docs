@@ -1787,11 +1787,33 @@ class CommunityBridgeDocumentation {
         if (!contributorsContainer) return;
 
         try {
+            // Show loading state
+            contributorsContainer.innerHTML = `
+                <div style="text-align: center; padding: 40px;">
+                    <div style="color: #8b949e;">Loading contributors from GitHub...</div>
+                </div>
+            `;
+
+            // Add timeout to fetch to prevent hanging
+            const fetchWithTimeout = async (url, timeout = 10000) => {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), timeout);
+                
+                try {
+                    const response = await fetch(url, { signal: controller.signal });
+                    clearTimeout(timeoutId);
+                    return response;
+                } catch (error) {
+                    clearTimeout(timeoutId);
+                    throw error;
+                }
+            };
+
             // Fetch repositories first (members might be private)
-            const reposResponse = await fetch('https://api.github.com/orgs/TheOrderFivem/repos');
+            const reposResponse = await fetchWithTimeout('https://api.github.com/orgs/TheOrderFivem/repos');
             
             if (!reposResponse.ok) {
-                throw new Error('Failed to fetch GitHub repositories');
+                throw new Error(`Failed to fetch GitHub repositories: ${reposResponse.status} ${reposResponse.statusText}`);
             }
 
             const repos = await reposResponse.json();
@@ -1802,7 +1824,7 @@ class CommunityBridgeDocumentation {
 
             // Try to fetch members (might be empty due to privacy settings)
             try {
-                const membersResponse = await fetch('https://api.github.com/orgs/TheOrderFivem/members');
+                const membersResponse = await fetchWithTimeout('https://api.github.com/orgs/TheOrderFivem/members');
                 if (membersResponse.ok) {
                     const members = await membersResponse.json();
                     // Add organization members if available
@@ -1816,8 +1838,11 @@ class CommunityBridgeDocumentation {
                         });
                         contributorsSet.add(member.login);
                     }
+                } else {
+                    console.info('Organization members not accessible (likely private)');
                 }
             } catch (e) {
+                console.info('Organization members not accessible:', e.message);
                 // Members might be private, continue with repository contributors
             }
 
@@ -1828,7 +1853,7 @@ class CommunityBridgeDocumentation {
             
             for (const repo of filteredRepos.slice(0, 10)) { // Process original repos only
                 try {
-                    const contributorsResponse = await fetch(`https://api.github.com/repos/TheOrderFivem/${repo.name}/contributors`);
+                    const contributorsResponse = await fetchWithTimeout(`https://api.github.com/repos/TheOrderFivem/${repo.name}/contributors`);
                     if (contributorsResponse.ok) {
                         const repoContributors = await contributorsResponse.json();
                         for (const contributor of repoContributors.slice(0, 10)) { // Top 10 contributors per repo
@@ -1847,8 +1872,11 @@ class CommunityBridgeDocumentation {
                             }
                             contributorsSet.add(contributor.login);
                         }
+                    } else {
+                        console.warn(`Failed to fetch contributors for ${repo.name}: ${contributorsResponse.status}`);
                     }
                 } catch (e) {
+                    console.warn(`Error fetching contributors for ${repo.name}:`, e);
                 }
             }
 
@@ -1860,10 +1888,30 @@ class CommunityBridgeDocumentation {
             this.renderGitHubContributors(contributorsContainer, sortedContributors, repos.length);
 
         } catch (error) {
+            console.error('Error loading GitHub contributors:', error);
+            
+            let errorMessage = 'Unable to load contributors at this time.';
+            let detailMessage = 'Visit our <a href="https://github.com/TheOrderFivem" target="_blank" style="color: #58a6ff;">GitHub organization</a> directly.';
+            
+            // Provide more specific error messages
+            if (error.name === 'AbortError') {
+                errorMessage = 'Request timed out while loading contributors.';
+                detailMessage = 'The GitHub API may be temporarily unavailable. Please try again later.';
+            } else if (error.message.includes('Failed to fetch')) {
+                errorMessage = 'Network error while loading contributors.';
+                detailMessage = 'Check your internet connection and try again.';
+            } else if (error.message.includes('Failed to fetch GitHub repositories')) {
+                errorMessage = 'GitHub API error while loading contributors.';
+                detailMessage = error.message + '. The API may be rate limited or temporarily unavailable.';
+            }
+            
             contributorsContainer.innerHTML = `
                 <div style="text-align: center; padding: 40px; color: #8b949e;">
-                    <p>Unable to load contributors at this time.</p>
-                    <p style="font-size: 0.9em; opacity: 0.7;">Visit our <a href="https://github.com/TheOrderFivem" target="_blank" style="color: #58a6ff;">GitHub organization</a> directly.</p>
+                    <div style="margin-bottom: 10px;">⚠️ ${errorMessage}</div>
+                    <p style="font-size: 0.9em; opacity: 0.7;">${detailMessage}</p>
+                    <button onclick="window.app.loadGitHubContributors()" style="background: #238636; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; margin-top: 10px;">
+                        🔄 Retry
+                    </button>
                 </div>
             `;
         }

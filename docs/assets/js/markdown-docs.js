@@ -1875,37 +1875,64 @@ class CommunityBridgeDocumentation {
         if (!contributorsContainer) return;
 
         try {
-            // Fetch organization members and repositories
-            const [membersResponse, reposResponse] = await Promise.all([
-                fetch('https://api.github.com/orgs/TheOrderFivem/members'),
-                fetch('https://api.github.com/orgs/TheOrderFivem/repos')
-            ]);
+            // Show loading state
+            contributorsContainer.innerHTML = `
+                <div style="text-align: center; padding: 40px;">
+                    <div style="color: #8b949e;">Loading contributors from GitHub...</div>
+                </div>
+            `;
 
-            if (!membersResponse.ok || !reposResponse.ok) {
-                throw new Error('Failed to fetch GitHub data');
+            // Add timeout to fetch to prevent hanging
+            const fetchWithTimeout = async (url, timeout = 10000) => {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), timeout);
+                
+                try {
+                    const response = await fetch(url, { signal: controller.signal });
+                    clearTimeout(timeoutId);
+                    return response;
+                } catch (error) {
+                    clearTimeout(timeoutId);
+                    throw error;
+                }
+            };
+
+            // Fetch repositories first (members might be private)
+            const reposResponse = await fetchWithTimeout('https://api.github.com/orgs/TheOrderFivem/repos');
+            
+            if (!reposResponse.ok) {
+                throw new Error(`Failed to fetch GitHub repositories: ${reposResponse.status} ${reposResponse.statusText}`);
             }
 
-            const [members, repos] = await Promise.all([
-                membersResponse.json(),
-                reposResponse.json()
-            ]);
+            const repos = await reposResponse.json();
 
             // Get all unique contributors from repositories
             const contributorsSet = new Set();
             const contributorDetails = new Map();
 
-            // Add organization members first
-            for (const member of members) {
-                contributorDetails.set(member.login, {
-                    login: member.login,
-                    avatar_url: member.avatar_url,
-                    html_url: member.html_url,
-                    type: 'Member',
-                    contributions: 0
-                });
-                contributorsSet.add(member.login);
+            // Try to fetch members (might be empty due to privacy settings)
+            try {
+                const membersResponse = await fetchWithTimeout('https://api.github.com/orgs/TheOrderFivem/members');
+                if (membersResponse.ok) {
+                    const members = await membersResponse.json();
+                    // Add organization members if available
+                    for (const member of members) {
+                        contributorDetails.set(member.login, {
+                            login: member.login,
+                            avatar_url: member.avatar_url,
+                            html_url: member.html_url,
+                            type: 'Member',
+                            contributions: 0
+                        });
+                        contributorsSet.add(member.login);
+                    }
+                } else {
+                    console.info('Organization members not accessible (likely private)');
+                }
+            } catch (e) {
+                console.info('Organization members not accessible:', e.message);
+                // Members might be private, continue with repository contributors
             }
-
             // Only process original repositories (not forks) to show actual contributors to your organization's work
             // Filter out repositories we want to exclude and only include non-forked repos
             const excludedRepos = ['RecipeImages', 'ox_inventory', 'ox_target', 'ox_doorlock'];
@@ -1913,7 +1940,7 @@ class CommunityBridgeDocumentation {
             
             for (const repo of filteredRepos.slice(0, 10)) { // Process original repos only
                 try {
-                    const contributorsResponse = await fetch(`https://api.github.com/repos/TheOrderFivem/${repo.name}/contributors`);
+                    const contributorsResponse = await fetchWithTimeout(`https://api.github.com/repos/TheOrderFivem/${repo.name}/contributors`);
                     if (contributorsResponse.ok) {
                         const repoContributors = await contributorsResponse.json();
                         for (const contributor of repoContributors.slice(0, 10)) { // Top 10 contributors per repo
@@ -1932,9 +1959,11 @@ class CommunityBridgeDocumentation {
                             }
                             contributorsSet.add(contributor.login);
                         }
+                    } else {
+                        console.warn(`Failed to fetch contributors for ${repo.name}: ${contributorsResponse.status}`);
                     }
                 } catch (e) {
-                    console.warn(`Failed to fetch contributors for ${repo.name}:`, e);
+                    console.warn(`Error fetching contributors for ${repo.name}:`, e);
                 }
             }
 
@@ -1947,10 +1976,82 @@ class CommunityBridgeDocumentation {
 
         } catch (error) {
             console.error('❌ Error loading GitHub contributors:', error);
+            
+            let errorMessage = 'Unable to load contributors from GitHub API.';
+            let detailMessage = 'Visit our <a href="https://github.com/TheOrderFivem" target="_blank" style="color: #58a6ff;">GitHub organization</a> directly.';
+            
+            // Provide more specific error messages
+            if (error.name === 'AbortError') {
+                errorMessage = 'Request timed out while loading contributors.';
+                detailMessage = 'The GitHub API may be temporarily unavailable. Please try again later.';
+            } else if (error.message.includes('Failed to fetch')) {
+                errorMessage = 'Network error while loading contributors.';
+                detailMessage = 'Check your internet connection and try again.';
+            } else if (error.message.includes('Failed to fetch GitHub repositories')) {
+                errorMessage = 'GitHub API error while loading contributors.';
+                detailMessage = error.message + '. The API may be rate limited or temporarily unavailable.';
+            }
+            
+            // Provide a manual fallback with known contributors
+            const fallbackContributors = [
+                {
+                    login: 'MrNewb',
+                    avatar_url: 'https://github.com/MrNewb.png',
+                    html_url: 'https://github.com/MrNewb',
+                    type: 'Core Developer',
+                    contributions: 'Multiple repositories'
+                },
+                {
+                    login: 'gononono64',
+                    avatar_url: 'https://github.com/gononono64.png',
+                    html_url: 'https://github.com/gononono64',
+                    type: 'Core Developer',
+                    contributions: 'Multiple repositories'
+                }
+            ];
+            
             contributorsContainer.innerHTML = `
-                <div style="text-align: center; padding: 40px; color: #8b949e;">
-                    <p>Unable to load contributors at this time.</p>
-                    <p style="font-size: 0.9em; opacity: 0.7;">Visit our <a href="https://github.com/TheOrderFivem" target="_blank" style="color: #58a6ff;">GitHub organization</a> directly.</p>
+                <div style="margin: 20px 0;">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                        <div style="width: 40px; height: 40px; background: #f85149; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2em;">
+                            ⚠️
+                        </div>
+                        <div>
+                            <h4 style="margin: 0; color: #f0f6fc;">${errorMessage}</h4>
+                            <p style="margin: 0; color: #8b949e; font-size: 0.9em;">${detailMessage}</p>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <button onclick="window.app.loadGitHubContributors()" style="background: #238636; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; margin-right: 10px;">
+                            🔄 Retry Loading from GitHub
+                        </button>
+                        <a href="https://github.com/TheOrderFivem" target="_blank" style="display: inline-block; background: #21262d; color: #58a6ff; border: 1px solid #30363d; padding: 10px 20px; border-radius: 6px; text-decoration: none;">
+                            🐙 View on GitHub
+                        </a>
+                    </div>
+
+                    <h4 style="color: #f0f6fc; margin: 20px 0 15px 0;">Core Contributors</h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px;">
+                        ${fallbackContributors.map(contributor => `
+                            <div style="background: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%); border: 1px solid #3a3a3a; border-radius: 12px; padding: 15px; text-align: center; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 16px rgba(0,0,0,0.3)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                                <img src="${contributor.avatar_url}" alt="${contributor.login}" style="width: 50px; height: 50px; border-radius: 50%; border: 2px solid #238636; margin-bottom: 10px;">
+                                <div style="color: #f0f6fc; font-weight: 600; margin-bottom: 5px;">${contributor.login}</div>
+                                <div style="color: #8b949e; font-size: 0.8em; margin-bottom: 8px;">${contributor.type}</div>
+                                <div style="color: #58a6ff; font-size: 0.8em;">${contributor.contributions}</div>
+                                <div style="margin-top: 10px;">
+                                    <a href="${contributor.html_url}" target="_blank" style="color: #58a6ff; text-decoration: none; font-size: 0.8em;">View Profile</a>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 20px; padding: 20px; background: rgba(88, 166, 255, 0.1); border-radius: 8px;">
+                        <p style="color: #8b949e; margin: 0 0 10px 0;">Want to contribute to The Order Framework?</p>
+                        <a href="https://github.com/TheOrderFivem" target="_blank" style="display: inline-block; background: #238636; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 600;">
+                            🚀 Visit Our GitHub
+                        </a>
+                    </div>
                 </div>
             `;
         }
