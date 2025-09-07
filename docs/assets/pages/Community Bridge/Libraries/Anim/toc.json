@@ -1,0 +1,31 @@
+{
+  "title": "Animation Library",
+  "items": [
+    {
+      "title": "Overview",
+      "anchor": "#overview"
+    },
+    {
+      "title": "Client Functions",
+      "anchor": "#client-functions",
+      "children": [
+        {
+          "title": "RequestDict",
+          "anchor": "#function-requestdict"
+        },
+        {
+          "title": "Start",
+          "anchor": "#function-start"
+        },
+        {
+          "title": "Play",
+          "anchor": "#function-play"
+        },
+        {
+          "title": "Stop",
+          "anchor": "#function-stop"
+        }
+      ]
+    }
+  ]
+}

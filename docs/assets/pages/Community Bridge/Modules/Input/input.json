@@ -1,0 +1,46 @@
+{
+  "name": "Input",
+  "icon": "⌨️",
+  "description": "The Input module provides a unified interface for creating input dialogs and forms. It supports both ox_lib and qb-input formats with automatic conversion.",
+  "clientFunctions": [
+    {
+      "name": "Open",
+      "description": "Opens an input dialog with specified fields and configuration.",
+      "syntax": "Bridge.Input.Open(title, data, isQBFormat, submitText)",
+      "parameters": [
+        {
+          "name": "title",
+          "type": "string",
+          "description": "Title of the input dialog"
+        },
+        {
+          "name": "data",
+          "type": "table",
+          "description": "Input configuration data (format depends on isQBFormat)"
+        },
+        {
+          "name": "isQBFormat",
+          "type": "boolean",
+          "optional": true,
+          "description": "Whether the data is in QB-Core format (will be auto-converted)"
+        },
+        {
+          "name": "submitText",
+          "type": "string",
+          "optional": true,
+          "description": "Text for the submit button (default: 'Submit')"
+        }
+      ],
+      "returns": [
+        {
+          "type": "table|nil",
+          "description": "Table with input values, or nil if cancelled"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- ox_lib format\nlocal result = Bridge.Input.Open(\"Player Information\", {\n    {\n        type = 'input',\n        label = 'First Name',\n        description = 'Enter your first name',\n        required = true,\n        max = 50\n    },\n    {\n        type = 'input',\n        label = 'Last Name',\n        description = 'Enter your last name',\n        required = true,\n        max = 50\n    },\n    {\n        type = 'number',\n        label = 'Age',\n        description = 'Enter your age',\n        required = true,\n        min = 18,\n        max = 100\n    }\n})\n\nif result then\n    print(\"First Name: \" .. result[1])\n    print(\"Last Name: \" .. result[2])\n    print(\"Age: \" .. result[3])\nelse\n    print(\"Input cancelled\")\nend",
+      "_not_found_in_code": true
+    }
+  ],
+  "serverFunctions": [],
+  "sharedFunctions": []
+}

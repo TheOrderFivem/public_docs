@@ -1,0 +1,213 @@
+{
+  "name": "Shops",
+  "icon": "🛍️",
+  "description": "The Shops module provides a fallback shop system when inventory modules don't support native shop functionality. It creates a simple, universal shop interface that works across all frameworks.",
+  "clientFunctions": [
+    {
+      "name": "FinalizeCheckOut",
+      "description": "Internal function to finalize shop purchases with payment options.",
+      "syntax": "Bridge.Shops.FinalizeCheckOut(shopName, item, itemLabel, price, amount)",
+      "parameters": [
+        {
+          "name": "shopName",
+          "type": "string",
+          "description": "Name of the shop"
+        },
+        {
+          "name": "item",
+          "type": "string",
+          "description": "Item name being purchased"
+        },
+        {
+          "name": "itemLabel",
+          "type": "string",
+          "description": "Display label for the item"
+        },
+        {
+          "name": "price",
+          "type": "number",
+          "description": "Price per item"
+        },
+        {
+          "name": "amount",
+          "type": "number",
+          "description": "Quantity being purchased"
+        }
+      ],
+      "returns": [
+        {
+          "type": "nil",
+          "description": "No return value"
+        }
+      ],
+      "example": "-- Internal use only - handles payment selection UI"
+    },
+    {
+      "name": "OpenShop",
+      "description": "Opens a registered shop interface for the player.",
+      "syntax": "Bridge.Shops.OpenShop(shopTitle, inventory)",
+      "parameters": [
+        {
+          "name": "shopTitle",
+          "type": "string",
+          "description": "The title/name of the shop to display"
+        },
+        {
+          "name": "inventory",
+          "type": "table",
+          "description": "Table of items available in the shop"
+        }
+      ],
+      "returns": [
+        {
+          "type": "nil",
+          "description": "No return value"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- This is typically called internally when inventory doesn't support shops\nlocal shopItems = {\n    {name = \"water\", label = \"Water Bottle\", price = 10},\n    {name = \"bread\", label = \"Bread\", price = 5}\n}\nBridge.Shops.OpenShop(\"General Store\", shopItems)"
+    },
+    {
+      "name": "AmountSelect",
+      "description": "This is an internal event that is used to open the amount select menu",
+      "syntax": "Bridge.Shops.AmountSelect(shopName, item, itemLabel, price)",
+      "parameters": [
+        {
+          "name": "shopName",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "item",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "itemLabel",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "price",
+          "type": "number",
+          "description": ""
+        }
+      ],
+      "returns": [
+        {
+          "type": "nil",
+          "description": "No return value"
+        }
+      ],
+      "example": "local Bridge = exports[\"community_bridge\"]:Bridge()\\n\\nBridge.Shops.AmountSelect()",
+      "_newly_added": true
+    }
+  ],
+  "serverFunctions": [
+    {
+      "name": "CompleteCheckout",
+      "description": "Internal function to process shop purchases and handle payments.",
+      "syntax": "Bridge.Shops.CompleteCheckout(src, shopName, item, amount, paymentType)",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "number",
+          "description": "Player server ID"
+        },
+        {
+          "name": "shopName",
+          "type": "string",
+          "description": "Name of the shop"
+        },
+        {
+          "name": "item",
+          "type": "string",
+          "description": "Item being purchased"
+        },
+        {
+          "name": "amount",
+          "type": "number",
+          "description": "Quantity being purchased"
+        },
+        {
+          "name": "paymentType",
+          "type": "string",
+          "description": "Payment method (money, bank)"
+        }
+      ],
+      "returns": [
+        {
+          "type": "nil",
+          "description": "No return value"
+        }
+      ],
+      "example": "-- Internal use only - processes payments and gives items"
+    },
+    {
+      "name": "CreateShop",
+      "description": "Creates a new shop that can be opened by players. Used as fallback when inventory systems don't support shops.",
+      "syntax": "Bridge.Shops.CreateShop(shopTitle, shopInventory, shopCoords, shopGroups)",
+      "parameters": [
+        {
+          "name": "shopTitle",
+          "type": "string",
+          "description": "Unique name/title for the shop"
+        },
+        {
+          "name": "shopInventory",
+          "type": "table",
+          "description": "Table of items with prices and labels"
+        },
+        {
+          "name": "shopCoords",
+          "type": "table",
+          "description": "Coordinates where the shop is located"
+        },
+        {
+          "name": "shopGroups",
+          "type": "table",
+          "optional": true,
+          "description": "Job groups that can access this shop"
+        }
+      ],
+      "returns": [
+        {
+          "type": "boolean",
+          "description": "True if shop was created successfully"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Create a general store\nlocal inventory = {\n    {name = \"water\", label = \"Water Bottle\", price = 10},\n    {name = \"sandwich\", label = \"Sandwich\", price = 25},\n    {name = \"energy_drink\", label = \"Energy Drink\", price = 15}\n}\n\nlocal coords = vector3(25.7, -1347.3, 29.49)\nBridge.Shops.CreateShop(\"247_store_1\", inventory, coords)"
+    },
+    {
+      "name": "OpenShop",
+      "description": "Opens a created shop for a specific player.",
+      "syntax": "Bridge.Shops.OpenShop(src, shopTitle)",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "number",
+          "description": "Player server ID"
+        },
+        {
+          "name": "shopTitle",
+          "type": "string",
+          "description": "Name of the shop to open"
+        }
+      ],
+      "returns": [
+        {
+          "type": "boolean",
+          "description": "True if shop was opened successfully"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Open shop for player\nlocal success = Bridge.Shops.OpenShop(source, \"247_store_1\")\nif success then\n    print(\"Shop opened for player \" .. source)\nelse\n    print(\"Failed to open shop\")\nend"
+    }
+  ],
+  "notes": [
+    "This module serves as a fallback when inventory systems don't support native shop functionality",
+    "Shop transactions automatically handle money removal and item addition",
+    "Supports both cash (money) and bank payments",
+    "Shop items must be pre-registered with CreateShop before they can be purchased",
+    "Integrates with the Framework module for balance checking and the Inventory module for item delivery"
+  ],
+  "sharedFunctions": []
+}

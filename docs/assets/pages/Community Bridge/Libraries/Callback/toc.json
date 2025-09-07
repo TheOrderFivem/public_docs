@@ -1,0 +1,53 @@
+{
+  "title": "Callback",
+  "items": [
+    {
+      "title": "Overview",
+      "anchor": "#overview"
+    },
+    {
+      "title": "Client Functions",
+      "anchor": "#client-functions",
+      "children": [
+        {
+          "title": "Register",
+          "anchor": "#function-register"
+        },
+        {
+          "title": "RegisterRebound",
+          "anchor": "#function-registerrebound"
+        },
+        {
+          "title": "Trigger",
+          "anchor": "#function-trigger"
+        },
+        {
+          "title": "TriggerAwait",
+          "anchor": "#function-triggerawait"
+        }
+      ]
+    },
+    {
+      "title": "Server Functions",
+      "anchor": "#server-functions",
+      "children": [
+        {
+          "title": "Register",
+          "anchor": "#function-register-2"
+        },
+        {
+          "title": "Trigger",
+          "anchor": "#function-trigger-2"
+        },
+        {
+          "title": "TriggerAwait",
+          "anchor": "#function-triggerawait-2"
+        }
+      ]
+    },
+    {
+      "title": "Examples",
+      "anchor": "#examples"
+    }
+  ]
+}

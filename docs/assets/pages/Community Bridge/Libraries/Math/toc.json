@@ -1,0 +1,51 @@
+{
+  "title": "Math",
+  "items": [
+    {
+      "title": "Overview",
+      "anchor": "#overview"
+    },
+    {
+      "title": "Shared Functions",
+      "anchor": "#shared-functions",
+      "children": [
+        {
+          "title": "Clamp",
+          "anchor": "#function-clamp"
+        },
+        {
+          "title": "Remap",
+          "anchor": "#function-remap"
+        },
+        {
+          "title": "PointInRadius",
+          "anchor": "#function-pointinradius"
+        },
+        {
+          "title": "Normalize",
+          "anchor": "#function-normalize"
+        },
+        {
+          "title": "Normalize2D",
+          "anchor": "#function-normalize2d"
+        },
+        {
+          "title": "Normalize3D",
+          "anchor": "#function-normalize3d"
+        },
+        {
+          "title": "Normalize4D",
+          "anchor": "#function-normalize4d"
+        },
+        {
+          "title": "DirectionToTarget",
+          "anchor": "#function-directiontotarget"
+        },
+        {
+          "title": "GetOffsetFromMatrix",
+          "anchor": "#function-getoffsetfrommatrix"
+        }
+      ]
+    }
+  ]
+}

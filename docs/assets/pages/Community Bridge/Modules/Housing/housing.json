@@ -1,0 +1,69 @@
+{
+  "name": "Housing",
+  "icon": "🏠",
+  "description": "The Housing module provides integration with various housing systems and tracks when players enter or leave properties. It standardizes housing events across different housing resources.",
+  "clientFunctions": [],
+  "serverFunctions": [],
+  "events": [
+    {
+      "name": "community_bridge:Client:OnPlayerInside",
+      "description": "Triggered when a player enters or leaves any property. This is the main event to listen for housing state changes.",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "number",
+          "description": "Player server ID"
+        },
+        {
+          "name": "insideId",
+          "type": "string|boolean",
+          "description": "Property identifier when entering, false/nil when leaving"
+        },
+        {
+          "name": "currentBucket",
+          "type": "number",
+          "description": "Player's current routing bucket"
+        },
+        {
+          "name": "playerCoords",
+          "type": "vector3",
+          "description": "Player's current coordinates"
+        }
+      ],
+      "example": "-- Listen for housing events\nAddEventHandler('community_bridge:Client:OnPlayerInside', function(src, insideId, bucket, coords)\n    if insideId then\n        print(\"Player \" .. src .. \" entered property: \" .. insideId)\n        print(\"Location: \" .. coords)\n        print(\"Routing bucket: \" .. bucket)\n    else\n        print(\"Player \" .. src .. \" left property\")\n    end\nend)"
+    },
+    {
+      "name": "community_bridge:Server:_OnPlayerInside",
+      "description": "Internal event triggered by housing systems. Do not trigger this directly - use the public event above.",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "number",
+          "description": "Player server ID"
+        },
+        {
+          "name": "insideId",
+          "type": "string|boolean",
+          "description": "Property identifier or false"
+        }
+      ],
+      "example": "-- Internal use only - housing systems trigger this automatically"
+    }
+  ],
+  "compatibleResources": [
+    "bcs-housing",
+    "qb-houses",
+    "qb-apartments",
+    "ps-housing",
+    "esx_property"
+  ],
+  "notes": [
+    "This module acts as a bridge between different housing systems",
+    "Automatically detects and hooks into supported housing resources",
+    "Provides unified events regardless of which housing system is used",
+    "Property IDs are passed as provided by the underlying housing system",
+    "Routing bucket information helps determine interior instances",
+    "Use the public event 'community_bridge:Client:OnPlayerInside' for your scripts"
+  ],
+  "sharedFunctions": []
+}

@@ -1,0 +1,158 @@
+{
+  "name": "Ids",
+  "icon": "🆔",
+  "description": "The Ids library provides utilities for generating unique identifiers with various character patterns. It ensures uniqueness by checking against existing tables and supports custom patterns and lengths.",
+  "clientFunctions": [],
+  "serverFunctions": [],
+  "sharedFunctions": [
+    {
+      "name": "CreateUniqueId",
+      "description": "Generates a unique identifier with customizable length and character pattern. Checks against a table to ensure uniqueness.",
+      "syntax": "Ids.CreateUniqueId(tbl, len, pattern)",
+      "parameters": [
+        {
+          "name": "tbl",
+          "type": "table | nil",
+          "description": "Table to check for existing IDs (uses keys for uniqueness check)"
+        },
+        {
+          "name": "len",
+          "type": "number | nil",
+          "description": "Length of the ID to generate (default: 8)"
+        },
+        {
+          "name": "pattern",
+          "type": "string | nil",
+          "description": "Custom character pattern to use (default: uppercase letters and numbers)"
+        }
+      ],
+      "returns": [
+        {
+          "type": "string",
+          "description": "A unique identifier"
+        }
+      ],
+      "example": "local existingIds = { ABC123 = true, DEF456 = true }\nlocal newId = Ids.CreateUniqueId(existingIds, 6)\nprint(\"Generated unique ID: \" .. newId)\n\n-- Custom pattern (only vowels)\nlocal vowelId = Ids.CreateUniqueId({}, 4, \"AEIOU\")\nprint(\"Vowel ID: \" .. vowelId)"
+    },
+    {
+      "name": "RandomUpper",
+      "description": "Generates a unique identifier using only uppercase letters.",
+      "syntax": "Ids.RandomUpper(tbl, len)",
+      "parameters": [
+        {
+          "name": "tbl",
+          "type": "table",
+          "description": "Table to check for existing IDs"
+        },
+        {
+          "name": "len",
+          "type": "number",
+          "description": "Length of the ID to generate"
+        }
+      ],
+      "returns": [
+        {
+          "type": "string",
+          "description": "A unique uppercase letter identifier"
+        }
+      ],
+      "example": "local players = {}\nlocal playerId = Ids.RandomUpper(players, 8)\nplayers[playerId] = { name = \"John\", level = 1 }\nprint(\"Player ID: \" .. playerId)"
+    },
+    {
+      "name": "RandomLower",
+      "description": "Generates a unique identifier using only lowercase letters.",
+      "syntax": "Ids.RandomLower(tbl, len)",
+      "parameters": [
+        {
+          "name": "tbl",
+          "type": "table",
+          "description": "Table to check for existing IDs"
+        },
+        {
+          "name": "len",
+          "type": "number",
+          "description": "Length of the ID to generate"
+        }
+      ],
+      "returns": [
+        {
+          "type": "string",
+          "description": "A unique lowercase letter identifier"
+        }
+      ],
+      "example": "local sessions = {}\nlocal sessionId = Ids.RandomLower(sessions, 10)\nsessions[sessionId] = { startTime = GetGameTimer() }\nprint(\"Session ID: \" .. sessionId)"
+    },
+    {
+      "name": "RandomString",
+      "description": "Generates a unique identifier using both uppercase and lowercase letters.",
+      "syntax": "Ids.RandomString(tbl, len)",
+      "parameters": [
+        {
+          "name": "tbl",
+          "type": "table",
+          "description": "Table to check for existing IDs"
+        },
+        {
+          "name": "len",
+          "type": "number",
+          "description": "Length of the ID to generate"
+        }
+      ],
+      "returns": [
+        {
+          "type": "string",
+          "description": "A unique mixed-case letter identifier"
+        }
+      ],
+      "example": "local tokens = {}\nlocal accessToken = Ids.RandomString(tokens, 12)\ntokens[accessToken] = { userId = 123, expires = GetGameTimer() + 3600000 }\nprint(\"Access token: \" .. accessToken)"
+    },
+    {
+      "name": "RandomNumber",
+      "description": "Generates a unique identifier using only numeric characters.",
+      "syntax": "Ids.RandomNumber(tbl, len)",
+      "parameters": [
+        {
+          "name": "tbl",
+          "type": "table",
+          "description": "Table to check for existing IDs"
+        },
+        {
+          "name": "len",
+          "type": "number",
+          "description": "Length of the ID to generate"
+        }
+      ],
+      "returns": [
+        {
+          "type": "string",
+          "description": "A unique numeric identifier"
+        }
+      ],
+      "example": "local orders = {}\nlocal orderId = Ids.RandomNumber(orders, 6)\norders[orderId] = { items = {\"bread\", \"milk\"}, total = 15.50 }\nprint(\"Order ID: \" .. orderId)"
+    },
+    {
+      "name": "Random",
+      "description": "Generates a unique identifier using the default pattern (uppercase letters and numbers).",
+      "syntax": "Ids.Random(tbl, len)",
+      "parameters": [
+        {
+          "name": "tbl",
+          "type": "table",
+          "description": "Table to check for existing IDs"
+        },
+        {
+          "name": "len",
+          "type": "number",
+          "description": "Length of the ID to generate"
+        }
+      ],
+      "returns": [
+        {
+          "type": "string",
+          "description": "A unique alphanumeric identifier"
+        }
+      ],
+      "example": "local vehicles = {}\nlocal vehicleId = Ids.Random(vehicles, 8)\nvehicles[vehicleId] = { model = \"adder\", plate = \"FAST123\" }\nprint(\"Vehicle ID: \" .. vehicleId)"
+    }
+  ]
+}

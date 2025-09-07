@@ -1,0 +1,35 @@
+{
+  "name": "Menu",
+  "icon": "📋",
+  "description": "The Menu module provides a unified interface for creating interactive menus. It supports both ox_lib and qb-menu formats with automatic conversion.",
+  "clientFunctions": [
+    {
+      "name": "Open",
+      "description": "Opens a menu with specified configuration and options.",
+      "syntax": "Bridge.Menu.Open(data, useQb)",
+      "parameters": [
+        {
+          "name": "data",
+          "type": "table",
+          "description": "Menu configuration including title, description, and options"
+        },
+        {
+          "name": "useQb",
+          "type": "boolean",
+          "optional": true,
+          "description": "Whether to use QB-Core menu format"
+        }
+      ],
+      "returns": [
+        {
+          "type": "string",
+          "description": "Menu ID for tracking and management"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Open a simple menu\nlocal menuId = Bridge.Menu.Open({\n    title = \"Vehicle Options\",\n    description = \"Choose an action for your vehicle\",\n    options = {\n        {\n            title = \"Lock Vehicle\",\n            description = \"Lock or unlock your vehicle\",\n            icon = \"fas fa-lock\",\n            onSelect = function()\n                -- Lock vehicle logic\n                print(\"Vehicle locked!\")\n            end\n        },\n        {\n            title = \"Start Engine\",\n            description = \"Start the vehicle engine\",\n            icon = \"fas fa-power-off\",\n            onSelect = function()\n                -- Start engine logic\n                print(\"Engine started!\")\n            end\n        },\n        {\n            title = \"Open Trunk\",\n            description = \"Access vehicle storage\",\n            icon = \"fas fa-box-open\",\n            onSelect = function()\n                -- Open trunk logic\n                print(\"Trunk opened!\")\n            end\n        }\n    }\n})",
+      "_not_found_in_code": true
+    }
+  ],
+  "serverFunctions": [],
+  "sharedFunctions": []
+}

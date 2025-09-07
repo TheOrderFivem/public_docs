@@ -1,0 +1,205 @@
+{
+  "name": "Clothing",
+  "icon": "👕",
+  "description": "The Clothing module provides functions for managing player appearance and clothing across different clothing systems. It handles appearance data conversion and caching.",
+  "clientFunctions": [
+    {
+      "name": "ToggleDebugging",
+      "description": "Function ToggleDebugging",
+      "syntax": "Bridge.Clothing.ToggleDebugging()",
+      "parameters": [],
+      "returns": [
+        {
+          "type": "nil",
+          "description": "No return value"
+        }
+      ],
+      "example": "local Bridge = exports[\"community_bridge\"]:Bridge()\\n\\nBridge.Clothing.ToggleDebugging()",
+      "_newly_added": true
+    },
+    {
+      "name": "RestoreAppearance",
+      "description": "This will return the peds components to the previously stored components",
+      "syntax": "Bridge.Clothing.RestoreAppearance(entity)",
+      "parameters": [
+        {
+          "name": "entity",
+          "type": "any",
+          "description": "Parameter entity"
+        }
+      ],
+      "returns": [
+        {
+          "type": "boolean",
+          "description": ""
+        }
+      ],
+      "example": "local Bridge = exports[\"community_bridge\"]:Bridge()\\n\\nBridge.Clothing.RestoreAppearance()",
+      "_newly_added": true
+    },
+    {
+      "name": "UpdateAppearanceBackup",
+      "description": "Function UpdateAppearanceBackup",
+      "syntax": "Bridge.Clothing.UpdateAppearanceBackup(data)",
+      "parameters": [
+        {
+          "name": "data",
+          "type": "any",
+          "description": "Parameter data"
+        }
+      ],
+      "returns": [
+        {
+          "type": "nil",
+          "description": "No return value"
+        }
+      ],
+      "example": "local Bridge = exports[\"community_bridge\"]:Bridge()\\n\\nBridge.Clothing.UpdateAppearanceBackup()",
+      "_newly_added": true
+    }
+  ],
+  "serverFunctions": [
+    {
+      "name": "GetAppearance",
+      "description": "Retrieves a player's appearance data in a standardized format.",
+      "syntax": "Bridge.Clothing.GetAppearance(src, fullData)",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "number",
+          "description": "Player server ID"
+        },
+        {
+          "name": "fullData",
+          "type": "boolean",
+          "optional": true,
+          "description": "If true, returns full data including model and raw skin data"
+        }
+      ],
+      "returns": [
+        {
+          "type": "table|nil",
+          "description": "Player's appearance data or nil if not found"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Get basic appearance data\nlocal appearance = Bridge.Clothing.GetAppearance(source)\nif appearance then\n    print(\"Player appearance loaded\")\nend\n\n-- Get full appearance data including model\nlocal fullData = Bridge.Clothing.GetAppearance(source, true)\nif fullData then\n    print(\"Player model: \" .. fullData.model)\nend",
+      "_not_found_in_code": true
+    },
+    {
+      "name": "GetFullAppearanceData",
+      "description": "Internal function to get complete appearance data including caching.",
+      "syntax": "Bridge.Clothing.GetFullAppearanceData(src)",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "number",
+          "description": "Player server ID"
+        }
+      ],
+      "returns": [
+        {
+          "type": "table|nil",
+          "description": "Complete appearance data with model, skin, and converted formats"
+        }
+      ],
+      "example": "-- Internal use - prefer GetAppearance() for most cases\nlocal fullData = Bridge.Clothing.GetFullAppearanceData(source)",
+      "_not_found_in_code": true
+    },
+    {
+      "name": "SetAppearance",
+      "description": "Sets a player's appearance based on provided appearance data.",
+      "syntax": "Bridge.Clothing.SetAppearance(src, data, updateBackup, save)",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "number",
+          "description": "Player server ID"
+        },
+        {
+          "name": "data",
+          "type": "table",
+          "description": "Appearance data to apply"
+        },
+        {
+          "name": "updateBackup",
+          "type": "boolean",
+          "optional": true,
+          "description": "Whether to update the backup appearance data"
+        },
+        {
+          "name": "save",
+          "type": "boolean",
+          "optional": true,
+          "description": "Whether to save the appearance to database"
+        }
+      ],
+      "returns": [
+        {
+          "type": "table|nil",
+          "description": "Updated appearance data or nil if failed"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Apply new clothing\nlocal newAppearance = {\n    tshirt_1 = 1,\n    tshirt_2 = 0,\n    torso_1 = 4,\n    torso_2 = 2\n}\n\nlocal result = Bridge.Clothing.SetAppearance(source, newAppearance, false, true)\nif result then\n    print(\"Player appearance updated and saved\")\nend"
+    },
+    {
+      "name": "SetAppearanceExt",
+      "description": "Sets appearance using gender-specific data tables.",
+      "syntax": "Bridge.Clothing.SetAppearanceExt(src, data)",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "number",
+          "description": "Player server ID"
+        },
+        {
+          "name": "data",
+          "type": "table",
+          "description": "Table with 'male' and 'female' appearance data"
+        }
+      ],
+      "returns": [
+        {
+          "type": "table|nil",
+          "description": "Updated appearance data or nil if failed"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Gender-specific uniforms\nlocal uniformData = {\n    male = {\n        tshirt_1 = 58,\n        tshirt_2 = 0,\n        torso_1 = 55,\n        torso_2 = 0\n    },\n    female = {\n        tshirt_1 = 35,\n        tshirt_2 = 0,\n        torso_1 = 48,\n        torso_2 = 0\n    }\n}\n\nBridge.Clothing.SetAppearanceExt(source, uniformData)",
+      "_not_found_in_code": true
+    },
+    {
+      "name": "RestoreAppearance",
+      "description": "Function RestoreAppearance",
+      "syntax": "Bridge.Clothing.RestoreAppearance(src)",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "any",
+          "description": "Parameter src"
+        }
+      ],
+      "returns": [
+        {
+          "type": "nil",
+          "description": "No return value"
+        }
+      ],
+      "example": "local Bridge = exports[\"community_bridge\"]:Bridge()\\n\\nBridge.Clothing.RestoreAppearance()",
+      "_newly_added": true
+    }
+  ],
+  "compatibleResources": [
+    "qb-clothing",
+    "illenium-appearance",
+    "fivem-appearance"
+  ],
+  "notes": [
+    "Automatically converts between different clothing system formats",
+    "Includes built-in caching for performance optimization",
+    "Supports backup/restore functionality for temporary appearance changes",
+    "Gender-specific appearance data is automatically applied based on player model",
+    "Database integration for persistent appearance storage",
+    "Appearance data is synchronized to clients automatically",
+    "Event-driven system for real-time appearance updates"
+  ],
+  "sharedFunctions": []
+}

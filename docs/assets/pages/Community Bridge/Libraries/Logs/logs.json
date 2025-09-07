@@ -1,0 +1,28 @@
+{
+  "name": "Logs",
+  "icon": "📝",
+  "description": "The Logs library provides unified logging functionality that supports multiple logging systems including built-in Discord webhooks, qb-log, and ox_lib. It automatically formats player information and timestamps for comprehensive audit trails.",
+  "clientFunctions": [],
+  "serverFunctions": [
+    {
+      "name": "CreateLog",
+      "description": "Sends a log message to the configured logging system. Supports built-in Discord webhooks with caching, fivemerrr qb-log, and ox_lib logging systems based on server configuration.",
+      "syntax": "Bridge.Logs.CreateLog(<message>)",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "number",
+          "description": "Source player ID for the log entry"
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "description": "The log message to send"
+        }
+      ],
+      "returns": [],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Log a player action\nBridge.Logs.CreateLog(\"Player purchased a vehicle: Adder for $1,000,000\")\n\n-- Log an admin action\nBridge.Logs.CreateLog(\"Admin spawned vehicle: adder at coordinates (100, 200, 30)\")\n\n-- Log a system event\nBridge.Logs.CreateLog(\"Player completed heist with reward: $50,000\")"
+    }
+  ],
+  "sharedFunctions": []
+}

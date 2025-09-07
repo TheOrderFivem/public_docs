@@ -1,0 +1,19 @@
+{
+  "title": "Menu Module",
+  "items": [
+    {
+      "title": "Overview",
+      "anchor": "#overview"
+    },
+    {
+      "title": "Client Functions",
+      "anchor": "#client-functions",
+      "children": [
+        {
+          "title": "Open",
+          "anchor": "#function-open"
+        }
+      ]
+    }
+  ]
+}

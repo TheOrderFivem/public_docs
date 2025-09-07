@@ -1,0 +1,41 @@
+{
+  "title": "Batch",
+  "items": [
+    {
+      "title": "Overview",
+      "anchor": "#overview"
+    },
+    {
+      "title": "Server Functions",
+      "anchor": "#server-functions",
+      "children": [
+        {
+          "title": "Event.Queue",
+          "anchor": "#function-eventqueue"
+        }
+      ]
+    },
+    {
+      "title": "Client Functions",
+      "anchor": "#client-functions",
+      "children": [
+        {
+          "title": "Event.Fire",
+          "anchor": "#function-eventfire"
+        }
+      ]
+    },
+    {
+      "title": "Performance Benefits",
+      "anchor": "#performance-benefits"
+    },
+    {
+      "title": "Network Optimization",
+      "anchor": "#network-optimization"
+    },
+    {
+      "title": "Use Cases",
+      "anchor": "#use-cases"
+    }
+  ]
+}

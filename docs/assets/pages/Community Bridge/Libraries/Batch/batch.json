@@ -1,0 +1,48 @@
+{
+  "name": "Batch",
+  "icon": "📦",
+  "description": "The Batch library provides network event optimization by queuing multiple events and sending them together to reduce network strain and improve performance in multiplayer environments.",
+  "clientFunctions": [
+    {
+      "name": "Event.Fire",
+      "description": "Processes an array of batched events received from the server, triggering each event for the appropriate player.",
+      "syntax": "Bridge.Batch.Event.Fire(array)",
+      "parameters": [
+        {
+          "name": "array",
+          "type": "table",
+          "description": "Array of event objects with src, event, and args properties"
+        }
+      ],
+      "returns": [],
+      "example": "-- Internal function - called automatically via network events\n-- Client receives and processes batched events from server\nlocal Bridge = exports['community_bridge']:Bridge()\n\n-- This happens automatically when server sends batched events\nlocal eventArray = {\n    {\n        src = GetPlayerServerId(PlayerId()),\n        event = 'myResource:updateUI',\n        args = {'data1', 'data2'}\n    },\n    {\n        src = GetPlayerServerId(PlayerId()),\n        event = 'myResource:notify',\n        args = {'message', 'success'}\n    }\n}\n\n-- Process events (done automatically)\nBridge.Batch.Event.Fire(eventArray)"
+    }
+  ],
+  "serverFunctions": [
+    {
+      "name": "Event.Queue",
+      "description": "Queues client events for batched sending to reduce network calls, automatically sending after 100ms timeout.",
+      "syntax": "Bridge.Batch.Event.Queue(src, event, ...)",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "number | number[]",
+          "description": "Target player ID or -1 for all players"
+        },
+        {
+          "name": "event",
+          "type": "string",
+          "description": "Event name to trigger on client"
+        },
+        {
+          "name": "...",
+          "type": "any",
+          "description": "Arguments to pass to the client event"
+        }
+      ],
+      "returns": [],
+      "example": "-- Server-side event batching\nlocal Bridge = exports['community_bridge']:Bridge()\n\n-- Queue events for specific player\nlocal playerId = source\nBridge.Batch.Event.Queue(playerId, 'myResource:updateInventory', inventory)\nBridge.Batch.Event.Queue(playerId, 'myResource:updateMoney', money)\nBridge.Batch.Event.Queue(playerId, 'myResource:notify', 'Items updated', 'success')\n\n-- Queue events for all players\nBridge.Batch.Event.Queue(-1, 'myResource:globalAnnouncement', 'Server restarting in 5 minutes')\nBridge.Batch.Event.Queue(-1, 'myResource:weatherUpdate', 'sunny', 12)\n\n-- Events are automatically sent after 100ms timeout as a batch\n-- This reduces multiple TriggerClientEvent calls to a single batched call\n\n-- Example of multiple rapid updates that benefit from batching\nfor i = 1, 10 do\n    Bridge.Batch.Event.Queue(playerId, 'myResource:progressUpdate', i * 10)\nend\n-- All 10 events sent as one batch instead of 10 separate network calls"
+    }
+  ],
+  "sharedFunctions": []
+}

@@ -1,0 +1,69 @@
+{
+  "title": "Math Module",
+  "items": [
+    {
+      "title": "Overview",
+      "anchor": "#overview"
+    },
+    {
+      "title": "Client Functions",
+      "anchor": "#client-functions",
+      "children": [
+        {
+          "title": "Clamp",
+          "anchor": "#function-clamp"
+        },
+        {
+          "title": "Map",
+          "anchor": "#function-map"
+        },
+        {
+          "title": "Round",
+          "anchor": "#function-round"
+        },
+        {
+          "title": "Smooth",
+          "anchor": "#function-smooth"
+        },
+        {
+          "title": "Truncate",
+          "anchor": "#function-truncate"
+        },
+        {
+          "title": "Wrap",
+          "anchor": "#function-wrap"
+        }
+      ]
+    },
+    {
+      "title": "Server Functions",
+      "anchor": "#server-functions",
+      "children": [
+        {
+          "title": "Clamp",
+          "anchor": "#function-clamp-1"
+        },
+        {
+          "title": "Map",
+          "anchor": "#function-map-2"
+        },
+        {
+          "title": "Round",
+          "anchor": "#function-round-3"
+        },
+        {
+          "title": "Smooth",
+          "anchor": "#function-smooth-4"
+        },
+        {
+          "title": "Truncate",
+          "anchor": "#function-truncate-5"
+        },
+        {
+          "title": "Wrap",
+          "anchor": "#function-wrap-6"
+        }
+      ]
+    }
+  ]
+}

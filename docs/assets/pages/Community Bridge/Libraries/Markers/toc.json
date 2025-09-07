@@ -1,0 +1,27 @@
+{
+  "title": "Markers Library",
+  "items": [
+    {
+      "title": "Overview",
+      "anchor": "#overview"
+    },
+    {
+      "title": "Client Functions",
+      "anchor": "#client-functions",
+      "children": [
+        {
+          "title": "Create",
+          "anchor": "#function-create"
+        },
+        {
+          "title": "Remove",
+          "anchor": "#function-remove"
+        },
+        {
+          "title": "RemoveAll",
+          "anchor": "#function-removeall"
+        }
+      ]
+    }
+  ]
+}

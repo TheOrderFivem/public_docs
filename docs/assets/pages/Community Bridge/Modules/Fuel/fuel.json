@@ -1,0 +1,93 @@
+{
+  "name": "Fuel",
+  "icon": "⛽",
+  "description": "The Fuel module provides functions for managing vehicle fuel levels across different fuel systems. It handles getting and setting fuel for vehicles.",
+  "clientFunctions": [
+    {
+      "name": "GetFuel",
+      "description": "Gets the current fuel level of a vehicle.",
+      "syntax": "Bridge.Fuel.GetFuel(vehicle)",
+      "parameters": [
+        {
+          "name": "vehicle",
+          "type": "number",
+          "description": "Vehicle entity handle"
+        }
+      ],
+      "returns": [
+        {
+          "type": "number",
+          "description": "Fuel level (0.0 to 100.0)"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Get fuel level of current vehicle\nlocal vehicle = GetVehiclePedIsIn(PlayerPedId(), false)\nif vehicle ~= 0 then\n    local fuelLevel = Bridge.Fuel.GetFuel(vehicle)\n    print(\"Vehicle fuel level: \" .. fuelLevel .. \"%\")\nend"
+    },
+    {
+      "name": "GetResourceName",
+      "description": "Returns the name of the currently active fuel system.",
+      "syntax": "Bridge.Fuel.GetResourceName()",
+      "parameters": [],
+      "returns": [
+        {
+          "type": "string",
+          "description": "Name of the fuel resource being used"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\nlocal fuelSystem = Bridge.Fuel.GetResourceName()\nprint(\"Using fuel system: \" .. fuelSystem)"
+    },
+    {
+      "name": "SetFuel",
+      "description": "Sets the fuel level of a vehicle. Some systems add fuel, others set absolute values.",
+      "syntax": "Bridge.Fuel.SetFuel(vehicle, fuel, type)",
+      "parameters": [
+        {
+          "name": "vehicle",
+          "type": "number",
+          "description": "Vehicle entity handle"
+        },
+        {
+          "name": "fuel",
+          "type": "number",
+          "description": "Fuel amount (0.0 to 100.0 or amount to add)"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "optional": true,
+          "description": "Fuel type (for systems that support multiple fuel types)"
+        }
+      ],
+      "returns": [
+        {
+          "type": "number|nil",
+          "description": "New fuel level or nil if vehicle doesn't exist"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Set vehicle fuel to 75%\nlocal vehicle = GetVehiclePedIsIn(PlayerPedId(), false)\nif vehicle ~= 0 then\n    Bridge.Fuel.SetFuel(vehicle, 75.0)\n    print(\"Set vehicle fuel to 75%\")\nend\n\n-- Add 25 units of fuel\nBridge.Fuel.SetFuel(vehicle, 25.0)"
+    }
+  ],
+  "serverFunctions": [],
+  "compatibleResources": [
+    "ox_fuel",
+    "LegacyFuel",
+    "ps-fuel",
+    "qs-fuelstations",
+    "Renewed-Fuel",
+    "ti_fuel",
+    "lc_fuel",
+    "x-fuel",
+    "cdn-fuel",
+    "esx-sna-fuel",
+    "BigDaddy-Fuel",
+    "okokGasStation"
+  ],
+  "notes": [
+    "Automatically detects and uses the appropriate fuel system",
+    "Fuel levels are typically represented as percentages (0.0 to 100.0)",
+    "Some fuel systems may add fuel rather than set absolute values",
+    "Vehicle must exist for fuel operations to work",
+    "Different fuel systems may have varying behaviors for fuel persistence",
+    "Some systems support multiple fuel types (gasoline, diesel, electric, etc.)"
+  ],
+  "sharedFunctions": []
+}

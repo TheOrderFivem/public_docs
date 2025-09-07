@@ -1,0 +1,78 @@
+{
+  "name": "VehicleKey",
+  "icon": "🔑",
+  "description": "The VehicleKey module provides functions for managing vehicle keys across different key systems. It handles giving and removing keys for vehicles.",
+  "clientFunctions": [
+    {
+      "name": "GiveKeys",
+      "description": "Gives the player keys to a specific vehicle.",
+      "syntax": "Bridge.VehicleKey.GiveKeys(vehicle, plate)",
+      "parameters": [
+        {
+          "name": "vehicle",
+          "type": "number",
+          "description": "Vehicle entity handle"
+        },
+        {
+          "name": "plate",
+          "type": "string",
+          "description": "License plate of the vehicle"
+        }
+      ],
+      "returns": [
+        {
+          "type": "boolean",
+          "description": "Returns false if plate is invalid, otherwise no return value"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Get nearby vehicle\nlocal vehicle = GetVehiclePedIsIn(PlayerPedId(), false)\nif vehicle ~= 0 then\n    local plate = GetVehicleNumberPlateText(vehicle)\n    Bridge.VehicleKey.GiveKeys(vehicle, plate)\n    print(\"Given keys to vehicle: \" .. plate)\nend"
+    },
+    {
+      "name": "RemoveKeys",
+      "description": "Removes the player's keys to a specific vehicle.",
+      "syntax": "Bridge.VehicleKey.RemoveKeys(vehicle, plate)",
+      "parameters": [
+        {
+          "name": "vehicle",
+          "type": "number",
+          "description": "Vehicle entity handle"
+        },
+        {
+          "name": "plate",
+          "type": "string",
+          "description": "License plate of the vehicle"
+        }
+      ],
+      "returns": [
+        {
+          "type": "boolean",
+          "description": "Returns false if plate is invalid, otherwise no return value"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Remove keys from current vehicle\nlocal vehicle = GetVehiclePedIsIn(PlayerPedId(), false)\nif vehicle ~= 0 then\n    local plate = GetVehicleNumberPlateText(vehicle)\n    Bridge.VehicleKey.RemoveKeys(vehicle, plate)\n    print(\"Removed keys from vehicle: \" .. plate)\nend"
+    }
+  ],
+  "serverFunctions": [],
+  "compatibleResources": [
+    "qb-vehiclekeys",
+    "qbx_vehiclekeys",
+    "MrNewbVehicleKeys",
+    "wasabi_carlock",
+    "mk_vehiclekeys",
+    "qs-vehiclekeys",
+    "t1ger_keys",
+    "Renewed-Vehiclekeys",
+    "mono_carkeys",
+    "cd_garage",
+    "okokGarage",
+    "F_RealCarKeysSystem"
+  ],
+  "notes": [
+    "Automatically detects and uses the appropriate vehicle key system",
+    "License plate is required for key management",
+    "Some systems may require the vehicle entity handle for additional validation",
+    "Key management affects vehicle locking/unlocking and engine start capabilities",
+    "Different key systems may have varying behaviors for key sharing and persistence"
+  ],
+  "sharedFunctions": []
+}
