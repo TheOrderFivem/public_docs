@@ -1,0 +1,19 @@
+{
+  "title": "Weather Module",
+  "items": [
+    {
+      "title": "Overview",
+      "anchor": "#overview"
+    },
+    {
+      "title": "Client Functions",
+      "anchor": "#client-functions",
+      "children": [
+        {
+          "title": "ToggleSync",
+          "anchor": "#function-togglesync"
+        }
+      ]
+    }
+  ]
+}

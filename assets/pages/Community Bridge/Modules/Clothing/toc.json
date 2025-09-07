@@ -1,0 +1,53 @@
+{
+  "title": "Clothing Module",
+  "items": [
+    {
+      "title": "Overview",
+      "anchor": "#overview"
+    },
+    {
+      "title": "Client Functions",
+      "anchor": "#client-functions",
+      "children": [
+        {
+          "title": "ToggleDebugging",
+          "anchor": "#function-toggledebugging"
+        },
+        {
+          "title": "RestoreAppearance",
+          "anchor": "#function-restoreappearance"
+        },
+        {
+          "title": "UpdateAppearanceBackup",
+          "anchor": "#function-updateappearancebackup"
+        }
+      ]
+    },
+    {
+      "title": "Server Functions",
+      "anchor": "#server-functions",
+      "children": [
+        {
+          "title": "GetAppearance",
+          "anchor": "#function-getappearance"
+        },
+        {
+          "title": "GetFullAppearanceData",
+          "anchor": "#function-getfullappearancedata"
+        },
+        {
+          "title": "SetAppearance",
+          "anchor": "#function-setappearance"
+        },
+        {
+          "title": "SetAppearanceExt",
+          "anchor": "#function-setappearanceext"
+        },
+        {
+          "title": "RestoreAppearance",
+          "anchor": "#function-restoreappearance-5"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "name": "Version",
+  "icon": "🔄",
+  "description": "Automated version checking system that monitors GitHub releases and notifies administrators when updates are available. This module helps keep your Community Bridge installation up-to-date with the latest features and security improvements.",
+  "note": "This module only functions on the server side and automatically checks for updates when the resource starts. It supports both open-source GitHub repositories and Tebex-distributed resources.",
+  "compatibleResources": [
+    "GitHub repositories",
+    "Tebex resources",
+    "Custom resource hosting"
+  ],
+  "clientFunctions": [],
+  "serverFunctions": [
+    {
+      "name": "VersionChecker",
+      "syntax": "Bridge.Version.VersionChecker(repoPath, tebex)",
+      "parameters": [
+        {
+          "name": "repoPath",
+          "type": "string",
+          "description": "GitHub repository path in format 'username/reponame'"
+        },
+        {
+          "name": "tebex",
+          "type": "boolean|nil",
+          "description": "Optional flag for Tebex resources (shows CFX asset portal link instead of GitHub)"
+        }
+      ],
+      "returns": [
+        {
+          "type": "nil",
+          "description": "No description provided"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n-- Check for Community Bridge updates\nBridge.Version.VersionChecker('The-Order-Of-The-Sacred-Framework/community_bridge', false)\n\n-- Check for a Tebex resource\nBridge.Version.VersionChecker('myusername/my-premium-script', true)",
+      "description": "Compares the current resource version with the latest GitHub release and prints an update notification if a newer version is available. The version is extracted from the resource's fxmanifest.lua version field.",
+      "_not_found_in_code": true
+    }
+  ],
+  "usage": [
+    "The Version module automatically checks for Community Bridge updates when the resource starts",
+    "You can implement version checking for your own resources by calling the VersionChecker function",
+    "Version comparison uses semantic versioning (major.minor.patch format)",
+    "For Tebex resources, set the tebex parameter to true to show the CFX asset portal link instead of GitHub",
+    "The module requires the resource to have a proper version field in fxmanifest.lua"
+  ],
+  "examples": [
+    {
+      "title": "Basic Version Check",
+      "code": "local Bridge = exports['community_bridge']:Bridge()\n-- This is automatically called for Community Bridge\nBridge.Version.VersionChecker('The-Order-Of-The-Sacred-Framework/community_bridge')",
+      "description": "Basic usage for checking GitHub repository updates"
+    },
+    {
+      "title": "Custom Resource Version Check",
+      "code": "local Bridge = exports['community_bridge']:Bridge()\n-- Check your own resource for updates\nBridge.Version.VersionChecker('yourusername/your-resource-name', false)",
+      "description": "Check for updates on your own GitHub repository"
+    },
+    {
+      "title": "Tebex Resource Check",
+      "code": "local Bridge = exports['community_bridge']:Bridge()\n-- For paid/premium resources distributed via Tebex\nBridge.Version.VersionChecker('developer/premium-script', true)",
+      "description": "Version checking for Tebex-distributed premium resources"
+    },
+    {
+      "title": "Automatic Check on Resource Start",
+      "code": "-- This happens automatically in Community Bridge:\nAddEventHandler('onResourceStart', function(resourceName)\n    if GetCurrentResourceName() ~= resourceName then return end\n    local Bridge = exports['community_bridge']:Bridge()\n    Bridge.Version.VersionChecker('The-Order-Of-The-Sacred-Framework/community_bridge')\nend)",
+      "description": "How automatic version checking is implemented"
+    }
+  ],
+  "configuration": [
+    "No configuration required - the module uses the resource's fxmanifest.lua version field",
+    "Ensure your fxmanifest.lua has a proper version field: version '1.0.0'",
+    "Repository must have GitHub releases with version tags (e.g., v1.0.0)",
+    "For Tebex resources, the tebex parameter should be set to true"
+  ],
+  "notes": [
+    "Version checking requires an active internet connection",
+    "The module only compares versions when a resource starts",
+    "Version format must follow semantic versioning (major.minor.patch)",
+    "GitHub API rate limits may affect version checking for resources that restart frequently",
+    "The module gracefully handles API failures and network issues",
+    "Update notifications are printed to the server console in red/green colors"
+  ],
+  "sharedFunctions": []
+}

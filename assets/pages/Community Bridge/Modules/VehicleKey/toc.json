@@ -1,0 +1,23 @@
+{
+  "title": "VehicleKey Module",
+  "items": [
+    {
+      "title": "Overview",
+      "anchor": "#overview"
+    },
+    {
+      "title": "Client Functions",
+      "anchor": "#client-functions",
+      "children": [
+        {
+          "title": "GiveKeys",
+          "anchor": "#function-givekeys"
+        },
+        {
+          "title": "RemoveKeys",
+          "anchor": "#function-removekeys"
+        }
+      ]
+    }
+  ]
+}

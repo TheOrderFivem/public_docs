@@ -1,0 +1,312 @@
+{
+  "name": "Target",
+  "icon": "🎯",
+  "description": "The Target module provides a unified interface for adding interactive targets to players, vehicles, entities, and zones. It supports various targeting systems like ox_target and qb-target.",
+  "clientFunctions": [
+    {
+      "name": "FixOptions",
+      "description": "Internal function that fixes options passed to fit alternative target systems. Normalizes options for compatibility between different targeting systems.",
+      "syntax": "Bridge.Target.FixOptions(options)",
+      "parameters": [
+        {
+          "name": "options",
+          "type": "table",
+          "description": "Array of target option configurations to normalize"
+        }
+      ],
+      "returns": [
+        {
+          "type": "table",
+          "description": "Normalized options table"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\nlocal normalizedOptions = Bridge.Target.FixOptions({\n    {\n        label = \"Test Action\",\n        action = function(entity) print(\"Action triggered\") end\n    }\n})"
+    },
+    {
+      "name": "AddBoxZone",
+      "description": "Creates a box-shaped target zone at specified coordinates.",
+      "syntax": "Bridge.Target.AddBoxZone(name, coords, size, heading, options, debug)",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "string",
+          "description": "Unique name for the zone"
+        },
+        {
+          "name": "coords",
+          "type": "table",
+          "description": "Center coordinates of the box (vector3)"
+        },
+        {
+          "name": "size",
+          "type": "table",
+          "description": "Size of the box {length, width, height}"
+        },
+        {
+          "name": "heading",
+          "type": "number",
+          "description": "Rotation heading of the box"
+        },
+        {
+          "name": "options",
+          "type": "table",
+          "description": "Array of target option configurations"
+        },
+        {
+          "name": "debug",
+          "type": "boolean",
+          "optional": true,
+          "description": "Whether to show debug visualization"
+        }
+      ],
+      "returns": [
+        {
+          "type": "number",
+          "description": "Zone ID for removal later"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\nlocal coords = vector3(100.0, 200.0, 30.0)\nlocal zoneId = Bridge.Target.AddBoxZone(\"shop_entrance\", coords, {2.0, 2.0, 2.0}, 0.0, {\n    {\n        label = \"Enter Shop\",\n        icon = \"fas fa-shopping-cart\",\n        onSelect = function()\n            -- Open shop menu\n        end\n    }\n}, true)"
+    },
+    {
+      "name": "AddGlobalPlayer",
+      "description": "Adds target options to all players globally.",
+      "syntax": "Bridge.Target.AddGlobalPlayer(options)",
+      "parameters": [
+        {
+          "name": "options",
+          "type": "table",
+          "description": "Array of target option configurations"
+        }
+      ],
+      "returns": [
+        {
+          "type": "nil",
+          "description": "No return value"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\nBridge.Target.AddGlobalPlayer({\n    {\n        label = \"Give Money\",\n        icon = \"fas fa-dollar-sign\",\n        onSelect = function(entity)\n            print(\"Selected player: \" .. entity)\n            -- Add your give money logic here\n        end,\n        groups = {\"police\", \"admin\"}\n    }\n})"
+    },
+    {
+      "name": "AddGlobalVehicle",
+      "description": "Adds target options to all vehicles globally.",
+      "syntax": "Bridge.Target.AddGlobalVehicle(options)",
+      "parameters": [
+        {
+          "name": "options",
+          "type": "table",
+          "description": "Array of target option configurations"
+        }
+      ],
+      "returns": [
+        {
+          "type": "nil",
+          "description": "No return value"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\nBridge.Target.AddGlobalVehicle({\n    {\n        label = \"Lock/Unlock Vehicle\",\n        icon = \"fas fa-key\",\n        onSelect = function(entity)\n            -- Add your lock/unlock logic here\n            print(\"Toggling vehicle lock for: \" .. entity)\n        end\n    }\n})"
+    },
+    {
+      "name": "AddLocalEntity",
+      "description": "Adds target options to specific local entities.",
+      "syntax": "Bridge.Target.AddLocalEntity(entities, options)",
+      "parameters": [
+        {
+          "name": "entities",
+          "type": "number|table",
+          "description": "Entity handle or array of entity handles"
+        },
+        {
+          "name": "options",
+          "type": "table",
+          "description": "Array of target option configurations"
+        }
+      ],
+      "returns": [
+        {
+          "type": "nil",
+          "description": "No return value"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\nlocal entity = GetClosestObjectOfType(coords, 5.0, GetHashKey(\"prop_atm_01\"), false)\nBridge.Target.AddLocalEntity(entity, {\n    {\n        label = \"Use ATM\",\n        icon = \"fas fa-credit-card\",\n        onSelect = function()\n            -- Open ATM menu\n        end\n    }\n})"
+    },
+    {
+      "name": "AddModel",
+      "description": "Adds target options to all entities of specified model(s).",
+      "syntax": "Bridge.Target.AddModel(models, options)",
+      "parameters": [
+        {
+          "name": "models",
+          "type": "number|table",
+          "description": "Model hash or array of model hashes"
+        },
+        {
+          "name": "options",
+          "type": "table",
+          "description": "Array of target option configurations"
+        }
+      ],
+      "returns": [
+        {
+          "type": "nil",
+          "description": "No return value"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\nBridge.Target.AddModel(GetHashKey(\"prop_gas_pump_1a\"), {\n    {\n        label = \"Refuel Vehicle\",\n        icon = \"fas fa-gas-pump\",\n        onSelect = function(entity)\n            -- Start refueling process\n        end\n    }\n})"
+    },
+    {
+      "name": "AddSphereZone",
+      "description": "Creates a spherical target zone at specified coordinates.",
+      "syntax": "Bridge.Target.AddSphereZone(name, coords, radius, heading, options)",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "string",
+          "description": "Unique name for the zone"
+        },
+        {
+          "name": "coords",
+          "type": "table",
+          "description": "Center coordinates of the sphere (vector3)"
+        },
+        {
+          "name": "radius",
+          "type": "number",
+          "description": "Radius of the sphere"
+        },
+        {
+          "name": "heading",
+          "type": "number",
+          "description": "Rotation heading (may not apply to all systems)"
+        },
+        {
+          "name": "options",
+          "type": "table",
+          "description": "Array of target option configurations"
+        }
+      ],
+      "returns": [
+        {
+          "type": "number",
+          "description": "Zone ID for removal later"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\nlocal coords = vector3(150.0, 250.0, 30.0)\nlocal zoneId = Bridge.Target.AddSphereZone(\"atm_zone\", coords, 1.5, 0.0, {\n    {\n        label = \"Use ATM\",\n        icon = \"fas fa-credit-card\",\n        onSelect = function()\n            -- Open ATM interface\n        end\n    }\n})"
+    },
+    {
+      "name": "DisableTargeting",
+      "description": "Enables or disables the targeting system entirely.",
+      "syntax": "Bridge.Target.DisableTargeting(bool)",
+      "parameters": [
+        {
+          "name": "bool",
+          "type": "boolean",
+          "description": "True to disable targeting, false to enable"
+        }
+      ],
+      "returns": [
+        {
+          "type": "nil",
+          "description": "No return value"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Disable targeting\nBridge.Target.DisableTargeting(true)\n\n-- Re-enable targeting\nBridge.Target.DisableTargeting(false)"
+    },
+    {
+      "name": "RemoveGlobalPlayer",
+      "description": "Removes all target options from players.",
+      "syntax": "Bridge.Target.RemoveGlobalPlayer()",
+      "parameters": [],
+      "returns": [
+        {
+          "type": "nil",
+          "description": "No return value"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\nBridge.Target.RemoveGlobalPlayer()"
+    },
+    {
+      "name": "RemoveGlobalVehicle",
+      "description": "Removes target options from all vehicles.",
+      "syntax": "Bridge.Target.RemoveGlobalVehicle(options)",
+      "parameters": [
+        {
+          "name": "options",
+          "type": "table",
+          "description": "Array of target options to remove (by name)"
+        }
+      ],
+      "returns": [
+        {
+          "type": "nil",
+          "description": "No return value"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\nBridge.Target.RemoveGlobalVehicle({\n    {name = \"Lock/Unlock Vehicle\"}\n})"
+    },
+    {
+      "name": "RemoveLocalEntity",
+      "description": "Removes target options from specific local entities.",
+      "syntax": "Bridge.Target.RemoveLocalEntity(entities, optionNames)",
+      "parameters": [
+        {
+          "name": "entities",
+          "type": "number|table",
+          "description": "Entity handle or array of entity handles"
+        },
+        {
+          "name": "optionNames",
+          "type": "string|table",
+          "optional": true,
+          "description": "Option name(s) to remove, or nil to remove all"
+        }
+      ],
+      "returns": [
+        {
+          "type": "nil",
+          "description": "No return value"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\nBridge.Target.RemoveLocalEntity(entity, \"Use ATM\")"
+    },
+    {
+      "name": "RemoveModel",
+      "description": "Removes all target options from a specific model.",
+      "syntax": "Bridge.Target.RemoveModel(model)",
+      "parameters": [
+        {
+          "name": "model",
+          "type": "number",
+          "description": "Model hash to remove targets from"
+        }
+      ],
+      "returns": [
+        {
+          "type": "nil",
+          "description": "No return value"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\nBridge.Target.RemoveModel(GetHashKey(\"prop_gas_pump_1a\"))"
+    },
+    {
+      "name": "RemoveZone",
+      "description": "Removes a target zone by name.",
+      "syntax": "Bridge.Target.RemoveZone(name)",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "string",
+          "description": "Name of the zone to remove"
+        }
+      ],
+      "returns": [
+        {
+          "type": "nil",
+          "description": "No return value"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\nBridge.Target.RemoveZone(\"shop_entrance\")"
+    }
+  ],
+  "serverFunctions": [],
+  "sharedFunctions": []
+}

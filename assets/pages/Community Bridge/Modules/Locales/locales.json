@@ -1,0 +1,167 @@
+{
+  "name": "Locales",
+  "icon": "🌍",
+  "description": "Multi-language localization system that automatically detects server language settings and provides translation functions. Supports nested JSON structures and variable interpolation for comprehensive internationalization support.",
+  "note": "This module automatically detects language from various server configurations (ox:locale, qb_locale, txAdmin-locale, esx:locale) and falls back to English. Locales should be stored in 'locales/' folder as JSON files.",
+  "compatibleResources": [
+    "ox_lib",
+    "qb-core",
+    "qbx_core",
+    "es_extended",
+    "txAdmin",
+    "standalone"
+  ],
+  "clientFunctions": [
+    {
+      "name": "Current Language",
+      "syntax": "Lang",
+      "parameters": [],
+      "returns": [
+        {
+          "type": "string",
+          "description": "The current language code"
+        }
+      ],
+      "example": "print('Current language:', Lang) -- Output: 'en', 'fr', 'es', etc.",
+      "note": "Lang is a global variable accessible anywhere in your script",
+      "description": "Function Current Language",
+      "_not_found_in_code": true
+    },
+    {
+      "name": "Locale",
+      "syntax": "Bridge.Language.Locale(key, ...args)",
+      "parameters": [
+        {
+          "name": "key",
+          "type": "string",
+          "description": "The locale key using dot notation for nested objects"
+        },
+        {
+          "name": "unknown",
+          "type": "unknown",
+          "description": "...args (any) - Optional arguments for string formatting"
+        }
+      ],
+      "returns": [
+        {
+          "type": "string",
+          "description": "The localized text or the key if not found"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nlocal text = Bridge.Language.Locale('ui.welcome_message')\nprint('Localized text:', text)",
+      "note": "Supports nested keys like 'category.subcategory.text'",
+      "description": "Function Locale",
+      "_not_found_in_code": true
+    },
+    {
+      "name": "Locale (with formatting)",
+      "syntax": "Bridge.Language.Locale(key, arg1, arg2, ...)",
+      "parameters": [
+        {
+          "name": "key",
+          "type": "string",
+          "description": "The locale key"
+        },
+        {
+          "name": "unknown",
+          "type": "unknown",
+          "description": "arg1, arg2, ... (any) - Arguments for string.format() interpolation"
+        }
+      ],
+      "returns": [
+        {
+          "type": "string",
+          "description": "The formatted localized text"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n-- In en.json: \"welcome\": \"Welcome %s, you have %d coins\"\nlocal message = Bridge.Language.Locale('welcome', playerName, coinCount)\nprint(message) -- Output: Welcome John, you have 150 coins",
+      "description": "Function Locale (with formatting)",
+      "_not_found_in_code": true
+    }
+  ],
+  "serverFunctions": [
+    {
+      "name": "Current Language",
+      "syntax": "Lang",
+      "parameters": [],
+      "returns": [
+        {
+          "type": "string",
+          "description": "The current language code"
+        }
+      ],
+      "example": "print('Server language:', Lang)\n-- Use in conditional logic\nif Lang == 'es' then\n    -- Spanish-specific server logic\nend",
+      "note": "Lang is a global variable set based on server configuration",
+      "description": "Function Current Language",
+      "_not_found_in_code": true
+    },
+    {
+      "name": "Locale",
+      "syntax": "Bridge.Language.Locale(key, ...args)",
+      "parameters": [
+        {
+          "name": "key",
+          "type": "string",
+          "description": "The locale key using dot notation for nested objects"
+        },
+        {
+          "name": "unknown",
+          "type": "unknown",
+          "description": "...args (any) - Optional arguments for string formatting"
+        }
+      ],
+      "returns": [
+        {
+          "type": "string",
+          "description": "The localized text or the key if not found"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\nlocal errorMsg = Bridge.Language.Locale('errors.insufficient_funds')\nprint('Error message:', errorMsg)",
+      "description": "Function Locale",
+      "_not_found_in_code": true
+    },
+    {
+      "name": "Locale (with formatting)",
+      "syntax": "Bridge.Language.Locale(key, arg1, arg2, ...)",
+      "parameters": [
+        {
+          "name": "key",
+          "type": "string",
+          "description": "The locale key"
+        },
+        {
+          "name": "unknown",
+          "type": "unknown",
+          "description": "arg1, arg2, ... (any) - Arguments for string.format() interpolation"
+        }
+      ],
+      "returns": [
+        {
+          "type": "string",
+          "description": "The formatted localized text"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n-- In en.json: \"player_joined\": \"Player %s joined the server with ID %d\"\nlocal message = Bridge.Language.Locale('player_joined', playerName, playerId)\nTriggerClientEvent('chat:addMessage', -1, {args = {message}})",
+      "description": "Function Locale (with formatting)",
+      "_not_found_in_code": true
+    }
+  ],
+  "examples": [
+    {
+      "title": "Basic Locale Setup",
+      "description": "Setting up locales in your resource",
+      "code": "-- Create locales/en.json in your resource\n{\n  \"ui\": {\n    \"welcome\": \"Welcome to the server!\",\n    \"goodbye\": \"See you later!\"\n  },\n  \"errors\": {\n    \"not_found\": \"Item not found\",\n    \"insufficient_funds\": \"You don't have enough money\"\n  }\n}\n\n-- In your script\nlocal Bridge = exports['community_bridge']:Bridge()\nlocal welcomeText = Bridge.Language.Locale('ui.welcome')\nlocal errorText = Bridge.Language.Locale('errors.not_found')"
+    },
+    {
+      "title": "Formatted Locales",
+      "description": "Using string formatting in locales",
+      "code": "-- In locales/en.json\n{\n  \"player\": {\n    \"money_received\": \"You received $%d from %s\",\n    \"level_up\": \"Congratulations! You reached level %d\"\n  }\n}\n\n-- In your script\nlocal Bridge = exports['community_bridge']:Bridge()\nlocal moneyMsg = Bridge.Language.Locale('player.money_received', 500, 'John')\nlocal levelMsg = Bridge.Language.Locale('player.level_up', newLevel)\n\nBridge.Notify.SendNotify(moneyMsg, 'success')\nBridge.Notify.SendNotify(levelMsg, 'info')"
+    },
+    {
+      "title": "Multi-Language Support",
+      "description": "Supporting multiple languages",
+      "code": "-- locales/en.json\n{\n  \"shop\": {\n    \"buy_item\": \"Purchase %s for $%d?\",\n    \"sold_item\": \"You sold %s for $%d\"\n  }\n}\n\n-- locales/es.json\n{\n  \"shop\": {\n    \"buy_item\": \"¿Comprar %s por $%d?\",\n    \"sold_item\": \"Vendiste %s por $%d\"\n  }\n}\n\n-- In your script (works with any language)\nlocal Bridge = exports['community_bridge']:Bridge()\nlocal buyPrompt = Bridge.Language.Locale('shop.buy_item', itemName, price)\nlocal soldMessage = Bridge.Language.Locale('shop.sold_item', itemName, sellPrice)"
+    }
+  ],
+  "sharedFunctions": []
+}

@@ -1,0 +1,62 @@
+{
+  "name": "Doorlock",
+  "icon": "🚪",
+  "description": "The Doorlock module provides functions for managing door locking states across different doorlock systems. It handles locking and unlocking doors with various access controls.",
+  "clientFunctions": [
+    {
+      "name": "GetClosestDoor",
+      "description": "This will get the closest door to the ped",
+      "syntax": "Bridge.Doorlock.GetClosestDoor()",
+      "parameters": [],
+      "returns": [
+        {
+          "type": "string",
+          "description": "| nil"
+        }
+      ],
+      "example": "local Bridge = exports[\"community_bridge\"]:Bridge()\\n\\nBridge.Doorlock.GetClosestDoor()",
+      "_newly_added": true
+    }
+  ],
+  "serverFunctions": [
+    {
+      "name": "ToggleDoorLock",
+      "description": "Toggles the lock state of a specific door by its ID.",
+      "syntax": "Bridge.Doorlock.ToggleDoorLock(doorID, toggle)",
+      "parameters": [
+        {
+          "name": "doorID",
+          "type": "string",
+          "description": "Unique identifier of the door to toggle"
+        },
+        {
+          "name": "toggle",
+          "type": "boolean",
+          "description": "True to lock the door, false to unlock"
+        }
+      ],
+      "returns": [
+        {
+          "type": "boolean",
+          "description": "True if the door state was changed successfully"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Lock a door\nlocal success = Bridge.Doorlock.ToggleDoorLock(\"police_station_main\", true)\nif success then\n    print(\"Police station main door locked\")\nend\n\n-- Unlock a door\nBridge.Doorlock.ToggleDoorLock(\"hospital_entrance\", false)\nprint(\"Hospital entrance unlocked\")"
+    }
+  ],
+  "compatibleResources": [
+    "ox_doorlock",
+    "qb-doorlock",
+    "rcore_doorlock",
+    "doors_creator"
+  ],
+  "notes": [
+    "Door IDs must match those configured in your doorlock system",
+    "Lock states persist across server restarts depending on the doorlock system",
+    "Some doorlock systems may have additional permission checks",
+    "Door locking may be restricted by job, item, or other access controls",
+    "Different doorlock systems may have varying door ID formats",
+    "Always verify door IDs exist before attempting to toggle lock states"
+  ],
+  "sharedFunctions": []
+}

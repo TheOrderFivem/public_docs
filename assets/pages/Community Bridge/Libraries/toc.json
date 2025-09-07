@@ -1,0 +1,155 @@
+[
+  {
+    "type": "folder",
+    "name": "Anim",
+    "title": "🎭 Animation System",
+    "icon": "🎭",
+    "description": "Comprehensive animation management with playback control and callbacks"
+  },
+  {
+    "type": "folder",
+    "name": "Batch",
+    "title": "📦 Event Batching",
+    "icon": "📦",
+    "description": "Network event optimization by queuing multiple events together"  },
+  {
+    "type": "folder",
+    "name": "Cache",
+    "title": "💾 Caching System",
+    "icon": "💾",
+    "description": "Powerful caching with automatic updates and change detection"
+  },
+  {
+    "type": "folder",
+    "name": "Callback",
+    "title": "🔄 Callback System",
+    "icon": "🔄",
+    "description": "Promise-based callback system for client-server communication with timeout handling"
+  },
+  {
+    "type": "folder",
+    "name": "Cutscenes",
+    "title": "🎬 Cutscene Manager",
+    "icon": "🎬",
+    "description": "Advanced cutscene management with character integration and multiplayer support"
+  },
+  {
+    "type": "folder",
+    "name": "DUI",
+    "title": "🖥️ Direct User Interface",
+    "icon": "🖥️",
+    "description": "HTML/CSS UI integration with full mouse interaction support"
+  },
+  {
+    "type": "folder",
+    "name": "Entities",
+    "title": "🎭 Entity Management",
+    "icon": "🎭",
+    "description": "Networked entity system with proximity spawning and action queuing"
+  },
+  {
+    "type": "folder",
+    "name": "Generators",
+    "title": "🎲 Content Generation",
+    "icon": "🎲",
+    "description": "Loot table system and automatic item file generation for different inventory systems"
+  },
+  {
+    "type": "folder",
+    "name": "Ids",
+    "title": "🆔 ID Generation",
+    "icon": "🆔",
+    "description": "Unique identifier generation with custom patterns"
+  },
+  {
+    "type": "folder",
+    "name": "Logs",
+    "title": "📝 Logging System",
+    "icon": "📝",
+    "description": "Unified logging with Discord webhooks and multiple backend support"
+  },
+  {
+    "type": "folder",
+    "name": "Markers",
+    "title": "📌 3D Markers",
+    "icon": "📌",
+    "description": "Proximity-based 3D marker rendering with customization options"
+  },
+  {
+    "type": "folder",
+    "name": "Math",
+    "title": "🔢 Mathematical Operations",
+    "icon": "🔢",
+    "description": "Advanced mathematical functions for game development including vector operations"
+  },
+  {
+    "type": "folder",
+    "name": "Particles",
+    "title": "✨ Particle Effects",
+    "icon": "✨",
+    "description": "Comprehensive particle effect management with entity attachment"
+  },
+  {
+    "type": "folder",
+    "name": "Placers",
+    "title": "🏗️ Object Placement",
+    "icon": "🏗️",
+    "description": "Interactive object placement systems with real-time preview and validation"
+  },
+  {
+    "type": "folder",
+    "name": "Points",
+    "title": "📍 Proximity System",
+    "icon": "📍",
+    "description": "Grid-based proximity detection for 3D coordinates and entities"
+  },
+  {
+    "type": "folder",
+    "name": "Raycast",
+    "title": "🎯 Ray Casting",
+    "icon": "🎯",
+    "description": "Advanced ray casting for collision detection and world interaction"
+  },
+  {
+    "type": "folder",
+    "name": "Scaleform",
+    "title": "📺 Scaleform UI",
+    "icon": "📺",
+    "description": "GTA V's built-in Scaleform UI system for instructional buttons and interfaces"
+  },
+  {
+    "type": "folder",
+    "name": "Shells",
+    "title": "🏠 MLO Shell Management",
+    "icon": "🏠",
+    "description": "Comprehensive MLO shell system with seamless transitions and routing buckets"
+  },
+  {
+    "type": "folder",
+    "name": "SQL",
+    "title": "🗄️ Database Operations",
+    "icon": "🗄️",
+    "description": "Simplified database operations with CRUD functionality"
+  },
+  {
+    "type": "folder",
+    "name": "StateBags",
+    "title": "🏷️ State Management",
+    "icon": "🏷️",
+    "description": "Enhanced StateBag system with entity and player change handlers"
+  },
+  {
+    "type": "folder",
+    "name": "Table",
+    "title": "📊 Table Utilities",
+    "icon": "📊",
+    "description": "Comprehensive table manipulation and data structure operations"
+  },
+  {
+    "type": "folder",
+    "name": "Utility",
+    "title": "🔧 General Utilities",
+    "icon": "🔧",
+    "description": "Essential utility functions for entity creation, proximity detection, and world interaction"
+  }
+]

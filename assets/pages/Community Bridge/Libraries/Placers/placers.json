@@ -1,0 +1,92 @@
+{
+  "name": "Placers",
+  "icon": "🏗️",
+  "description": "The Placers library provides interactive object placement systems with real-time preview, material validation, boundary checking, and advanced placement controls. Supports both simple and complex placement modes with collision detection and snap-to-ground functionality.",
+  "clientFunctions": [
+    {
+      "name": "Placeable.PlaceObject",
+      "description": "Simple object placement system with raycast-based positioning and basic controls for rotation and distance.",
+      "syntax": "Bridge.Placeable.PlaceObject(object, distance, snapToGround, allowedMats, offset)",
+      "parameters": [
+        {
+          "name": "object",
+          "type": "string | number",
+          "description": "Object model name or hash to place"
+        },
+        {
+          "name": "distance",
+          "type": "number | nil",
+          "description": "Maximum placement distance from player (default: 10.0)"
+        },
+        {
+          "name": "snapToGround",
+          "type": "boolean | nil",
+          "description": "Whether to snap placed object to ground surface"
+        },
+        {
+          "name": "allowedMats",
+          "type": "table | nil",
+          "description": "Table of allowed material hashes for placement validation"
+        },
+        {
+          "name": "offset",
+          "type": "vector3 | nil",
+          "description": "Additional offset to apply to placement coordinates"
+        }
+      ],
+      "returns": [
+        {
+          "type": "vector3 | nil",
+          "description": "Final placement coordinates or nil if cancelled"
+        },
+        {
+          "type": "number | nil",
+          "description": "Final heading/rotation or nil if cancelled"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Simple object placement\nlocal coords, heading = Bridge.Placeable.PlaceObject('prop_cs_cardbox_01', 15.0, true)\nif coords then\n    print('Object placed at: ' .. tostring(coords))\n    print('Object heading: ' .. heading)\n    \n    -- Spawn the actual object\n    local finalObject = Bridge.Utility.CreateProp('prop_cs_cardbox_01', coords, heading, true)\nelse\n    print('Placement cancelled')\nend\n\n-- Advanced placement with material restrictions\nlocal allowedSurfaces = {\n    [1109728704] = true, -- concrete\n    [1333033863] = true, -- pavement\n    [951832588] = true   -- rock\n}\n\nlocal coords, heading = Bridge.Placeable.PlaceObject(\n    'prop_barrier_work05',\n    20.0,\n    true,\n    allowedSurfaces,\n    vector3(0, 0, 0.1) -- Slight height offset\n)\n\nif coords then\n    Bridge.Framework.Notify('Barrier placed!', 'success')\nelse\n    Bridge.Framework.Notify('Placement cancelled', 'info')\nend"
+    },
+    {
+      "name": "Placeable.StopPlacing",
+      "description": "Cancels the current object placement operation and cleans up the preview object.",
+      "syntax": "Bridge.Placeable.StopPlacing()",
+      "parameters": [],
+      "returns": [],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Cancel placement (e.g., on player disconnect)\nBridge.Placeable.StopPlacing()\nprint('Object placement cancelled')"
+    },
+    {
+      "name": "PlaceableObject.PlaceObject",
+      "description": "Advanced object placement system with movement modes, boundary checking, material validation, and comprehensive controls.",
+      "syntax": "Bridge.PlaceableObject.PlaceObject(entity, settings)",
+      "parameters": [
+        {
+          "name": "entity",
+          "type": "number",
+          "description": "Entity handle of the object to place"
+        },
+        {
+          "name": "settings",
+          "type": "table",
+          "description": "Comprehensive placement configuration including boundaries, materials, controls, and callbacks"
+        }
+      ],
+      "returns": [
+        {
+          "type": "promise",
+          "description": "Promise that resolves with placement result or rejects if cancelled"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Create object for advanced placement\nlocal entity = Bridge.Utility.CreateProp('prop_barrier_work05', playerCoords, 0.0, false)\n\n-- Advanced placement with full configuration\nlocal settings = {\n    allowedMats = {\n        [1109728704] = true, -- concrete\n        [1333033863] = true  -- pavement\n    },\n    boundary = {\n        min = vector3(-100, -100, -10),\n        max = vector3(100, 100, 50)\n    },\n    allowMovement = true,\n    allowVertical = true,\n    snapToGround = true,\n    maxDepth = 20.0,\n    config = {\n        place_object = {name = 'Place Barrier', key = {38}},\n        cancel_placement = {name = 'Cancel', key = {73}},\n        movement = {name = 'Movement Mode', key = {19}}\n    },\n    onPlace = function(coords, heading)\n        print('Barrier placed at: ' .. tostring(coords))\n        return true -- Allow placement\n    end,\n    onCancel = function()\n        print('Barrier placement cancelled')\n        DeleteEntity(entity)\n    end\n}\n\n-- Start advanced placement\nBridge.PlaceableObject.PlaceObject(entity, settings):next(function(result)\n    if result.placed then\n        print('Successfully placed at: ' .. tostring(result.coords))\n        print('Final heading: ' .. result.heading)\n        -- Object is now placed and ready\n    end\nend, function(error)\n    print('Placement error: ' .. error)\nend)"
+    },
+    {
+      "name": "PlaceableObject.StopPlacing",
+      "description": "Stops the current advanced placement operation and triggers cleanup callbacks.",
+      "syntax": "Bridge.PlaceableObject.StopPlacing()",
+      "parameters": [],
+      "returns": [],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Stop advanced placement\nBridge.PlaceableObject.StopPlacing()\nprint('Advanced placement stopped')"
+    }
+  ],
+  "serverFunctions": [],
+  "sharedFunctions": []
+}

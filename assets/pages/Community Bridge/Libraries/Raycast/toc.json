@@ -1,0 +1,27 @@
+{
+  "title": "Raycast Library",
+  "items": [
+    {
+      "title": "Overview",
+      "anchor": "#overview"
+    },
+    {
+      "title": "Client Functions",
+      "anchor": "#client-functions",
+      "children": [
+        {
+          "title": "GetForwardVector",
+          "anchor": "#function-getforwardvector"
+        },
+        {
+          "title": "ToCoords",
+          "anchor": "#function-tocoords"
+        },
+        {
+          "title": "FromCamera",
+          "anchor": "#function-fromcamera"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "title": "Logs Library",
+  "items": [
+    {
+      "title": "Overview",
+      "anchor": "#overview"
+    },
+    {
+      "title": "Server Functions",
+      "anchor": "#server-functions",
+      "children": [
+        {
+          "title": "Send",
+          "anchor": "#function-send"
+        }
+      ]
+    }
+  ]
+}

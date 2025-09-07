@@ -1,0 +1,178 @@
+{
+  "name": "Entities",
+  "icon": "🎭",
+  "description": "The Entities library provides a comprehensive system for managing networked entities with automatic client-side spawning/despawning based on proximity. It supports objects, peds, and vehicles with action queuing and synchronized state management.",
+  "clientFunctions": [
+    {
+      "name": "Register",
+      "description": "Registers an entity for proximity-based spawning and management. The entity will automatically spawn when players are within range and despawn when they leave.",
+      "syntax": "Bridge.ClientEntity.Register(entityData)",
+      "parameters": [
+        {
+          "name": "entityData",
+          "type": "table",
+          "description": "Entity configuration with id, entityType, model, coords, rotation, and optional callbacks"
+        }
+      ],
+      "returns": [
+        {
+          "type": "string",
+          "description": "Point system ID for the registered entity"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Register a static NPC\nlocal npcData = {\n    id = \"shop_clerk\",\n    entityType = \"ped\",\n    model = \"a_m_m_business_01\",\n    coords = vector3(25.7, -1347.3, 29.5),\n    rotation = 180.0,\n    spawnDistance = 25.0,\n    OnSpawn = function(data)\n        print(\"Shop clerk spawned: \" .. data.id)\n        -- Make the ped invincible\n        SetEntityInvincible(data.spawned, true)\n        SetBlockingOfNonTemporaryEvents(data.spawned, true)\n    end,\n    OnRemove = function(data)\n        print(\"Shop clerk despawned: \" .. data.id)\n    end\n}\n\nlocal pointId = Bridge.ClientEntity.Register(npcData)\nprint(\"Registered entity with point ID: \" .. pointId)"
+    },
+    {
+      "name": "Unregister",
+      "description": "Unregisters an entity and removes it from the world if currently spawned. Cleans up all associated resources.",
+      "syntax": "Bridge.ClientEntity.Unregister(id)",
+      "parameters": [
+        {
+          "name": "id",
+          "type": "string | number",
+          "description": "The ID of the entity to unregister"
+        }
+      ],
+      "returns": [],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Unregister the shop clerk\nBridge.ClientEntity.Unregister(\"shop_clerk\")\nprint(\"Shop clerk entity unregistered\")\n\n-- Clean up all entities when leaving an area\nlocal entityIds = {\"npc1\", \"npc2\", \"vehicle1\"}\nfor _, entityId in ipairs(entityIds) do\n    Bridge.ClientEntity.Unregister(entityId)\nend"
+    }
+  ],
+  "serverFunctions": [
+    {
+      "name": "Create",
+      "description": "Creates a server-side entity representation that will be synchronized to all clients with proximity-based spawning.",
+      "syntax": "Bridge.ServerEntity.Create(id, entityType, model, coords, rotation, meta)",
+      "parameters": [
+        {
+          "name": "id",
+          "type": "string | nil",
+          "description": "Unique identifier for the entity (auto-generated if nil)"
+        },
+        {
+          "name": "entityType",
+          "type": "string",
+          "description": "Type of entity: 'object', 'ped', or 'vehicle'"
+        },
+        {
+          "name": "model",
+          "type": "string | number",
+          "description": "Model name or hash for the entity"
+        },
+        {
+          "name": "coords",
+          "type": "vector3",
+          "description": "Spawn coordinates for the entity"
+        },
+        {
+          "name": "rotation",
+          "type": "vector3 | number | nil",
+          "description": "Rotation vector for objects or heading for peds/vehicles"
+        },
+        {
+          "name": "meta",
+          "type": "table | nil",
+          "description": "Additional metadata and configuration options"
+        }
+      ],
+      "returns": [
+        {
+          "type": "table",
+          "description": "The created entity data structure"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Create a security guard NPC\nlocal guard = Bridge.ServerEntity.Create(\n    \"security_guard_01\",\n    \"ped\",\n    \"s_m_m_security_01\",\n    vector3(100.0, 200.0, 30.0),\n    180.0,\n    {\n        spawnDistance = 50.0,\n        health = 200,\n        armor = 100,\n        weapon = \"WEAPON_PISTOL\"\n    }\n)\n\n-- Create a police vehicle\nlocal policeVehicle = Bridge.ServerEntity.Create(\n    nil, -- Auto-generate ID\n    \"vehicle\",\n    \"police\",\n    vector3(150.0, 250.0, 30.0),\n    90.0,\n    {\n        spawnDistance = 75.0,\n        primaryColor = 0,\n        secondaryColor = 0,\n        plate = \"POLICE01\"\n    }\n)\n\nprint(\"Created entities: \" .. guard.id .. \" and \" .. policeVehicle.id)"
+    },
+    {
+      "name": "Delete",
+      "description": "Deletes a server-side entity and notifies all clients to remove it from their world.",
+      "syntax": "Bridge.ServerEntity.Delete(id)",
+      "parameters": [
+        {
+          "name": "id",
+          "type": "string | number",
+          "description": "The ID of the entity to delete"
+        }
+      ],
+      "returns": [],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Delete the security guard\nBridge.ServerEntity.Delete(\"security_guard_01\")\nprint(\"Security guard deleted\")\n\n-- Clean up all event entities\nlocal eventEntities = {\"event_npc_1\", \"event_vehicle_1\", \"event_prop_1\"}\nfor _, entityId in ipairs(eventEntities) do\n    Bridge.ServerEntity.Delete(entityId)\nend\nprint(\"Event cleanup completed\")"
+    },
+    {
+      "name": "Update",
+      "description": "Updates specific data fields for a server-side entity and synchronizes the changes to all clients.",
+      "syntax": "Bridge.ServerEntity.Update(id, data)",
+      "parameters": [
+        {
+          "name": "id",
+          "type": "string | number",
+          "description": "The ID of the entity to update"
+        },
+        {
+          "name": "data",
+          "type": "table",
+          "description": "Table containing the fields to update"
+        }
+      ],
+      "returns": [
+        {
+          "type": "boolean",
+          "description": "True if entity was found and updated, false otherwise"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Update guard's position and health\nlocal success = Bridge.ServerEntity.Update(\"security_guard_01\", {\n    coords = vector3(105.0, 205.0, 30.0),\n    health = 150,\n    weapon = \"WEAPON_CARBINERIFLE\"\n})\n\nif success then\n    print(\"Guard updated successfully\")\nelse\n    print(\"Failed to update guard - entity not found\")\nend\n\n-- Update vehicle colors\nBridge.ServerEntity.Update(\"police_vehicle_01\", {\n    primaryColor = 12, -- Red\n    secondaryColor = 0,  -- Black\n    plate = \"EMERGENCY\"\n})"
+    },
+    {
+      "name": "TriggerAction",
+      "description": "Triggers a specific action on the client-side entity. Actions are only executed if the entity is currently spawned for the client.",
+      "syntax": "Bridge.ServerEntity.TriggerAction(entityId, actionName, endPosition, ...)",
+      "parameters": [
+        {
+          "name": "entityId",
+          "type": "string | number",
+          "description": "The ID of the entity to trigger action on"
+        },
+        {
+          "name": "actionName",
+          "type": "string",
+          "description": "Name of the action function to execute"
+        },
+        {
+          "name": "endPosition",
+          "type": "vector3 | nil",
+          "description": "Optional end position for movement actions"
+        },
+        {
+          "name": "...",
+          "type": "any",
+          "description": "Additional arguments for the action function"
+        }
+      ],
+      "returns": [],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Make guard walk to a position\nBridge.ServerEntity.TriggerAction(\n    \"security_guard_01\",\n    \"WalkTo\",\n    vector3(110.0, 210.0, 30.0),\n    1.0 -- Speed\n)\n\n-- Make guard play an animation\nBridge.ServerEntity.TriggerAction(\n    \"security_guard_01\",\n    \"PlayAnimation\",\n    nil,\n    \"amb@world_human_guard_stand@male@base\",\n    \"base\",\n    -1 -- Loop indefinitely\n)\n\n-- Make vehicle flash lights\nBridge.ServerEntity.TriggerAction(\n    \"police_vehicle_01\",\n    \"FlashLights\",\n    nil,\n    5000 -- Duration in ms\n)"
+    },
+    {
+      "name": "TriggerActions",
+      "description": "Triggers multiple actions in sequence on the client-side entity. Actions are queued and executed in order.",
+      "syntax": "Bridge.ServerEntity.TriggerActions(entityId, actions, endPosition)",
+      "parameters": [
+        {
+          "name": "entityId",
+          "type": "string | number",
+          "description": "The ID of the entity to trigger actions on"
+        },
+        {
+          "name": "actions",
+          "type": "table",
+          "description": "Array of action objects with name and params properties"
+        },
+        {
+          "name": "endPosition",
+          "type": "vector3 | nil",
+          "description": "Optional final position for movement sequences"
+        }
+      ],
+      "returns": [],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Create a complex guard patrol sequence\nlocal patrolActions = {\n    { name = \"WalkTo\", params = {vector3(115.0, 200.0, 30.0), 1.0} },\n    { name = \"Wait\", params = {3000} },\n    { name = \"PlayAnimation\", params = {\"amb@world_human_cop_idles@male@idle_b\", \"idle_e\", 5000} },\n    { name = \"WalkTo\", params = {vector3(105.0, 220.0, 30.0), 1.0} },\n    { name = \"Wait\", params = {2000} },\n    { name = \"WalkTo\", params = {vector3(100.0, 200.0, 30.0), 1.0} }\n}\n\nBridge.Entities.TriggerActions(\n    \"security_guard_01\",\n    patrolActions,\n    vector3(100.0, 200.0, 30.0) -- End at starting position\n)\n\nprint(\"Guard patrol sequence started\")"
+    }
+  ],
+  "sharedFunctions": []
+}

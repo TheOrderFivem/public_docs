@@ -1,0 +1,28 @@
+{
+  "name": "Dispatch",
+  "icon": "🚨",
+  "description": "The Dispatch module provides a unified interface for sending alerts and notifications to emergency services and other job-based players. It supports various dispatch systems.",
+  "clientFunctions": [
+    {
+      "name": "SendAlert",
+      "description": "Sends a dispatch alert to specified job players through the configured dispatch system.",
+      "syntax": "Bridge.Dispatch.SendAlert(data)",
+      "parameters": [
+        {
+          "name": "data",
+          "type": "table",
+          "description": "Alert configuration data"
+        }
+      ],
+      "returns": [
+        {
+          "type": "nil",
+          "description": "No return value"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Send a robbery alert\nBridge.Dispatch.SendAlert({\n    message = \"Armed robbery in progress at convenience store\",\n    code = \"10-31\",\n    coords = vector3(123.45, 678.90, 12.34),\n    jobs = {\"police\", \"sheriff\"},\n    blipData = {\n        sprite = 161,\n        color = 1,\n        scale = 1.0\n    },\n    time = 300000, -- 5 minutes\n    icon = \"fas fa-exclamation-triangle\"\n})\n\n-- Send a medical emergency alert\nBridge.Dispatch.SendAlert({\n    message = \"Medical emergency - patient requires immediate attention\",\n    code = \"10-52\",\n    coords = GetEntityCoords(PlayerPedId()),\n    jobs = {\"ambulance\", \"doctor\"},\n    blipData = {\n        sprite = 153,\n        color = 6,\n        scale = 0.9\n    },\n    time = 180000, -- 3 minutes\n    icon = \"fas fa-ambulance\"\n})"
+    }
+  ],
+  "serverFunctions": [],
+  "sharedFunctions": []
+}

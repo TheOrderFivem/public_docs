@@ -1,0 +1,23 @@
+{
+  "title": "StateBags Library",
+  "items": [
+    {
+      "title": "Overview",
+      "anchor": "#overview"
+    },
+    {
+      "title": "Client Functions",
+      "anchor": "#client-functions",
+      "children": [
+        {
+          "title": "AddEntityChangeHandler",
+          "anchor": "#function-addentitychangehandler"
+        },
+        {
+          "title": "AddPlayerChangeHandler",
+          "anchor": "#function-addplayerchangehandler"
+        }
+      ]
+    }
+  ]
+}

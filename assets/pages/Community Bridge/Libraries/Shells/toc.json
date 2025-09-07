@@ -1,0 +1,73 @@
+{
+  "title": "Shells",
+  "items": [
+    {
+      "title": "Overview",
+      "anchor": "#overview"
+    },
+    {
+      "title": "Client Functions",
+      "anchor": "#client-functions",
+      "children": [
+        {
+          "title": "New",
+          "anchor": "#function-new"
+        },
+        {
+          "title": "Enter",
+          "anchor": "#function-enter"
+        },
+        {
+          "title": "Exit",
+          "anchor": "#function-exit"
+        },
+        {
+          "title": "Inside",
+          "anchor": "#function-inside"
+        },
+        {
+          "title": "SetupInterior",
+          "anchor": "#function-setupinterior"
+        },
+        {
+          "title": "SetupExterior",
+          "anchor": "#function-setupexterior"
+        },
+        {
+          "title": "ClearInterior",
+          "anchor": "#function-clearinterior"
+        },
+        {
+          "title": "ClearExterior",
+          "anchor": "#function-clearexterior"
+        },
+        {
+          "title": "Event.Add",
+          "anchor": "#function-eventadd"
+        }
+      ]
+    },
+    {
+      "title": "Server Functions",
+      "anchor": "#server-functions",
+      "children": [
+        {
+          "title": "New",
+          "anchor": "#function-new-2"
+        },
+        {
+          "title": "Interactable.New",
+          "anchor": "#function-interactablenew"
+        }
+      ]
+    },
+    {
+      "title": "Routing Buckets",
+      "anchor": "#routing-buckets"
+    },
+    {
+      "title": "Network Events",
+      "anchor": "#network-events"
+    }
+  ]
+}

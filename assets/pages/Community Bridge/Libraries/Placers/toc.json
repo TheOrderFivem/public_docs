@@ -1,0 +1,39 @@
+{
+  "title": "Placers",
+  "items": [
+    {
+      "title": "Overview",
+      "anchor": "#overview"
+    },
+    {
+      "title": "Client Functions",
+      "anchor": "#client-functions",
+      "children": [
+        {
+          "title": "Placeable.PlaceObject",
+          "anchor": "#function-placeableobject"
+        },
+        {
+          "title": "Placeable.StopPlacing",
+          "anchor": "#function-placeablestopplacing"
+        },
+        {
+          "title": "PlaceableObject.PlaceObject",
+          "anchor": "#function-placeableobjectplaceobject"
+        },
+        {
+          "title": "PlaceableObject.StopPlacing",
+          "anchor": "#function-placeableobjectstopplacing"
+        }
+      ]
+    },
+    {
+      "title": "Configuration Options",
+      "anchor": "#configuration"
+    },
+    {
+      "title": "Examples",
+      "anchor": "#examples"
+    }
+  ]
+}
