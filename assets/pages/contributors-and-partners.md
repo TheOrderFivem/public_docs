@@ -1,44 +1,5 @@
-# Contributors & Partner    <div style="disp    <div style="display: fle    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-      <a href="https://github.com/gononono64" target="_blank" style="display: inline-block; background: #24292e; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.9em; transition: all 0.3s ease;" onmouseover="this.style.background='#0366d6'" onmouseout="this.style.background='#24292e'">
-        🐙 GitHub
-      </a>
-      <a href="https://mrcscripts.tebex.io/" target="_blank" style="display: inline-block; background: #00d4aa; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.9em; transition: all 0.3s ease;" onmouseover="this.style.background='#00b894'" onmouseout="this.style.background='#00d4aa'">
-        🛒 Tebex Store
-      </a>
-      <a href="https://discord.gg/aQYJYptZNP" target="_blank" style="display: inline-block; background: #5865f2; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.9em; transition: all 0.3s ease;" onmouseover="this.style.background='#4752c4'" onmouseout="this.style.background='#5865f2'">
-        💬 Discord
-      </a>
-    </div>p: 10px; flex-wrap: wrap;">
-      <a href="https://github.com/MrNewb" target="_blank" style="display: inline-block; background: #24292e; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.9em; transition: all 0.3s ease;" onmouseover="this.style.background='#0366d6'" onmouseout="this.style.background='#24292e'">
-        🐙 GitHub
-      </a>
-      <a href="https://mrnewbscripts.tebex.io/" target="_blank" style="display: inline-block; background: #00d4aa; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.9em; transition: all 0.3s ease;" onmouseover="this.style.background='#00b894'" onmouseout="this.style.background='#00d4aa'">
-        🛒 Tebex Store
-      </a>
-      <a href="https://discord.gg/mrnewbscripts" target="_blank" style="display: inline-block; background: #5865f2; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.9em; transition: all 0.3s ease;" onmouseover="this.style.background='#4752c4'" onmouseout="this.style.background='#5865f2'">
-        💬 Discord
-      </a>
-    </div>fle    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-      <a href="https://github.com/gononono64" target="_blank" style="display: inline-block; background: #24292e; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.9em; transition: all 0.3s ease;" onmouseover="this.style.background='#0366d6'" onmouseout="this.style.background='#24292e'">
-        🐙 GitHub
-      </a>
-      <a href="https://mrcscripts.tebex.io/" target="_blank" style="display: inline-block; background: #00d4aa; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.9em; transition: all 0.3s ease;" onmouseover="this.style.background='#00b894'" onmouseout="this.style.background='#00d4aa'">
-        🛒 Tebex Store
-      </a>
-      <a href="https://discord.gg/aQYJYptZNP" target="_blank" style="display: inline-block; background: #5865f2; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.9em; transition: all 0.3s ease;" onmouseover="this.style.background='#4752c4'" onmouseout="this.style.background='#5865f2'">
-        💬 Discord
-      </a>
-    </div>p: 10px; flex-wrap: wrap;">
-      <a href="https://github.com/MrNewb" target="_blank" style="display: inline-block; background: #24292e; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.9em; transition: all 0.3s ease;" onmouseover="this.style.background='#0366d6'" onmouseout="this.style.background='#24292e'">
-        🐙 GitHub
-      </a>
-      <a href="https://mrnewbscripts.tebex.io/" target="_blank" style="display: inline-block; background: #00d4aa; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.9em; transition: all 0.3s ease;" onmouseover="this.style.background='#00b894'" onmouseout="this.style.background='#00d4aa'">
-        🛒 Tebex Store
-      </a>
-      <a href="https://discord.gg/mrnewbscripts" target="_blank" style="display: inline-block; background: #5865f2; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.9em; transition: all 0.3s ease;" onmouseover="this.style.background='#4752c4'" onmouseout="this.style.background='#5865f2'">
-        💬 Discord
-      </a>
-    </div>
+# Contributors & Partners 🤝
+
 Welcome to our community of developers, content creators, and partners who make The Order possible.
 
 ---
@@ -64,7 +25,13 @@ Our framework is built by a passionate community of developers who contribute th
     </p>
     <div style="display: flex; gap: 10px; flex-wrap: wrap;">
       <a href="https://github.com/MrNewb" target="_blank" style="display: inline-block; background: #24292e; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.9em; transition: all 0.3s ease;" onmouseover="this.style.background='#0366d6'" onmouseout="this.style.background='#24292e'">
-        � GitHub
+        🐙 GitHub
+      </a>
+      <a href="https://mrnewbscripts.tebex.io/" target="_blank" style="display: inline-block; background: #00d4aa; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.9em; transition: all 0.3s ease;" onmouseover="this.style.background='#00b894'" onmouseout="this.style.background='#00d4aa'">
+        🛒 Tebex Store
+      </a>
+      <a href="https://discord.gg/mrnewbscripts" target="_blank" style="display: inline-block; background: #5865f2; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.9em; transition: all 0.3s ease;" onmouseover="this.style.background='#4752c4'" onmouseout="this.style.background='#5865f2'">
+        💬 Discord
       </a>
     </div>
   </div>
@@ -82,7 +49,13 @@ Our framework is built by a passionate community of developers who contribute th
     </p>
     <div style="display: flex; gap: 10px; flex-wrap: wrap;">
       <a href="https://github.com/gononono64" target="_blank" style="display: inline-block; background: #24292e; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.9em; transition: all 0.3s ease;" onmouseover="this.style.background='#0366d6'" onmouseout="this.style.background='#24292e'">
-        � GitHub
+        🐙 GitHub
+      </a>
+      <a href="https://mrcscripts.tebex.io/" target="_blank" style="display: inline-block; background: #00d4aa; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.9em; transition: all 0.3s ease;" onmouseover="this.style.background='#00b894'" onmouseout="this.style.background='#00d4aa'">
+        🛒 Tebex Store
+      </a>
+      <a href="https://discord.gg/aQYJYptZNP" target="_blank" style="display: inline-block; background: #5865f2; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.9em; transition: all 0.3s ease;" onmouseover="this.style.background='#4752c4'" onmouseout="this.style.background='#5865f2'">
+        💬 Discord
       </a>
     </div>
   </div>
