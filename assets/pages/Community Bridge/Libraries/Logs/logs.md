@@ -12,18 +12,17 @@ The Logs library provides unified logging functionality that supports multiple l
 
 The Logs library provides comprehensive logging functionality with different log levels, file output, and structured logging for debugging and monitoring FiveM resources.
 
-## Send (Server)
+## CreateLog (Server)
 
 ### Description
 Sends a log message to the configured logging system. Supports built-in Discord webhooks, qb-log, and ox_lib logging systems based on server configuration.
 
 ### Syntax
 ```lua
-Bridge.Logs.Send(src, message)
+Bridge.Logs.CreateLog(src, message)
 ```
 
 ### Parameters
-- **src** (number): Source player ID for the log entry
 - **message** (string): The log message to send
 
 ### Example
@@ -31,12 +30,12 @@ Bridge.Logs.Send(src, message)
 local Bridge = exports['community_bridge']:Bridge()
 
 -- Log a player action
-Bridge.Logs.Send(source, "Player purchased a vehicle: Adder for $1,000,000")
+Bridge.Logs.CreateLog("Player purchased a vehicle: Adder for $1,000,000")
 
 -- Log an admin action
-Bridge.Logs.Send(source, "Admin spawned vehicle: adder at coordinates (100, 200, 30)")
+Bridge.Logs.CreateLog("Admin spawned vehicle: adder at coordinates (100, 200, 30)")
 
 -- Log a system event
-Bridge.Logs.Send(source, "Player completed heist with reward: $50,000")
+Bridge.Logs.CreateLog("Player completed heist with reward: $50,000")
 ```
 

@@ -2,154 +2,134 @@
   {
     "type": "folder",
     "name": "Anim",
-    "title": "🎭 Animation System",
+    "title": "Animation System",
     "icon": "🎭",
-    "description": "Comprehensive animation management with playback control and callbacks"
+    "description": "Handle player and entity animations with built-in playback controls and callback support"
   },
   {
     "type": "folder",
     "name": "Batch",
-    "title": "📦 Event Batching",
+    "title": "Event Batching",
     "icon": "📦",
-    "description": "Network event optimization by queuing multiple events together"  },
+    "description": "Optimize network performance by batching multiple events together before sending"
+  },
   {
     "type": "folder",
     "name": "Cache",
-    "title": "💾 Caching System",
+    "title": "Caching System",
     "icon": "💾",
-    "description": "Powerful caching with automatic updates and change detection"
+    "description": "Store and retrieve data efficiently with automatic cache updates and change tracking"
   },
   {
     "type": "folder",
     "name": "Callback",
-    "title": "🔄 Callback System",
+    "title": "Callback System",
     "icon": "🔄",
-    "description": "Promise-based callback system for client-server communication with timeout handling"
+    "description": "Send data between client and server with promise support and automatic timeout handling"
   },
   {
     "type": "folder",
     "name": "Cutscenes",
-    "title": "🎬 Cutscene Manager",
+    "title": "Cutscene Manager",
     "icon": "🎬",
-    "description": "Advanced cutscene management with character integration and multiplayer support"
-  },
-  {
-    "type": "folder",
-    "name": "DUI",
-    "title": "🖥️ Direct User Interface",
-    "icon": "🖥️",
-    "description": "HTML/CSS UI integration with full mouse interaction support"
+    "description": "Create and manage cinematic sequences with character control and multiplayer synchronization"
   },
   {
     "type": "folder",
     "name": "Entities",
-    "title": "🎭 Entity Management",
+    "title": "Entity Management",
     "icon": "🎭",
-    "description": "Networked entity system with proximity spawning and action queuing"
-  },
-  {
-    "type": "folder",
-    "name": "Generators",
-    "title": "🎲 Content Generation",
-    "icon": "🎲",
-    "description": "Loot table system and automatic item file generation for different inventory systems"
+    "description": "Spawn and manage networked entities with proximity-based loading and action queues"
   },
   {
     "type": "folder",
     "name": "Ids",
-    "title": "🆔 ID Generation",
+    "title": "ID Generation",
     "icon": "🆔",
-    "description": "Unique identifier generation with custom patterns"
+    "description": "Generate unique identifiers with customizable patterns for your server resources"
   },
   {
     "type": "folder",
     "name": "Logs",
-    "title": "📝 Logging System",
+    "title": "Logging System",
     "icon": "📝",
-    "description": "Unified logging with Discord webhooks and multiple backend support"
+    "description": "Log events and errors with Discord webhook integration and multiple storage backends"
   },
   {
     "type": "folder",
     "name": "Markers",
-    "title": "📌 3D Markers",
+    "title": "3D Markers",
     "icon": "📌",
-    "description": "Proximity-based 3D marker rendering with customization options"
+    "description": "Display 3D markers in the world with proximity detection and customizable appearance"
   },
   {
     "type": "folder",
     "name": "Math",
-    "title": "🔢 Mathematical Operations",
+    "title": "Mathematical Operations",
     "icon": "🔢",
-    "description": "Advanced mathematical functions for game development including vector operations"
+    "description": "Useful math functions for game development including vector calculations and distance checks"
   },
   {
     "type": "folder",
     "name": "Particles",
-    "title": "✨ Particle Effects",
+    "title": "Particle Effects",
     "icon": "✨",
-    "description": "Comprehensive particle effect management with entity attachment"
+    "description": "Create and manage particle effects with support for attaching to entities and vehicles"
   },
   {
     "type": "folder",
     "name": "Placers",
-    "title": "🏗️ Object Placement",
+    "title": "Object Placement",
     "icon": "🏗️",
-    "description": "Interactive object placement systems with real-time preview and validation"
+    "description": "Interactive object placement tools with live preview and collision validation"
   },
   {
     "type": "folder",
     "name": "Points",
-    "title": "📍 Proximity System",
+    "title": "Proximity System",
     "icon": "📍",
-    "description": "Grid-based proximity detection for 3D coordinates and entities"
+    "description": "Detect when players enter or leave specific areas using an efficient grid-based system"
   },
   {
     "type": "folder",
     "name": "Raycast",
-    "title": "🎯 Ray Casting",
+    "title": "Ray Casting",
     "icon": "🎯",
-    "description": "Advanced ray casting for collision detection and world interaction"
+    "description": "Cast rays into the world for collision detection and interaction with objects"
   },
   {
     "type": "folder",
     "name": "Scaleform",
-    "title": "📺 Scaleform UI",
+    "title": "Scaleform UI",
     "icon": "📺",
-    "description": "GTA V's built-in Scaleform UI system for instructional buttons and interfaces"
+    "description": "Use GTA V's native Scaleform system for instructional buttons and UI elements"
   },
   {
     "type": "folder",
     "name": "Shells",
-    "title": "🏠 MLO Shell Management",
+    "title": "MLO Shell Management",
     "icon": "🏠",
-    "description": "Comprehensive MLO shell system with seamless transitions and routing buckets"
+    "description": "Manage interior shells with smooth transitions and routing bucket integration"
   },
   {
     "type": "folder",
     "name": "SQL",
-    "title": "🗄️ Database Operations",
+    "title": "Database Operations",
     "icon": "🗄️",
-    "description": "Simplified database operations with CRUD functionality"
-  },
-  {
-    "type": "folder",
-    "name": "StateBags",
-    "title": "🏷️ State Management",
-    "icon": "🏷️",
-    "description": "Enhanced StateBag system with entity and player change handlers"
+    "description": "Simplified database interactions with easy-to-use CRUD operations"
   },
   {
     "type": "folder",
     "name": "Table",
-    "title": "📊 Table Utilities",
+    "title": "Table Utilities",
     "icon": "📊",
-    "description": "Comprehensive table manipulation and data structure operations"
+    "description": "Work with Lua tables more easily with helper functions for common operations"
   },
   {
     "type": "folder",
     "name": "Utility",
-    "title": "🔧 General Utilities",
+    "title": "General Utilities",
     "icon": "🔧",
-    "description": "Essential utility functions for entity creation, proximity detection, and world interaction"
+    "description": "Collection of helpful functions for entity creation, distance checks, and world interactions"
   }
 ]

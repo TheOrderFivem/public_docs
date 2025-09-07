@@ -6,7 +6,7 @@
     {
       "name": "Register",
       "description": "Registers an entity for proximity-based spawning and management. The entity will automatically spawn when players are within range and despawn when they leave.",
-      "syntax": "Bridge.ClientEntity.Register(entityData)",
+      "syntax": "Bridge.Entity.Register(entityData)",
       "parameters": [
         {
           "name": "entityData",
@@ -20,12 +20,12 @@
           "description": "Point system ID for the registered entity"
         }
       ],
-      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Register a static NPC\nlocal npcData = {\n    id = \"shop_clerk\",\n    entityType = \"ped\",\n    model = \"a_m_m_business_01\",\n    coords = vector3(25.7, -1347.3, 29.5),\n    rotation = 180.0,\n    spawnDistance = 25.0,\n    OnSpawn = function(data)\n        print(\"Shop clerk spawned: \" .. data.id)\n        -- Make the ped invincible\n        SetEntityInvincible(data.spawned, true)\n        SetBlockingOfNonTemporaryEvents(data.spawned, true)\n    end,\n    OnRemove = function(data)\n        print(\"Shop clerk despawned: \" .. data.id)\n    end\n}\n\nlocal pointId = Bridge.ClientEntity.Register(npcData)\nprint(\"Registered entity with point ID: \" .. pointId)"
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Register a static NPC\nlocal npcData = {\n    id = \"shop_clerk\",\n    entityType = \"ped\",\n    model = \"a_m_m_business_01\",\n    coords = vector3(25.7, -1347.3, 29.5),\n    rotation = 180.0,\n    spawnDistance = 25.0,\n    OnSpawn = function(data)\n        print(\"Shop clerk spawned: \" .. data.id)\n        -- Make the ped invincible\n        SetEntityInvincible(data.spawned, true)\n        SetBlockingOfNonTemporaryEvents(data.spawned, true)\n    end,\n    OnRemove = function(data)\n        print(\"Shop clerk despawned: \" .. data.id)\n    end\n}\n\nlocal pointId = Bridge.Entity.Register(npcData)\nprint(\"Registered entity with point ID: \" .. pointId)"
     },
     {
       "name": "Unregister",
       "description": "Unregisters an entity and removes it from the world if currently spawned. Cleans up all associated resources.",
-      "syntax": "Bridge.ClientEntity.Unregister(id)",
+      "syntax": "Bridge.Entity.Unregister(id)",
       "parameters": [
         {
           "name": "id",
@@ -34,7 +34,7 @@
         }
       ],
       "returns": [],
-      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Unregister the shop clerk\nBridge.ClientEntity.Unregister(\"shop_clerk\")\nprint(\"Shop clerk entity unregistered\")\n\n-- Clean up all entities when leaving an area\nlocal entityIds = {\"npc1\", \"npc2\", \"vehicle1\"}\nfor _, entityId in ipairs(entityIds) do\n    Bridge.ClientEntity.Unregister(entityId)\nend"
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Unregister the shop clerk\nBridge.Entity.Unregister(\"shop_clerk\")\nprint(\"Shop clerk entity unregistered\")\n\n-- Clean up all entities when leaving an area\nlocal entityIds = {\"npc1\", \"npc2\", \"vehicle1\"}\nfor _, entityId in ipairs(entityIds) do\n    Bridge.Entity.Unregister(entityId)\nend"
     }
   ],
   "serverFunctions": [

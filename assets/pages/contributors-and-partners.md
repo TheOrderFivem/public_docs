@@ -1,0 +1,187 @@
+# Contributors & Partners 🤝
+
+Welcome to our community of developers, content creators, and partners who make The Order possible.
+
+---
+
+## 🏆 Contributors
+
+Our framework is built by a passionate community of developers who contribute their time, expertise, and creativity to make The Order better for everyone.
+
+### Core Team
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin: 20px 0;">
+  
+  <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; border-radius: 15px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); border: 2px solid #8b5fbf;">
+    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+      <img src="https://github.com/MrNewb.png" alt="MrNewb" style="width: 60px; height: 60px; border-radius: 50%; border: 3px solid white; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+      <div>
+        <h3 style="margin: 0; color: white; font-size: 1.4em; text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">MrNewb</h3>
+        <p style="margin: 5px 0 0 0; color: rgba(255,255,255,0.9); font-size: 0.9em;">The Order Developer</p>
+      </div>
+    </div>
+    <p style="color: rgba(255,255,255,0.95); margin: 0 0 15px 0; line-height: 1.6; font-size: 0.95em;">
+      Core developer of The Order, focusing on architecture design and implementation.
+    </p>
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+      <a href="https://github.com/MrNewb" target="_blank" style="display: inline-block; background: #24292e; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.9em; transition: all 0.3s ease;" onmouseover="this.style.background='#0366d6'" onmouseout="this.style.background='#24292e'">
+        🐙 GitHub
+      </a>
+      <a href="https://mrnewbscripts.tebex.io/" target="_blank" style="display: inline-block; background: #00d4aa; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.9em; transition: all 0.3s ease;" onmouseover="this.style.background='#00b894'" onmouseout="this.style.background='#00d4aa'">
+        🛒 Tebex Store
+      </a>
+      <a href="https://discord.gg/mrnewbscripts" target="_blank" style="display: inline-block; background: #5865f2; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.9em; transition: all 0.3s ease;" onmouseover="this.style.background='#4752c4'" onmouseout="this.style.background='#5865f2'">
+        💬 Discord
+      </a>
+    </div>
+  </div>
+
+  <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; border-radius: 15px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); border: 2px solid #8b5fbf;">
+    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+      <img src="https://github.com/gononono64.png" alt="MrCrowley" style="width: 60px; height: 60px; border-radius: 50%; border: 3px solid white; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+      <div>
+        <h3 style="margin: 0; color: white; font-size: 1.4em; text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">MrCrowley</h3>
+        <p style="margin: 5px 0 0 0; color: rgba(255,255,255,0.9); font-size: 0.9em;">The Order Developer</p>
+      </div>
+    </div>
+    <p style="color: rgba(255,255,255,0.95); margin: 0 0 15px 0; line-height: 1.6; font-size: 0.95em;">
+      Core developer of The Order, specializing in system optimization and feature development.
+    </p>
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+      <a href="https://github.com/gononono64" target="_blank" style="display: inline-block; background: #24292e; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.9em; transition: all 0.3s ease;" onmouseover="this.style.background='#0366d6'" onmouseout="this.style.background='#24292e'">
+        🐙 GitHub
+      </a>
+      <a href="https://mrcscripts.tebex.io/" target="_blank" style="display: inline-block; background: #00d4aa; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.9em; transition: all 0.3s ease;" onmouseover="this.style.background='#00b894'" onmouseout="this.style.background='#00d4aa'">
+        🛒 Tebex Store
+      </a>
+      <a href="https://discord.gg/aQYJYptZNP" target="_blank" style="display: inline-block; background: #5865f2; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.9em; transition: all 0.3s ease;" onmouseover="this.style.background='#4752c4'" onmouseout="this.style.background='#5865f2'">
+        💬 Discord
+      </a>
+    </div>
+  </div>
+
+</div>
+
+### Community Contributors
+
+<div id="github-contributors" style="margin: 20px 0;">
+  <div style="text-align: center; padding: 40px;">
+    <div style="color: #8b949e;">Loading contributors from GitHub...</div>
+  </div>
+</div>
+
+<div style="background: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%); border: 1px solid #3a3a3a; border-radius: 12px; padding: 20px; margin: 20px 0; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);">
+  <h4 style="color: #f0f6fc; margin: 0 0 15px 0; font-size: 1.3em;">🌟 Want to Contribute?</h4>
+  <p style="color: #8b949e; margin: 10px 0; line-height: 1.6;">
+    We're always looking for passionate developers to join our community! Whether you're interested in:
+  </p>
+  <ul style="color: #8b949e; margin: 10px 0; padding-left: 20px;">
+    <li><strong>Code Contributions</strong> - Bug fixes, new features, optimizations</li>
+    <li><strong>Documentation</strong> - Writing guides, tutorials, and examples</li>
+    <li><strong>Community Support</strong> - Helping other developers in Discord</li>
+    <li><strong>Testing & Feedback</strong> - Reporting issues and suggesting improvements</li>
+  </ul>
+  <p style="color: #8b949e; margin: 15px 0 20px 0;">
+    Join our Discord community to get started and connect with other contributors!
+  </p>
+  <a href="https://discord.gg/qVaR5Mj68G" target="_blank" style="display: inline-block; background: #238636; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;" onmouseover="this.style.background='#2ea043'" onmouseout="this.style.background='#238636'">
+    🚀 Join Our Community
+  </a>
+</div>
+
+---
+
+## 🤝 Partners
+
+We're proud to work with these amazing organizations and creators who share our vision for quality FiveM development.
+
+### Development Partners
+
+<div style="background: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%); border: 1px solid #3a3a3a; border-radius: 12px; padding: 20px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);">
+  <div style="text-align: center; margin-bottom: 15px;">
+    <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 2em; color: white; box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);">
+      📺
+    </div>
+    <h4 style="color: #f0f6fc; margin: 0; font-size: 1.3em;">Content Partners</h4>
+  </div>
+  <p style="color: #8b949e; text-align: center; line-height: 1.6; margin: 15px 0;">
+    Content creators and educators helping spread knowledge about The Order Framework.
+  </p>
+  <div style="text-align: center; margin-top: 15px;">
+    <a href="https://www.youtube.com/@Qbdork" target="_blank" style="color: #58a6ff; text-decoration: none; font-weight: 600;">
+      @Qbdork (Webby)
+    </a>
+  </div>
+</div>
+
+### Become a Partner
+
+<div style="background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%); padding: 25px; border-radius: 15px; margin: 30px 0; text-align: center; box-shadow: 0 8px 32px rgba(255, 107, 107, 0.2);">
+  <h4 style="color: white; margin: 0 0 15px 0; font-size: 1.5em; text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">
+    🌟 Partner with The Order
+  </h4>
+  <p style="color: rgba(255,255,255,0.95); margin: 0 0 20px 0; line-height: 1.7; font-size: 1.1em;">
+    Are you running a successful FiveM server or creating educational content? We'd love to partner with you!
+  </p>
+  <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+    <a href="https://discord.gg/qVaR5Mj68G" target="_blank" style="display: inline-block; background: rgba(255,255,255,0.2); color: white; padding: 12px 25px; border-radius: 25px; text-decoration: none; font-weight: bold; border: 2px solid white; transition: all 0.3s ease;" onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.2)'">
+      💬 Contact Us
+    </a>
+  </div>
+</div>
+
+---
+
+## 🙏 Special Thanks
+
+### Community Recognition
+
+We want to give special recognition to our community members who go above and beyond:
+
+- **Beta Testers** - Our brave early adopters who help us identify and fix issues
+- **Documentation Contributors** - Community members who help improve our guides and examples
+- **Support Heroes** - Those who help answer questions and support other developers
+- **Feedback Providers** - Users who take time to provide detailed feedback and suggestions
+
+### Open Source Libraries
+
+The Order Framework is built on the shoulders of giants. We're grateful to the open source community and the maintainers of the libraries we use:
+
+- **FiveM** - The platform that makes it all possible
+- **ESX & QBCore** - Framework foundations that inspire our compatibility layers
+- **Community Scripts** - The countless developers who share their work
+
+---
+
+## 📞 Get Involved
+
+Ready to join our community? Here's how you can get started:
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin: 30px 0;">
+  
+  <div style="background: #5865f2; padding: 20px; border-radius: 12px; text-align: center; color: white;">
+    <div style="font-size: 2em; margin-bottom: 10px;">💬</div>
+    <h4 style="margin: 0 0 10px 0;">Join Discord</h4>
+    <p style="margin: 0 0 15px 0; opacity: 0.9; font-size: 0.9em;">Connect with the community</p>
+    <a href="https://discord.gg/qVaR5Mj68G" target="_blank" style="color: white; text-decoration: underline;">Join Now</a>
+  </div>
+
+  <div style="background: #238636; padding: 20px; border-radius: 12px; text-align: center; color: white;">
+    <div style="font-size: 2em; margin-bottom: 10px;">🔧</div>
+    <h4 style="margin: 0 0 10px 0;">Contribute Code</h4>
+    <p style="margin: 0 0 15px 0; opacity: 0.9; font-size: 0.9em;">Help build the framework</p>
+    <a href="https://github.com/TheOrderFivem" target="_blank" style="color: white; text-decoration: underline;">GitHub</a>
+  </div>
+
+  <div style="background: #ff6b6b; padding: 20px; border-radius: 12px; text-align: center; color: white;">
+    <div style="font-size: 2em; margin-bottom: 10px;">📚</div>
+    <h4 style="margin: 0 0 10px 0;">Share Knowledge</h4>
+    <p style="margin: 0 0 15px 0; opacity: 0.9; font-size: 0.9em;">Create tutorials and guides</p>
+    <a href="https://discord.gg/qVaR5Mj68G" target="_blank" style="color: white; text-decoration: underline;">Get Started</a>
+  </div>
+
+</div>
+
+---
+
+*The Order Framework thrives because of our amazing community. Thank you to everyone who contributes, whether through code, documentation, testing, or simply being part of our community.*

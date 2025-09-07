@@ -206,53 +206,53 @@ class CommunityBridgeDocumentation {
         const structure = {};
 
         try {
-            // Define known folders and their icons
-            const folderConfig = {
-                'Community Bridge': { icon: '🌉', hasSubsections: true },
-                'Examples': { icon: '💡', hasSubsections: false },
-                'Getting Started': { icon: '🚀', hasSubsections: false }
+            // Create Community Bridge as the main section
+            structure['Community Bridge'] = {
+                icon: '🌉',
+                items: {},
+                type: 'section'
             };
 
-            // Create structure for each folder
-            for (const [folderName, config] of Object.entries(folderConfig)) {
-                structure[folderName] = {
-                    icon: config.icon,
-                    items: {},
-                    type: 'section'
-                };
+            // Add top-level Community Bridge files
+            const topLevelFiles = ['overview', 'getting-started'];
+            for (const fileName of topLevelFiles) {
+                try {
+                    const response = await fetch(`./assets/pages/Community Bridge/${fileName}.md`);
+                    if (response.ok) {
+                        const content = await response.text();
+                        const icon = this.extractIconFromMarkdown(content) || '📄';
 
-                if (config.hasSubsections) {
-                    // Handle Community Bridge with subsections
-                    // Add top-level Community Bridge files
-                    const topLevelFiles = ['overview', 'getting-started'];
-                    for (const fileName of topLevelFiles) {
-                        try {
-                            const response = await fetch(`./assets/pages/${folderName}/${fileName}.md`);
-                            if (response.ok) {
-                                const content = await response.text();
-                                const icon = this.extractIconFromMarkdown(content) || '📄';
-
-                                structure[folderName].items[fileName] = {
-                                    path: `${folderName}/${fileName}`,
-                                    type: 'markdown',
-                                    name: this.formatTitle(fileName),
-                                    icon: icon
-                                };
-                                console.log(`✅ Found top-level file: ${fileName}.md with icon: ${icon}`);
-                            }
-                        } catch (e) {
-                            // File doesn't exist, continue
-                        }
+                        structure['Community Bridge'].items[fileName] = {
+                            path: `Community Bridge/${fileName}`,
+                            type: 'markdown',
+                            name: this.formatTitle(fileName),
+                            icon: icon
+                        };
+                        console.log(`✅ Found top-level file: ${fileName}.md with icon: ${icon}`);
                     }
-
-                    // Discover Libraries and Modules for Community Bridge
-                    await this.discoverSubsection(structure, 'Libraries', '📚');
-                    await this.discoverSubsection(structure, 'Modules', '📦');
-                } else {
-                    // Handle simple folders like Examples and Getting Started
-                    await this.discoverSimpleFolder(structure, folderName);
+                } catch (e) {
+                    // File doesn't exist, continue
                 }
             }
+
+            // Discover all subsections under Community Bridge
+            await this.discoverSubsection(structure, 'Libraries', '📚');
+            await this.discoverSubsection(structure, 'Modules', '📦');
+            await this.discoverExamplesSubsection(structure);
+            await this.discoverGettingStartedSubsection(structure);
+
+            // Create The Orders Recipe as a separate main section
+            structure['The Orders Recipe'] = {
+                icon: '🍳',
+                items: {},
+                type: 'section'
+            };
+
+            // Discover The Orders Recipe content
+            await this.discoverOrdersRecipeSection(structure);
+
+            // Discover root-level pages
+            await this.discoverRootLevelPages(structure);
 
         } catch (error) {
             console.error('❌ Error in discoverPagesStructure:', error);
@@ -302,6 +302,139 @@ class CommunityBridgeDocumentation {
                 name: folderName
             };
             console.log(`✅ Added ${folderName} subsection with ${Object.keys(folderItems).length} items`);
+        }
+    }
+
+    async discoverExamplesSubsection(structure) {
+        console.log('🔍 Discovering Examples content...');
+
+        const examplesItems = {};
+        const commonFiles = ['index', 'basic-usage', 'advanced'];
+        
+        for (const fileName of commonFiles) {
+            try {
+                const response = await fetch(`./assets/pages/Community Bridge/Examples/${fileName}.md`);
+                if (response.ok) {
+                    const content = await response.text();
+                    const icon = this.extractIconFromMarkdown(content) || '💡';
+
+                    examplesItems[fileName] = {
+                        path: `Community Bridge/Examples/${fileName}`,
+                        type: 'markdown',
+                        name: this.formatTitle(fileName),
+                        icon: icon
+                    };
+                    console.log(`✅ Found examples file: ${fileName}.md with icon: ${icon}`);
+                }
+            } catch (e) {
+                // File doesn't exist, continue
+                console.log(`⚠️ Examples file not found: ${fileName}.md`);
+            }
+        }
+
+        if (Object.keys(examplesItems).length > 0) {
+            structure['Community Bridge'].items['Examples'] = {
+                icon: '💡',
+                items: examplesItems,
+                type: 'subsection',
+                name: 'Examples'
+            };
+            console.log(`✅ Added Examples subsection with ${Object.keys(examplesItems).length} items`);
+        } else {
+            console.log('⚠️ No Examples files found');
+        }
+    }
+
+    async discoverGettingStartedSubsection(structure) {
+        console.log('🔍 Discovering Getting Started content...');
+
+        const gettingStartedItems = {};
+        
+        // Try to find the Getting Started index file
+        try {
+            const response = await fetch(`./assets/pages/Getting Started/index.md`);
+            if (response.ok) {
+                const content = await response.text();
+                const icon = this.extractIconFromMarkdown(content) || '�';
+
+                gettingStartedItems['index'] = {
+                    path: `Getting Started/index`,
+                    type: 'markdown',
+                    name: 'Getting Started Guide',
+                    icon: icon
+                };
+                console.log(`✅ Found Getting Started file: index.md with icon: ${icon}`);
+            }
+        } catch (e) {
+            console.log(`⚠️ Getting Started file not found: index.md`);
+        }
+
+        if (Object.keys(gettingStartedItems).length > 0) {
+            structure['Community Bridge'].items['Getting Started'] = {
+                icon: '�',
+                items: gettingStartedItems,
+                type: 'subsection',
+                name: 'Getting Started'
+            };
+            console.log(`✅ Added Getting Started subsection with ${Object.keys(gettingStartedItems).length} items`);
+        } else {
+            console.log('⚠️ No Getting Started files found');
+        }
+    }
+
+    async discoverOrdersRecipeSection(structure) {
+        console.log('🔍 Discovering The Orders Recipe content...');
+
+        const recipeFiles = ['overview', 'getting-started', 'video-tutorials'];
+        
+        for (const fileName of recipeFiles) {
+            try {
+                const response = await fetch(`./assets/pages/The Orders Recipe/${fileName}.md`);
+                if (response.ok) {
+                    const content = await response.text();
+                    const icon = this.extractIconFromMarkdown(content) || '🍳';
+
+                    structure['The Orders Recipe'].items[fileName] = {
+                        path: `The Orders Recipe/${fileName}`,
+                        type: 'markdown',
+                        name: this.formatTitle(fileName),
+                        icon: icon
+                    };
+                    console.log(`✅ Found Orders Recipe file: ${fileName}.md with icon: ${icon}`);
+                }
+            } catch (e) {
+                console.log(`⚠️ Orders Recipe file not found: ${fileName}.md`);
+            }
+        }
+
+        console.log(`✅ Added The Orders Recipe section with ${Object.keys(structure['The Orders Recipe'].items).length} items`);
+    }
+
+    async discoverRootLevelPages(structure) {
+        console.log('🔍 Discovering root-level pages...');
+
+        // List of root-level pages to check
+        const rootPages = ['contributors-and-partners'];
+        
+        for (const fileName of rootPages) {
+            try {
+                const response = await fetch(`./assets/pages/${fileName}.md`);
+                if (response.ok) {
+                    const content = await response.text();
+                    const icon = this.extractIconFromMarkdown(content) || '📄';
+
+                    // Add as a top-level section
+                    structure[this.formatTitle(fileName)] = {
+                        path: fileName,
+                        type: 'markdown',
+                        name: this.formatTitle(fileName),
+                        icon: icon
+                    };
+                    console.log(`✅ Found root-level page: ${fileName}.md with icon: ${icon}`);
+                }
+            } catch (e) {
+                console.log(`⚠️ Root-level page not found: ${fileName}.md`);
+            }
         }
     }
 
@@ -400,17 +533,28 @@ class CommunityBridgeDocumentation {
         let html = '';
 
         for (const [categoryName, categoryData] of Object.entries(this.allModules)) {
-            html += `
-                <div class="nav-section expanded" data-category="${categoryName}">
-                    <div class="nav-section-header" data-category="${categoryName}">
-                        <span class="nav-icon">${categoryData.icon || '📁'}</span>
-                        <span class="nav-title">${categoryName}</span>
+            // Handle root-level pages (direct markdown files)
+            if (categoryData.type === 'markdown') {
+                html += `
+                    <div class="nav-item" data-path="${categoryData.path}" data-type="markdown">
+                        <span class="nav-icon">${categoryData.icon || '📄'}</span>
+                        <span class="nav-title">${categoryData.name || categoryName}</span>
                     </div>
-                    <div class="nav-items">
-                        ${this.renderNavItems(categoryData.items || {})}
+                `;
+            } else {
+                // Handle sections with sub-items
+                html += `
+                    <div class="nav-section expanded" data-category="${categoryName}">
+                        <div class="nav-section-header" data-category="${categoryName}">
+                            <span class="nav-icon">${categoryData.icon || '📁'}</span>
+                            <span class="nav-title">${categoryName}</span>
+                        </div>
+                        <div class="nav-items">
+                            ${this.renderNavItems(categoryData.items || {})}
+                        </div>
                     </div>
-                </div>
-            `;
+                `;
+            }
         }
 
         navMenu.innerHTML = html;
@@ -510,6 +654,12 @@ class CommunityBridgeDocumentation {
         };
 
         for (const [category, categoryData] of Object.entries(this.allModules)) {
+            // Check if this is a root-level page
+            if (categoryData.type === 'markdown' && categoryData.path === targetPath) {
+                return categoryData;
+            }
+            
+            // Search within section items
             const found = searchItems(categoryData.items || {});
             if (found) return found;
         }
@@ -607,7 +757,14 @@ class CommunityBridgeDocumentation {
         }
 
         // Set content
-        contentArea.innerHTML = html;        // Apply syntax highlighting with highlight.js
+        contentArea.innerHTML = html;
+        
+        // Load GitHub contributors if this is the contributors page
+        if (modulePath.includes('contributors-and-partners')) {
+            this.loadGitHubContributors();
+        }
+        
+        // Apply syntax highlighting with highlight.js
         setTimeout(() => {
             contentArea.querySelectorAll('pre code').forEach(block => {
                 hljs.highlightElement(block);
@@ -1710,6 +1867,132 @@ class CommunityBridgeDocumentation {
                 </div>
             `;
         }
+    }
+
+    async loadGitHubContributors() {
+        console.log('🔍 Loading GitHub contributors...');
+        const contributorsContainer = document.getElementById('github-contributors');
+        if (!contributorsContainer) return;
+
+        try {
+            // Fetch organization members and repositories
+            const [membersResponse, reposResponse] = await Promise.all([
+                fetch('https://api.github.com/orgs/TheOrderFivem/members'),
+                fetch('https://api.github.com/orgs/TheOrderFivem/repos')
+            ]);
+
+            if (!membersResponse.ok || !reposResponse.ok) {
+                throw new Error('Failed to fetch GitHub data');
+            }
+
+            const [members, repos] = await Promise.all([
+                membersResponse.json(),
+                reposResponse.json()
+            ]);
+
+            // Get all unique contributors from repositories
+            const contributorsSet = new Set();
+            const contributorDetails = new Map();
+
+            // Add organization members first
+            for (const member of members) {
+                contributorDetails.set(member.login, {
+                    login: member.login,
+                    avatar_url: member.avatar_url,
+                    html_url: member.html_url,
+                    type: 'Member',
+                    contributions: 0
+                });
+                contributorsSet.add(member.login);
+            }
+
+            // Only process original repositories (not forks) to show actual contributors to your organization's work
+            // Filter out repositories we want to exclude and only include non-forked repos
+            const excludedRepos = ['RecipeImages', 'ox_inventory', 'ox_target', 'ox_doorlock'];
+            const filteredRepos = repos.filter(repo => !excludedRepos.includes(repo.name) && !repo.fork);
+            
+            for (const repo of filteredRepos.slice(0, 10)) { // Process original repos only
+                try {
+                    const contributorsResponse = await fetch(`https://api.github.com/repos/TheOrderFivem/${repo.name}/contributors`);
+                    if (contributorsResponse.ok) {
+                        const repoContributors = await contributorsResponse.json();
+                        for (const contributor of repoContributors.slice(0, 10)) { // Top 10 contributors per repo
+                            if (!contributorDetails.has(contributor.login)) {
+                                contributorDetails.set(contributor.login, {
+                                    login: contributor.login,
+                                    avatar_url: contributor.avatar_url,
+                                    html_url: contributor.html_url,
+                                    type: 'Contributor',
+                                    contributions: contributor.contributions
+                                });
+                            } else {
+                                // Update contributions count
+                                const existing = contributorDetails.get(contributor.login);
+                                existing.contributions += contributor.contributions;
+                            }
+                            contributorsSet.add(contributor.login);
+                        }
+                    }
+                } catch (e) {
+                    console.warn(`Failed to fetch contributors for ${repo.name}:`, e);
+                }
+            }
+
+            // Sort contributors by contributions
+            const sortedContributors = Array.from(contributorDetails.values())
+                .sort((a, b) => b.contributions - a.contributions);
+
+            // Render contributors
+            this.renderGitHubContributors(contributorsContainer, sortedContributors, repos.length);
+
+        } catch (error) {
+            console.error('❌ Error loading GitHub contributors:', error);
+            contributorsContainer.innerHTML = `
+                <div style="text-align: center; padding: 40px; color: #8b949e;">
+                    <p>Unable to load contributors at this time.</p>
+                    <p style="font-size: 0.9em; opacity: 0.7;">Visit our <a href="https://github.com/TheOrderFivem" target="_blank" style="color: #58a6ff;">GitHub organization</a> directly.</p>
+                </div>
+            `;
+        }
+    }
+
+    renderGitHubContributors(container, contributors, repoCount) {
+        const html = `
+            <div style="margin: 20px 0;">
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
+                    <div style="width: 40px; height: 40px; background: #238636; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2em;">
+                        🐙
+                    </div>
+                    <div>
+                        <h4 style="margin: 0; color: #f0f6fc;">GitHub Contributors</h4>
+                        <p style="margin: 0; color: #8b949e; font-size: 0.9em;">From ${repoCount} repositories in TheOrderFivem organization</p>
+                    </div>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px;">
+                    ${contributors.map(contributor => `
+                        <div style="background: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%); border: 1px solid #3a3a3a; border-radius: 12px; padding: 15px; text-align: center; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 16px rgba(0,0,0,0.3)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                            <img src="${contributor.avatar_url}" alt="${contributor.login}" style="width: 50px; height: 50px; border-radius: 50%; border: 2px solid #238636; margin-bottom: 10px;">
+                            <div style="color: #f0f6fc; font-weight: 600; margin-bottom: 5px;">${contributor.login}</div>
+                            <div style="color: #8b949e; font-size: 0.8em; margin-bottom: 8px;">${contributor.type}</div>
+                            ${contributor.contributions > 0 ? `<div style="color: #58a6ff; font-size: 0.8em;">${contributor.contributions} contributions</div>` : ''}
+                            <div style="margin-top: 10px;">
+                                <a href="${contributor.html_url}" target="_blank" style="color: #58a6ff; text-decoration: none; font-size: 0.8em;">View Profile</a>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+                
+                <div style="text-align: center; margin-top: 20px; padding: 20px; background: rgba(88, 166, 255, 0.1); border-radius: 8px;">
+                    <p style="color: #8b949e; margin: 0 0 10px 0;">Want to contribute to The Order Framework?</p>
+                    <a href="https://github.com/TheOrderFivem" target="_blank" style="display: inline-block; background: #238636; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 600;">
+                        🚀 Visit Our GitHub
+                    </a>
+                </div>
+            </div>
+        `;
+        
+        container.innerHTML = html;
     }
 }
 

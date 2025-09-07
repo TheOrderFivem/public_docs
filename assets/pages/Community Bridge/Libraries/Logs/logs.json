@@ -5,9 +5,9 @@
   "clientFunctions": [],
   "serverFunctions": [
     {
-      "name": "Send",
-      "description": "Sends a log message to the configured logging system. Supports built-in Discord webhooks, qb-log, and ox_lib logging systems based on server configuration.",
-      "syntax": "Bridge.Logs.Send(src, message)",
+      "name": "CreateLog",
+      "description": "Sends a log message to the configured logging system. Supports built-in Discord webhooks with caching, fivemerrr qb-log, and ox_lib logging systems based on server configuration.",
+      "syntax": "Bridge.Logs.CreateLog(<message>)",
       "parameters": [
         {
           "name": "src",
@@ -21,7 +21,7 @@
         }
       ],
       "returns": [],
-      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Log a player action\nBridge.Logs.Send(source, \"Player purchased a vehicle: Adder for $1,000,000\")\n\n-- Log an admin action\nBridge.Logs.Send(source, \"Admin spawned vehicle: adder at coordinates (100, 200, 30)\")\n\n-- Log a system event\nBridge.Logs.Send(source, \"Player completed heist with reward: $50,000\")"
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Log a player action\nBridge.Logs.CreateLog(\"Player purchased a vehicle: Adder for $1,000,000\")\n\n-- Log an admin action\nBridge.Logs.CreateLog(\"Admin spawned vehicle: adder at coordinates (100, 200, 30)\")\n\n-- Log a system event\nBridge.Logs.CreateLog(\"Player completed heist with reward: $50,000\")"
     }
   ],
   "sharedFunctions": []
