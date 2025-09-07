@@ -238,8 +238,6 @@ class CommunityBridgeDocumentation {
             // Discover all subsections under Community Bridge
             await this.discoverSubsection(structure, 'Libraries', '📚');
             await this.discoverSubsection(structure, 'Modules', '📦');
-            await this.discoverExamplesSubsection(structure);
-            await this.discoverGettingStartedSubsection(structure);
 
             // Create The Orders Recipe as a separate main section
             structure['The Orders Recipe'] = {
@@ -266,8 +264,8 @@ class CommunityBridgeDocumentation {
 
         const folderItems = {};
         const knownModules = {
-            'Libraries': ['Anim', 'Batch', 'Cache', 'Callback', 'Cutscenes', 'DUI', 'Entities', 'Ids', 'ItemsBuilder', 'Logs', 'LootTable', 'Markers', 'Math', 'Particles', 'Placers', 'Point', 'Points', 'Raycast', 'Scaleform', 'Shells', 'SQL', 'StateBags', 'Table', 'Utility'],
-            'Modules': ['Banking', 'BossMenu', 'Clothing', 'Dialogue', 'Dispatch', 'Doorlock', 'Framework', 'Fuel', 'HelpText', 'Housing', 'Input', 'Inventory', 'Locales', 'Managment', 'Math', 'Menu', 'Notify', 'Phone', 'ProgressBar', 'Shops', 'Skills', 'Target', 'VehicleKey', 'Version', 'Weather']
+            'Libraries': ['Anim', 'Batch', 'Cache', 'Callback', 'Cutscenes', 'Entities', 'Ids', 'Logs', 'Markers', 'Math', 'Particles', 'Placers', 'Point', 'Raycast', 'Scaleform', 'Shells', 'SQL', 'Table', 'Utility'],
+            'Modules': ['Banking', 'BossMenu', 'Clothing', 'Dialogue', 'Dispatch', 'Doorlock', 'Framework', 'Fuel', 'HelpText', 'Housing', 'Input', 'Inventory', 'Locales', 'Math', 'Menu', 'Notify', 'Phone', 'ProgressBar', 'Shops', 'Skills', 'Target', 'VehicleKey', 'Version', 'Weather']
         };
 
         if (knownModules[folderName]) {
@@ -302,83 +300,6 @@ class CommunityBridgeDocumentation {
                 name: folderName
             };
             console.log(`✅ Added ${folderName} subsection with ${Object.keys(folderItems).length} items`);
-        }
-    }
-
-    async discoverExamplesSubsection(structure) {
-        console.log('🔍 Discovering Examples content...');
-
-        const examplesItems = {};
-        const commonFiles = ['index', 'basic-usage', 'advanced'];
-        
-        for (const fileName of commonFiles) {
-            try {
-                const response = await fetch(`./assets/pages/Community Bridge/Examples/${fileName}.md`);
-                if (response.ok) {
-                    const content = await response.text();
-                    const icon = this.extractIconFromMarkdown(content) || '💡';
-
-                    examplesItems[fileName] = {
-                        path: `Community Bridge/Examples/${fileName}`,
-                        type: 'markdown',
-                        name: this.formatTitle(fileName),
-                        icon: icon
-                    };
-                    console.log(`✅ Found examples file: ${fileName}.md with icon: ${icon}`);
-                }
-            } catch (e) {
-                // File doesn't exist, continue
-                console.log(`⚠️ Examples file not found: ${fileName}.md`);
-            }
-        }
-
-        if (Object.keys(examplesItems).length > 0) {
-            structure['Community Bridge'].items['Examples'] = {
-                icon: '💡',
-                items: examplesItems,
-                type: 'subsection',
-                name: 'Examples'
-            };
-            console.log(`✅ Added Examples subsection with ${Object.keys(examplesItems).length} items`);
-        } else {
-            console.log('⚠️ No Examples files found');
-        }
-    }
-
-    async discoverGettingStartedSubsection(structure) {
-        console.log('🔍 Discovering Getting Started content...');
-
-        const gettingStartedItems = {};
-        
-        // Try to find the Getting Started index file
-        try {
-            const response = await fetch(`./assets/pages/Getting Started/index.md`);
-            if (response.ok) {
-                const content = await response.text();
-                const icon = this.extractIconFromMarkdown(content) || '�';
-
-                gettingStartedItems['index'] = {
-                    path: `Getting Started/index`,
-                    type: 'markdown',
-                    name: 'Getting Started Guide',
-                    icon: icon
-                };
-                console.log(`✅ Found Getting Started file: index.md with icon: ${icon}`);
-            }
-        } catch (e) {
-            console.log(`⚠️ Getting Started file not found: index.md`);
-        }
-
-        if (Object.keys(gettingStartedItems).length > 0) {
-            structure['Community Bridge'].items['Getting Started'] = {
-                icon: '�',
-                items: gettingStartedItems,
-                type: 'subsection',
-                name: 'Getting Started'
-            };
-            console.log(`✅ Added Getting Started subsection with ${Object.keys(gettingStartedItems).length} items`);
-        } else {
-            console.log('⚠️ No Getting Started files found');
         }
     }
 
