@@ -1,39 +1,42 @@
-// Community Bridge Documentation Site - Fixed Version
-class CommunityBridgeDocumentation {    constructor() {
+// Community Bridge Documentation Site - Markdown Enhanced Version (Clean)
+class CommunityBridgeDocumentation {
+    constructor() {
         this.currentTheme = localStorage.getItem('theme') || 'dark';
         this.currentModule = null;
         this.allModules = {};
         this.searchIndex = [];
         this.isLoading = false;
-        this.currentModuleToc = null; // Store TOC data for current module
-        this.currentModuleName = null; // Store current module name for anchor generation
+        this.currentModuleToc = null;
+        this.currentModuleName = null;
 
         this.init();
     }
 
     async init() {
-        console.log('🚀 Initializing Community Bridge Documentation...');
 
         try {
-            console.log('🎨 Setting up theme...');
+            // Cleanup previous instance if exists
+            this.cleanup();
+
             this.setupTheme();
-
-            console.log('🎯 Setting up basic event listeners...');
             this.setupBasicEventListeners();
-
-            console.log('📁 Loading module structure...');
             await this.loadModuleStructure();
-
-            console.log('🛣️ Setting up router...');
             this.setupRouter();
-
-            console.log('📄 Loading initial content...');
-            this.loadInitialContent();
-
-            console.log('✅ Initialization complete!');
+            
+            // Only load default content if no hash is present
+            if (!window.location.hash) {
+                this.loadInitialContent();
+            }
         } catch (error) {
-            console.error('❌ Initialization failed:', error);
             this.showError('Failed to initialize documentation site');
+        }
+    }
+
+    cleanup() {
+        // Remove click-outside handler if it exists
+        if (this.clickOutsideHandler) {
+            document.removeEventListener('click', this.clickOutsideHandler);
+            this.clickOutsideHandler = null;
         }
     }
 
@@ -46,129 +49,107 @@ class CommunityBridgeDocumentation {    constructor() {
     }
 
     setupBasicEventListeners() {
-        // Theme toggle
         const themeToggle = document.getElementById('theme-toggle');
         if (themeToggle) {
-            themeToggle.addEventListener('click', () => this.toggleTheme());        }
+            themeToggle.addEventListener('click', () => this.toggleTheme());
+        }
 
-        // Search functionality with better error handling
         this.setupSearchInput();
     }
 
     setupSearchInput() {
         const searchInput = document.getElementById('search-input');
         if (searchInput) {
-            console.log('✅ Search input found, setting up listeners');
+            const newSearchInput = searchInput.cloneNode(true);
+            searchInput.parentNode.replaceChild(newSearchInput, searchInput);
 
-            // Ensure input is properly configured
-            searchInput.removeAttribute('disabled');
-            searchInput.removeAttribute('readonly');
-            searchInput.style.pointerEvents = 'auto';
-            searchInput.style.userSelect = 'text';
-
-            // Clear any existing value
-            searchInput.value = '';
-
-            // Add input event listener
-            searchInput.addEventListener('input', (e) => {
-                console.log('🔍 Search input changed:', e.target.value);
-                this.handleSearch(e.target.value);
+            newSearchInput.addEventListener('input', (e) => {
+                const query = e.target.value.trim();
+                if (query.length > 0) {
+                    this.handleSearch(query);
+                } else {
+                    this.hideSearchResults();
+                }
             });
 
-            // Add keyup event as backup
-            searchInput.addEventListener('keyup', (e) => {
-                console.log('⌨️ Key up in search:', e.target.value);
-                this.handleSearch(e.target.value);
+            newSearchInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    this.hideSearchResults();
+                    e.target.blur();
+                }
             });
 
-            // Add focus event
-            searchInput.addEventListener('focus', () => {
-                console.log('🎯 Search input focused');
-            });
-
-            // Test if the input is working
-            searchInput.addEventListener('click', () => {
-                console.log('👆 Search input clicked');
-                searchInput.focus();
-            });
-
+            // Add click-outside functionality to close search
+            this.setupSearchClickOutside(newSearchInput);
         } else {
-            console.warn('⚠️ Search input not found! Retrying in 500ms...');
-            setTimeout(() => this.setupSearchInput(), 500);
         }
     }
 
-    // NEW: Fixed navigation event setup - called AFTER navigation is rendered
-    setupNavigationEvents() {
-        console.log('🎯 Setting up navigation click handlers...');
+    setupSearchClickOutside(searchInput) {
+        // Remove any existing click handler
+        if (this.clickOutsideHandler) {
+            document.removeEventListener('click', this.clickOutsideHandler);
+        }
 
-        // Handle section headers (Community Bridge, etc.)
+        this.clickOutsideHandler = (event) => {
+            const searchResults = document.querySelector('.search-results');
+            const searchContainer = searchInput.closest('.search-container') || searchInput.parentElement;
+
+            // Check if click is outside search input and search results
+            const isClickInsideSearch = searchContainer && searchContainer.contains(event.target);
+            const isClickInsideResults = searchResults && searchResults.contains(event.target);
+
+            if (!isClickInsideSearch && !isClickInsideResults) {
+                this.hideSearchResults();
+            }
+        };
+
+        document.addEventListener('click', this.clickOutsideHandler);
+    }
+
+    setupNavigationEvents() {
+
         const sectionHeaders = document.querySelectorAll('.nav-section-header');
-        console.log('📂 Found section headers:', sectionHeaders.length);
 
         sectionHeaders.forEach((header) => {
             header.addEventListener('click', (e) => {
                 e.preventDefault();
-                e.stopPropagation();
-
                 const section = header.closest('.nav-section');
-                const wasCollapsed = section.classList.contains('collapsed');
-
-                if (wasCollapsed) {
-                    section.classList.remove('collapsed');
-                    console.log('🔓 Expanded section:', header.textContent);
-                } else {
-                    section.classList.add('collapsed');
-                    console.log('🔒 Collapsed section:', header.textContent);
+                if (section) {
+                    section.classList.toggle('collapsed');
+                    section.classList.toggle('expanded');
+                    // CSS handles the arrow rotation via ::after pseudo-element
                 }
             });
         });
 
-        // Handle subsection headers (Modules, etc.)
         const subsectionHeaders = document.querySelectorAll('.nav-subsection-header');
-        console.log('📦 Found subsection headers:', subsectionHeaders.length);
 
         subsectionHeaders.forEach((header) => {
             header.addEventListener('click', (e) => {
                 e.preventDefault();
-                e.stopPropagation();
-
                 const subsection = header.closest('.nav-subsection');
-                const wasCollapsed = subsection.classList.contains('collapsed');
-
-                if (wasCollapsed) {
-                    subsection.classList.remove('collapsed');
-                    console.log('🔓 Expanded subsection:', header.textContent);
-                } else {
-                    subsection.classList.add('collapsed');
-                    console.log('🔒 Collapsed subsection:', header.textContent);
+                if (subsection) {
+                    subsection.classList.toggle('collapsed');
+                    subsection.classList.toggle('expanded');
+                    // CSS handles the arrow rotation via ::after pseudo-element
                 }
             });
         });
 
-        // Handle navigation item clicks
         const navItems = document.querySelectorAll('.nav-item');
-        console.log('🔗 Found nav items:', navItems.length);
 
         navItems.forEach((navItem) => {
             navItem.addEventListener('click', (e) => {
-                const path = navItem.dataset.path;
-                const type = navItem.dataset.type;
+                e.preventDefault();
+                const path = navItem.getAttribute('data-path');
+                const type = navItem.getAttribute('data-type');
 
                 if (path) {
-                    console.log('🔗 Navigation clicked:', path, type);
-                    e.preventDefault();
-                    window.location.hash = path;
                     this.navigateToPath(path);
-
-                    // Update active state
-                    document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-                    navItem.classList.add('active');
                 }
             });
         });
-
-        console.log('✅ Navigation events attached successfully');
     }
 
     toggleTheme() {
@@ -183,328 +164,375 @@ class CommunityBridgeDocumentation {    constructor() {
     }
 
     async loadModuleStructure() {
-        console.log('📋 Starting loadModuleStructure...');
         this.setLoading(true);
 
         try {
-            console.log('📁 Loading page structure...');
             const structure = await this.discoverPagesStructure();
-            console.log('📊 Structure result:', structure);            this.allModules = structure;
-            await this.buildSearchIndex();
-            this.renderNavigation();
 
-            console.log('✅ Structure loaded successfully:', this.allModules);
+            this.allModules = structure;
+
+            this.renderNavigation();
+            await this.buildSearchIndex();
         } catch (error) {
-            console.error('❌ Failed to load structure:', error);
             this.showError('Failed to load documentation structure');
         } finally {
             this.setLoading(false);
         }
-    }    async discoverPagesStructure() {
-        console.log('🔍 Starting discoverPagesStructure...');
+    }
+
+    async discoverPagesStructure() {
         const structure = {};
 
         try {
-            // Load main Community Bridge toc.json
-            console.log('📋 Attempting to load: assets/pages/Community Bridge/toc.json');
-            const tocResponse = await fetch('assets/pages/Community Bridge/toc.json');
-
-            if (tocResponse.ok) {
-                const tocData = await tocResponse.json();
-                console.log('✅ Loaded toc.json successfully:', tocData);
-
-                structure['Community Bridge'] = {
-                    icon: '',
-                    items: {}
-                };
-
-                // Add main pages (markdown files in root)
-                const mainPages = ['overview', 'getting-started', 'index'];
-                for (const page of mainPages) {
-                    try {
-                        const pageResponse = await fetch(`assets/pages/Community Bridge/${page}.md`);
-                        if (pageResponse.ok) {
-                            structure['Community Bridge'].items[page] = {
-                                type: 'markdown',
-                                path: `Community Bridge/${page}`
-                            };
-                            console.log(`✅ Found page: ${page}.md`);
-                        }
-                    } catch (e) {
-                        console.log(`❌ Error checking page ${page}.md:`, e.message);
-                    }
-                }                // DYNAMIC FOLDER DISCOVERY: Automatically detect all folders under Community Bridge
-                const foldersToCheck = await this.discoverCommunityBridgeFolders();
-                console.log('📁 Discovered folders:', foldersToCheck);
-
-                for (const folderInfo of foldersToCheck) {
-                    const { folderName, folderIcon } = folderInfo;
-                    console.log(`🔍 Processing dynamic folder: ${folderName}`);
-
-                    // Try to load folder's toc.json
-                    try {
-                        const folderTocUrl = `assets/pages/Community Bridge/${folderName}/toc.json`;
-                        console.log(`📋 Attempting to load: ${folderTocUrl}`);
-                        const folderTocResponse = await fetch(folderTocUrl);
-
-                        if (folderTocResponse.ok) {
-                            const folderTocData = await folderTocResponse.json();
-                            console.log(`📋 Loaded ${folderName} toc.json:`, folderTocData);
-
-                            const folderItems = {};
-                            let itemCount = 0;
-
-                            for (const item of folderTocData) {                                if (item.type === 'folder') {
-                                    console.log(`🔍 Processing ${folderName} item: ${item.name}`);
-                                    const itemName = item.name.toLowerCase();
-
-                                    // Construct the correct JSON path based on folder structure
-                                    let jsonPath;
-                                    if (folderName === 'Modules' || folderName === 'Libraries') {
-                                        // For Modules and Libraries: folderName/ItemName/itemname.json
-                                        jsonPath = `assets/pages/Community Bridge/${folderName}/${item.name}/${itemName}.json`;
-                                    } else {
-                                        // For other folders: folderName/ItemName/itemname.json (same pattern)
-                                        jsonPath = `assets/pages/Community Bridge/${folderName}/${item.name}/${itemName}.json`;
-                                    }                                    try {
-                                        const jsonResponse = await fetch(jsonPath);
-                                        if (jsonResponse.ok) {
-                                            folderItems[item.title || item.name] = {
-                                                type: 'json-module',
-                                                path: `${folderName.toLowerCase()}/${item.name}`,
-                                                jsonFile: jsonPath,
-                                                icon: item.icon,
-                                                name: item.name,
-                                                category: folderName
-                                            };
-                                            itemCount++;
-                                            console.log(`✅ Added JSON item: ${item.name} to ${folderName} (${jsonPath})`);
-                                        } else {
-                                            console.log(`⚠️ JSON file not found: ${jsonPath} (Status: ${jsonResponse.status})`);
-                                        }
-                                    } catch (e) {
-                                        console.log(`❌ Error loading ${jsonPath}:`, e.message);
-                                    }
-                                } else if (item.type === 'file' && item.name.endsWith('.md')) {
-                                    // Handle markdown files in folder
-                                    const mdPath = `assets/pages/Community Bridge/${folderName}/${item.name}`;
-                                    try {
-                                        const mdResponse = await fetch(mdPath);
-                                        if (mdResponse.ok) {
-                                            const itemKey = item.name.replace('.md', '');
-                                            folderItems[item.title || itemKey] = {
-                                                type: 'markdown',
-                                                path: `Community Bridge/${folderName}/${itemKey}`,
-                                                icon: item.icon,
-                                                category: folderName
-                                            };
-                                            itemCount++;
-                                            console.log(`✅ Added markdown file: ${item.name} to ${folderName}`);
-                                        }
-                                    } catch (e) {
-                                        console.log(`❌ Error loading ${mdPath}:`, e.message);
-                                    }
-                                }
-                            }
-
-                            if (Object.keys(folderItems).length > 0) {
-                                structure['Community Bridge'].items[folderName] = {
-                                    icon: folderIcon,
-                                    items: folderItems
-                                };
-                                console.log(`✅ Added ${itemCount} items to ${folderName} folder`);
-                            }
-                        } else {
-                            console.log(`⚠️ No toc.json found for ${folderName}, checking for direct content...`);
-                            // If no toc.json, try to discover content directly
-                            await this.discoverFolderContentDirectly(structure, folderName, folderIcon);
-                        }
-                    } catch (error) {
-                        console.log(`❌ Error processing ${folderName}:`, error.message);
-                        // Fallback: try to discover content directly
-                        await this.discoverFolderContentDirectly(structure, folderName, folderIcon);
-                    }
-                }
-
-            } else {
-                // Fallback structure
-                structure['Community Bridge'] = {
-                    icon: '🏗️',
-                    items: {
-                        'overview': {
-                            type: 'markdown',
-                            path: 'Community Bridge/overview'
-                        }
-                    }
-                };
-            }
-        } catch (error) {
-            console.error('❌ Error in discoverPagesStructure:', error);
-            // Fallback structure
+            // Create Community Bridge as the main section
             structure['Community Bridge'] = {
-                icon: '🏗️',
-                items: {
-                    'overview': {
-                        type: 'markdown',
-                        path: 'Community Bridge/overview'
-                    }
-                }
+                icon: '🌉',
+                items: {},
+                type: 'section'
             };
+
+            // Add top-level Community Bridge files
+            const topLevelFiles = ['overview', 'getting-started'];
+            for (const fileName of topLevelFiles) {
+                try {
+                    const response = await fetch(`./assets/pages/Community Bridge/${fileName}.md`);
+                    if (response.ok) {
+                        const content = await response.text();
+                        const icon = this.extractIconFromMarkdown(content) || '📄';
+
+                        structure['Community Bridge'].items[fileName] = {
+                            path: `Community Bridge/${fileName}`,
+                            type: 'markdown',
+                            name: this.formatTitle(fileName),
+                            icon: icon
+                        };
+                    }
+                } catch (e) {
+                    // File doesn't exist, continue
+                }
+            }
+
+            // Discover all subsections under Community Bridge
+            await this.discoverSubsection(structure, 'Libraries', '📚');
+            await this.discoverSubsection(structure, 'Modules', '📦');
+            await this.discoverExamplesSubsection(structure);
+            await this.discoverGettingStartedSubsection(structure);
+
+            // Create The Orders Recipe as a separate main section
+            structure['The Orders Recipe'] = {
+                icon: '🍳',
+                items: {},
+                type: 'section'
+            };
+
+            // Discover The Orders Recipe content
+            await this.discoverOrdersRecipeSection(structure);
+
+            // Discover root-level pages
+            await this.discoverRootLevelPages(structure);
+
+        } catch (error) {
         }
 
         return structure;
     }
 
-    // NEW: Discover all folders under Community Bridge
-    async discoverCommunityBridgeFolders() {
-        console.log('🔍 Discovering Community Bridge folders...');
-
-        // Known folders with their icons (you can extend this list)
-        const knownFolders = [
-            { folderName: 'Modules', folderIcon: '📦' },
-            { folderName: 'Libraries', folderIcon: '📚' },
-            { folderName: 'Examples', folderIcon: '💡' },
-            { folderName: 'Getting Started', folderIcon: '🚀' },
-            { folderName: 'Instructions', folderIcon: '📋' },
-            { folderName: 'Tutorials', folderIcon: '🎓' },
-            { folderName: 'API Reference', folderIcon: '📖' },
-            { folderName: 'Configuration', folderIcon: '⚙️' },
-            { folderName: 'Troubleshooting', folderIcon: '🔧' }
-        ];
-
-        const discoveredFolders = [];
-
-        // Try to discover folders by attempting to fetch their toc.json or checking for common files
-        for (const { folderName, folderIcon } of knownFolders) {
-            try {
-                // Try to fetch the folder's toc.json or any common file to verify it exists
-                const tocResponse = await fetch(`assets/pages/Community Bridge/${folderName}/toc.json`);
-                const indexResponse = await fetch(`assets/pages/Community Bridge/${folderName}/index.md`);
-
-                if (tocResponse.ok || indexResponse.ok) {
-                    discoveredFolders.push({ folderName, folderIcon });
-                    console.log(`✅ Discovered folder: ${folderName}`);
-                }
-            } catch (e) {
-                console.log(`⚠️ Folder ${folderName} not accessible`);
-            }
-        }
-
-        // Fallback: If no dynamic discovery is possible, return known existing folders
-        if (discoveredFolders.length === 0) {
-            console.log('⚠️ Using fallback folder discovery');
-            return [
-                { folderName: 'Modules', folderIcon: '📦' },
-                { folderName: 'Libraries', folderIcon: '📚' }
-            ];
-        }
-
-        return discoveredFolders;
-    }
-
-    // NEW: Discover folder content directly when no toc.json exists
-    async discoverFolderContentDirectly(structure, folderName, folderIcon) {
-        console.log(`🔍 Discovering ${folderName} content directly...`);
+    async discoverSubsection(structure, folderName, folderIcon) {
 
         const folderItems = {};
+        const knownModules = {
+            'Libraries': ['Anim', 'Batch', 'Cache', 'Callback', 'Cutscenes', 'DUI', 'Entities', 'Ids', 'ItemsBuilder', 'Logs', 'LootTable', 'Markers', 'Math', 'Particles', 'Placers', 'Point', 'Points', 'Raycast', 'Scaleform', 'Shells', 'SQL', 'StateBags', 'Table', 'Utility'],
+            'Modules': ['Banking', 'BossMenu', 'Clothing', 'Dialogue', 'Dispatch', 'Doorlock', 'Framework', 'Fuel', 'HelpText', 'Housing', 'Input', 'Inventory', 'Locales', 'Managment', 'Math', 'Menu', 'Notify', 'Phone', 'ProgressBar', 'Shops', 'Skills', 'Target', 'VehicleKey', 'Version', 'Weather']
+        };
 
-        // Try common file patterns
-        const commonFiles = ['index.md', 'overview.md', 'readme.md', 'getting-started.md'];
+        if (knownModules[folderName]) {
+            for (const moduleName of knownModules[folderName]) {
+                try {
+                    // Try the main pattern: Libraries/Anim/anim.md
+                    const mainPath = `./assets/pages/Community Bridge/${folderName}/${moduleName}/${moduleName.toLowerCase()}.md`;
+                    const response = await fetch(mainPath);
+                    if (response.ok) {
+                        const content = await response.text();
+                        const icon = this.extractIconFromMarkdown(content) || '📄';
 
-        for (const fileName of commonFiles) {
-            try {
-                const response = await fetch(`assets/pages/Community Bridge/${folderName}/${fileName}`);
-                if (response.ok) {
-                    const itemKey = fileName.replace('.md', '');
-                    folderItems[itemKey] = {
-                        type: 'markdown',
-                        path: `Community Bridge/${folderName}/${itemKey}`,
-                        category: folderName
-                    };
-                    console.log(`✅ Found direct file: ${fileName} in ${folderName}`);
+                        folderItems[moduleName] = {
+                            path: `Community Bridge/${folderName}/${moduleName}/${moduleName.toLowerCase()}`,
+                            type: 'markdown',
+                            name: moduleName,
+                            icon: icon
+                        };
+                    }
+                } catch (e) {
+                    // File doesn't exist, continue
                 }
-            } catch (e) {
-                // File doesn't exist, continue
             }
         }
 
         if (Object.keys(folderItems).length > 0) {
             structure['Community Bridge'].items[folderName] = {
                 icon: folderIcon,
-                items: folderItems
+                items: folderItems,
+                type: 'subsection',
+                name: folderName
             };
-            console.log(`✅ Added ${Object.keys(folderItems).length} items to ${folderName} via direct discovery`);
         }
     }
 
+    async discoverExamplesSubsection(structure) {
+
+        const examplesItems = {};
+        const commonFiles = ['index', 'basic-usage', 'advanced'];
+        
+        for (const fileName of commonFiles) {
+            try {
+                const response = await fetch(`./assets/pages/Community Bridge/Examples/${fileName}.md`);
+                if (response.ok) {
+                    const content = await response.text();
+                    const icon = this.extractIconFromMarkdown(content) || '💡';
+
+                    examplesItems[fileName] = {
+                        path: `Community Bridge/Examples/${fileName}`,
+                        type: 'markdown',
+                        name: this.formatTitle(fileName),
+                        icon: icon
+                    };
+                }
+            } catch (e) {
+                // File doesn't exist, continue
+            }
+        }
+
+        if (Object.keys(examplesItems).length > 0) {
+            structure['Community Bridge'].items['Examples'] = {
+                icon: '💡',
+                items: examplesItems,
+                type: 'subsection',
+                name: 'Examples'
+            };
+        } else {
+        }
+    }
+
+    async discoverGettingStartedSubsection(structure) {
+
+        const gettingStartedItems = {};
+        
+        // Try to find the Getting Started index file
+        try {
+            const response = await fetch(`./assets/pages/Getting Started/index.md`);
+            if (response.ok) {
+                const content = await response.text();
+                const icon = this.extractIconFromMarkdown(content) || '�';
+
+                gettingStartedItems['index'] = {
+                    path: `Getting Started/index`,
+                    type: 'markdown',
+                    name: 'Getting Started Guide',
+                    icon: icon
+                };
+            }
+        } catch (e) {
+        }
+
+        if (Object.keys(gettingStartedItems).length > 0) {
+            structure['Community Bridge'].items['Getting Started'] = {
+                icon: '�',
+                items: gettingStartedItems,
+                type: 'subsection',
+                name: 'Getting Started'
+            };
+        } else {
+        }
+    }
+
+    async discoverOrdersRecipeSection(structure) {
+
+        const recipeFiles = ['overview', 'getting-started', 'video-tutorials'];
+        
+        for (const fileName of recipeFiles) {
+            try {
+                const response = await fetch(`./assets/pages/The Orders Recipe/${fileName}.md`);
+                if (response.ok) {
+                    const content = await response.text();
+                    const icon = this.extractIconFromMarkdown(content) || '🍳';
+
+                    structure['The Orders Recipe'].items[fileName] = {
+                        path: `The Orders Recipe/${fileName}`,
+                        type: 'markdown',
+                        name: this.formatTitle(fileName),
+                        icon: icon
+                    };
+                }
+            } catch (e) {
+            }
+        }
+
+    }
+
+    async discoverRootLevelPages(structure) {
+
+        // List of root-level pages to check
+        const rootPages = ['contributors-and-partners'];
+        
+        for (const fileName of rootPages) {
+            try {
+                const response = await fetch(`./assets/pages/${fileName}.md`);
+                if (response.ok) {
+                    const content = await response.text();
+                    const icon = this.extractIconFromMarkdown(content) || '📄';
+
+                    // Add as a top-level section
+                    structure[this.formatTitle(fileName)] = {
+                        path: fileName,
+                        type: 'markdown',
+                        name: this.formatTitle(fileName),
+                        icon: icon
+                    };
+                }
+            } catch (e) {
+            }
+        }
+    }
+
+    async discoverSimpleFolder(structure, folderName) {
+
+        try {
+            // Try to load toc.json first
+            // try {
+            //     const tocResponse = await fetch(`./assets/pages/${folderName}/toc.json`);
+            //     if (tocResponse.ok) {
+            //         const tocData = await tocResponse.json();
+            //         for (const [fileName, fileData] of Object.entries(tocData)) {
+            //             // Try to load the actual file to extract icon
+            //             let icon = '📄'; // default
+            //             try {
+            //                 const fileResponse = await fetch(`./assets/pages/${folderName}/${fileName}.md`);
+            //                 if (fileResponse.ok) {
+            //                     const content = await fileResponse.text();
+            //                     icon = this.extractIconFromMarkdown(content) || '📄';
+            //                 }
+            //             } catch (e) {
+            //                 // Use default icon if file can't be loaded
+            //             }
+
+            //             structure[folderName].items[fileName] = {
+            //                 path: `${folderName}/${fileName}`,
+            //                 type: 'markdown',
+            //                 name: fileData.name || this.formatTitle(fileName),
+            //                 icon: icon
+            //             };
+            //             //         }
+            //         return;
+            //     }
+            // } catch (e) {
+            //     // }
+
+            // If no toc.json, discover markdown files directly
+            const commonFiles = ['index', 'basic-usage', 'advanced'];
+            for (const fileName of commonFiles) {
+                try {
+                    const response = await fetch(`./assets/pages/${folderName}/${fileName}.md`);
+                    if (response.ok) {
+                        const content = await response.text();
+                        const icon = this.extractIconFromMarkdown(content) || '📄';
+
+                        structure[folderName].items[fileName] = {
+                            path: `${folderName}/${fileName}`,
+                            type: 'markdown',
+                            name: this.formatTitle(fileName),
+                            icon: icon
+                        };
+                    }
+                } catch (e) {
+                    // File doesn't exist, continue
+                }
+            }
+        } catch (error) {
+        }
+    }
+
+    extractIconFromMarkdown(content) {
+        // Look for the main header pattern: # ModuleName Icon
+        // Example: # Anim 🎭
+        const headerMatch = content.match(/^#\s+(\w+)\s+([\u{1F600}-\u{1F64F}]|[\u{1F300}-\u{1F5FF}]|[\u{1F680}-\u{1F6FF}]|[\u{1F700}-\u{1F77F}]|[\u{1F780}-\u{1F7FF}]|[\u{1F800}-\u{1F8FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}])/mu);
+
+        if (headerMatch) {
+            return headerMatch[2];
+        }
+
+        // Fallback: look for any emoji in the first few lines
+        const lines = content.split('\n').slice(0, 5);
+        for (const line of lines) {
+            const emojiMatch = line.match(/([\u{1F600}-\u{1F64F}]|[\u{1F300}-\u{1F5FF}]|[\u{1F680}-\u{1F6FF}]|[\u{1F700}-\u{1F77F}]|[\u{1F780}-\u{1F7FF}]|[\u{1F800}-\u{1F8FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}])/u);
+            if (emojiMatch) {
+                return emojiMatch[1];
+            }
+        }
+
+        return null; // No icon found
+    }
+
     renderNavigation() {
-        const sidebar = document.querySelector('.sidebar');
-        if (!sidebar) return;
+        const navMenu = document.getElementById('nav-menu');
+        if (!navMenu) {
+            return;
+        }
 
         let html = '';
 
         for (const [categoryName, categoryData] of Object.entries(this.allModules)) {
-            html += `
-                <div class="nav-section" data-section="${categoryName}">
-                    <div class="nav-section-header">
-                        <span>${categoryData.icon || '📁'} ${categoryName}</span>
-                        <span class="icon">▼</span>
+            // Handle root-level pages (direct markdown files)
+            if (categoryData.type === 'markdown') {
+                html += `
+                    <div class="nav-item" data-path="${categoryData.path}" data-type="markdown">
+                        <span class="nav-icon">${categoryData.icon || '📄'}</span>
+                        <span class="nav-title">${categoryData.name || categoryName}</span>
                     </div>
-                    <div class="nav-items">
-            `;
-
-            html += this.renderNavItems(categoryData.items);
-
-            html += `
+                `;
+            } else {
+                // Handle sections with sub-items
+                html += `
+                    <div class="nav-section expanded" data-category="${categoryName}">
+                        <div class="nav-section-header" data-category="${categoryName}">
+                            <span class="nav-icon">${categoryData.icon || '📁'}</span>
+                            <span class="nav-title">${categoryName}</span>
+                        </div>
+                        <div class="nav-items">
+                            ${this.renderNavItems(categoryData.items || {})}
+                        </div>
                     </div>
-                </div>
-            `;
+                `;
+            }
         }
 
-        sidebar.innerHTML = html;
-
-        // Initialize collapsed states
-        const sections = sidebar.querySelectorAll('.nav-section');
-        sections.forEach((section, index) => {
-            if (index > 0) {
-                section.classList.add('collapsed');
-            }
-        });
-
-        const subsections = sidebar.querySelectorAll('.nav-subsection');
-        subsections.forEach(subsection => {
-            subsection.classList.add('collapsed');
-        });
+        navMenu.innerHTML = html;
 
         // IMPORTANT: Set up navigation events AFTER rendering
         this.setupNavigationEvents();
-
-        console.log('🎨 Navigation rendered successfully');
     }
 
     renderNavItems(items) {
         let html = '';
 
         for (const [itemName, itemData] of Object.entries(items)) {
-            if (itemData.items) {
-                // This is a subsection (like Modules)
+            if (itemData.type === 'subsection' && itemData.items) {
                 html += `
-                    <div class="nav-subsection">
-                        <div class="nav-subsection-header">${itemData.icon || '📂'} ${itemName}</div>
+                    <div class="nav-subsection collapsed" data-subsection="${itemName}">
+                        <div class="nav-subsection-header" data-subsection="${itemName}">
+                            <span class="nav-icon">${itemData.icon || '📁'}</span>
+                            <span class="nav-title">${itemName}</span>
+                        </div>
                         <div class="nav-items">
-                `;
-                html += this.renderNavItems(itemData.items);
-                html += `
+                            ${this.renderNavItems(itemData.items)}
                         </div>
                     </div>
                 `;
-            } else {
-                // This is a nav item
-                const displayName = itemName.charAt(0).toUpperCase() + itemName.slice(1).replace(/-/g, ' ');
+            } else if (itemData.type === 'markdown') {
                 html += `
-                    <a href="#${itemData.path}" class="nav-item" data-path="${itemData.path}" data-type="${itemData.type}">
-                        ${displayName}
-                    </a>
+                    <div class="nav-item" data-path="${itemData.path}" data-type="markdown">
+                        <span class="nav-icon">${itemData.icon || '📄'}</span>
+                        <span class="nav-title">${itemData.name || this.formatTitle(itemName)}</span>
+                    </div>
                 `;
             }
         }
@@ -514,147 +542,54 @@ class CommunityBridgeDocumentation {    constructor() {
 
     setupRouter() {
         window.addEventListener('hashchange', () => this.handleRouteChange());
-    }    handleRouteChange() {
+        
+        // Handle initial hash on page load
+        if (window.location.hash) {
+            this.handleRouteChange();
+        }
+    }
+
+    handleRouteChange() {
         const hash = window.location.hash.slice(1);
         if (hash) {
-            const decodedPath = decodeURIComponent(hash);
-            console.log('🛣️ Route changed to:', decodedPath);
-
-            // Check if this is a function anchor (contains dashes indicating function-side-module format)
-            if (this.isFunctionAnchor(decodedPath)) {
-                console.log('🔗 Detected function anchor:', decodedPath);
-                this.handleFunctionAnchor(decodedPath);
+            // Decode URL encoding (e.g., %20 -> space)
+            const decodedHash = decodeURIComponent(hash);
+            
+            // Check if hash contains an anchor (using @ as separator)
+            if (decodedHash.includes('@')) {
+                const [path, anchor] = decodedHash.split('@');
+                this.navigateToFunction(path, anchor, false); // Don't update URL
             } else {
-                // Regular page navigation
-                this.navigateToPath(decodedPath);
+                this.navigateToPath(decodedHash, false); // Don't update URL since we're responding to URL change
             }
         }
     }
 
-    isFunctionAnchor(path) {
-        // Function anchors follow the pattern: functionname-side-modulename
-        // They contain at least two dashes and are not typical page paths
-        const parts = path.split('-');
-        return parts.length >= 3 && !path.includes('/') && !path.includes(' ');
-    }
-
-    handleFunctionAnchor(anchorId) {
-        console.log('🎯 Handling function anchor:', anchorId);
-
-        // Check if the target element exists on the current page
-        const targetElement = document.getElementById(anchorId);
-        if (targetElement) {
-            console.log('✅ Found function element:', anchorId);
-            this.scrollToElement(targetElement);
-            this.highlightElement(targetElement);
-            this.updateTocActiveState(anchorId);
-        } else {
-            console.log('❌ Function element not found on current page:', anchorId);
-            // The function might be on a different module page
-            // Try to extract module name and navigate to that page first
-            this.navigateToModuleForFunction(anchorId);
-        }
-    }
-
-    navigateToModuleForFunction(anchorId) {
-        // Extract module name from anchor (last part after final dash)
-        const parts = anchorId.split('-');
-        if (parts.length >= 3) {
-            const moduleName = parts[parts.length - 1];
-            console.log('🔍 Trying to find module for function:', moduleName);
-
-            // Find the module path
-            const moduleItem = this.findModuleByName(moduleName);
-            if (moduleItem) {
-                console.log('📦 Found module:', moduleItem.path);
-                // Navigate to the module page, then scroll to the function
-                this.loadContent(moduleItem.path, moduleItem.type, moduleItem).then(() => {
-                    // After the module loads, try to scroll to the function
-                    setTimeout(() => {
-                        const targetElement = document.getElementById(anchorId);
-                        if (targetElement) {
-                            this.scrollToElement(targetElement);
-                            this.highlightElement(targetElement);
-                            this.updateTocActiveState(anchorId);
-                        }
-                    }, 500); // Give time for content to load
-                });
+    async navigateToPath(path, updateUrl = true) {
+        
+        // Update URL if needed (avoid infinite loops from hashchange events)
+        if (updateUrl) {
+            const newHash = `#${path}`;
+            if (window.location.hash !== newHash) {
+                window.location.hash = newHash;
             }
         }
-    }
-
-    findModuleByName(moduleName) {
-        const searchItems = (items) => {
-            for (const [key, item] of Object.entries(items)) {
-                if (item.name && item.name.toLowerCase() === moduleName.toLowerCase()) {
-                    return item;
-                }
-                if (item.items) {
-                    const found = searchItems(item.items);
-                    if (found) return found;
-                }
-            }
-            return null;
-        };
-
-        for (const [category, categoryData] of Object.entries(this.allModules)) {
-            const found = searchItems(categoryData.items);
-            if (found) return found;
-        }
-        return null;
-    }
-
-    scrollToElement(element) {
-        // Calculate offset to account for fixed header
-        const header = document.querySelector('.header');
-        const headerHeight = header ? header.offsetHeight : 60;
-        const additionalOffset = 20;
-        const totalOffset = headerHeight + additionalOffset;
-
-        // Get target position and subtract offset
-        const targetPosition = element.getBoundingClientRect().top + window.pageYOffset - totalOffset;
-
-        // Smooth scroll to adjusted position
-        window.scrollTo({
-            top: targetPosition,
-            behavior: 'smooth'
-        });
-
-        console.log(`📍 Scrolled to element with ${totalOffset}px offset`);
-    }
-
-    updateTocActiveState(anchorId) {
-        // Remove active class from all TOC links
-        document.querySelectorAll('.toc-link').forEach(link => {
-            link.classList.remove('active');
-        });
-
-        // Add active class to the TOC link that corresponds to this anchor
-        const tocLink = document.querySelector(`.toc-link[href="#${anchorId}"]`);
-        if (tocLink) {
-            tocLink.classList.add('active');
-            console.log('✅ Updated TOC active state for:', anchorId);
-        }
-    }    async navigateToPath(path) {
-        console.log('🎯 Navigating to:', path);
+        
         const item = this.findNavigationItem(path);
         if (item) {
-            console.log('✅ Found navigation item:', item);
-            return await this.loadContent(path, item.type, item);
+            await this.loadContent(path, item.type, item);
         } else {
-            console.warn('❌ Navigation item not found:', path);
             this.showError(`Page not found: ${path}`);
-            return Promise.reject(new Error(`Page not found: ${path}`));
         }
     }
 
     findNavigationItem(targetPath) {
         const searchItems = (items) => {
             for (const [key, item] of Object.entries(items)) {
-                if (item.path === targetPath) {
+                const itemPath = item.path ? item.path.replace('.md', '') : '';
+                if (itemPath === targetPath) {
                     return item;
-                }
-                if (item.items) {
+                } else if (item.items) {
                     const found = searchItems(item.items);
                     if (found) return found;
                 }
@@ -663,27 +598,34 @@ class CommunityBridgeDocumentation {    constructor() {
         };
 
         for (const [category, categoryData] of Object.entries(this.allModules)) {
-            const found = searchItems(categoryData.items);
+            // Check if this is a root-level page
+            if (categoryData.type === 'markdown' && categoryData.path === targetPath) {
+                return categoryData;
+            }
+            
+            // Search within section items
+            const found = searchItems(categoryData.items || {});
             if (found) return found;
         }
         return null;
-    }    async loadContent(path, type, item) {
+    }
+
+    async loadContent(path, type, item) {
         this.setLoading(true);
 
         try {
-            if (type === 'markdown') {
-                await this.loadMarkdownContent(path);
-            } else if (type === 'json-module') {
-                await this.loadJsonModuleContent(path, item.jsonFile);
-            }            setTimeout(() => {
-                this.updateTableOfContents();
-                this.applySyntaxHighlighting();
-                this.setupCopyLinkButtons();
-            }, 100);
 
+            // Try to load markdown content
+            const markdownContent = await this.loadMarkdownContent(path);
+
+            // Set current module info
+            this.currentModule = item;
+            this.currentModuleName = path.split('/').pop();
+
+            // Render the content
+            this.renderMarkdownContent(markdownContent, path);
         } catch (error) {
-            console.error('Failed to load content:', error);
-            this.showError(`Failed to load: ${path}`);
+            this.showError(`Failed to load content for: ${path}`);
         } finally {
             this.setLoading(false);
         }
@@ -691,848 +633,1279 @@ class CommunityBridgeDocumentation {    constructor() {
 
     async loadMarkdownContent(path) {
         try {
-            const filePath = `assets/pages/${path}.md`;
-            console.log(`📄 Loading markdown: ${filePath}`);
+            const response = await fetch(`./assets/pages/${path}.md`);
 
-            const response = await fetch(filePath);
-            if (response.ok) {
-                const content = await response.text();
-                const mainContent = document.querySelector('.main-content');
-                if (mainContent) {
-                    mainContent.innerHTML = this.renderMarkdown(content);
-                }
-            } else {
-                throw new Error(`Failed to load ${filePath}: ${response.status}`);
+            if (!response.ok) {
+                throw new Error(`Failed to load ${path}: ${response.status}`);
             }
+
+            const content = await response.text();
+
+            return {
+                content: content,
+                meta: this.parseMarkdownMeta(content)
+            };
         } catch (error) {
-            console.error('Error loading markdown:', error);
             throw error;
         }
-    }    async loadJsonModuleContent(path, jsonFile) {
-        try {
-            console.log(`📦 Loading JSON module: ${jsonFile}`);
-            const response = await fetch(jsonFile);
+    }
 
-            if (response.ok) {
-                const moduleData = await response.json();
-                console.log('📊 Module data loaded:', moduleData);
+    parseMarkdownMeta(content) {
+        const meta = {};
+        const metaMatch = content.match(/<!--META\s*([\s\S]*?)\s*-->/);
+        if (metaMatch) {
+            const metaContent = metaMatch[1];
+            const lines = metaContent.split('\n');
 
-                // Extract category and item name from path
-                let itemName, tocPath, category;
-                const pathParts = path.split('/');
+            for (const line of lines) {
+                const trimmed = line.trim();
+                if (trimmed.includes(':')) {
+                    const [key, ...valueParts] = trimmed.split(':');
+                    const value = valueParts.join(':').trim();
 
-                if (pathParts.length >= 2) {
-                    category = pathParts[0];
-                    itemName = pathParts[1];
-
-                    // Map category names to proper case for file paths
-                    let folderName = category;
-                    if (category === 'modules') folderName = 'Modules';
-                    else if (category === 'libraries') folderName = 'Libraries';
-                    else {
-                        // For dynamic folders, capitalize first letter of each word
-                        folderName = category.split(' ').map(word =>
-                            word.charAt(0).toUpperCase() + word.slice(1)
-                        ).join(' ');
+                    if (value === 'true' || value === 'false') {
+                        meta[key.trim()] = value === 'true';
+                    } else {
+                        meta[key.trim()] = value;
                     }
-
-                    tocPath = `assets/pages/Community Bridge/${folderName}/${itemName}/toc.json`;
-                    console.log(`📋 Constructed TOC path: ${tocPath} for category: ${category}`);
-                } else {
-                    // Fallback for legacy paths
-                    itemName = path;
-                    tocPath = null;
-                    category = 'unknown';
                 }
+            }
+        }
 
-                // Load the module/library's TOC
-                let tocData = null;
-                if (tocPath) {
+        return meta;
+    }
+
+    renderMarkdownContent(markdownData, modulePath) {
+        const contentArea = document.getElementById('content-area');
+        if (!contentArea) return;
+
+        // Initialize marked.js with our configuration
+        this.initializeMarked();
+
+        // Parse functions from markdown first (before cleaning)
+        const functions = this.parseFunctionsFromMarkdown(markdownData.content);
+
+        // Convert markdown to HTML using marked.js
+        let html = this.convertMarkdownToHTML(markdownData.content);
+
+        // Add functions section if functions exist
+        if (functions.length > 0) {
+            html += '<h2 id="functions-section">Functions</h2>';
+            html += functions.map(func => this.renderFunction(func, func.side, this.currentModuleName)).join('');
+        }
+
+        // Set content
+        contentArea.innerHTML = html;
+        
+        // Load GitHub contributors if this is the contributors page
+        if (modulePath.includes('contributors-and-partners')) {
+            this.loadGitHubContributors();
+        }
+        
+        // Apply syntax highlighting with highlight.js
+        setTimeout(() => {
+            contentArea.querySelectorAll('pre code').forEach(block => {
+                hljs.highlightElement(block);
+            });
+            
+            // Generate TOC after content is rendered and DOM is updated
+            this.updateTableOfContents(functions);
+            
+            // Setup copy buttons after everything is rendered
+            this.setupCopyLinkButtons();
+        }, 50);
+
+        // Update current module info
+        this.currentModule = markdownData;
+        this.currentModuleName = modulePath.split('/').pop();
+    }
+
+    initializeMarked() {
+        // Configure marked.js options
+        marked.setOptions({
+            highlight: function(code, lang) {
+                if (lang && hljs.getLanguage(lang)) {
                     try {
-                        console.log(`📋 Loading TOC: ${tocPath}`);
-                        const tocResponse = await fetch(tocPath);
-                        if (tocResponse.ok) {
-                            tocData = await tocResponse.json();
-                            console.log('📋 TOC data loaded:', tocData);
-                        }
-                    } catch (tocError) {
-                        console.warn('⚠️ Could not load TOC:', tocError);
-                    }
+                        return hljs.highlight(code, { language: lang }).value;
+                    } catch (err) {}
                 }
+                return hljs.highlightAuto(code).value;
+            },
+            langPrefix: 'hljs language-',
+            breaks: false,
+            gfm: true,
+            tables: true,
+            sanitize: false,
+            smartLists: true,
+            smartypants: false
+        });
 
-                const mainContent = document.querySelector('.main-content');
-                if (mainContent) {
-                    // Pass item name and category for anchor generation
-                    mainContent.innerHTML = this.renderJsonModule(moduleData, tocData, itemName, category);
-                }
-                console.log(`✅ Loaded JSON module: ${moduleData.name} from category: ${category}`);
-            } else {
-                throw new Error(`Failed to load ${jsonFile}: ${response.status}`);
+        // Custom renderer for better control
+        const renderer = new marked.Renderer();
+
+        // Custom heading renderer with anchor support
+        renderer.heading = function(text, level) {
+            // Remove emojis and special chars for ID, but keep original text for display
+            const escapedText = text.toLowerCase()
+                .replace(/[\u{1F600}-\u{1F64F}]|[\u{1F300}-\u{1F5FF}]|[\u{1F680}-\u{1F6FF}]|[\u{1F700}-\u{1F77F}]|[\u{1F780}-\u{1F7FF}]|[\u{1F800}-\u{1F8FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]/gu, '')
+                .replace(/[^\w]+/g, '-')
+                .replace(/^-+|-+$/g, ''); // Remove leading/trailing dashes
+
+            let className = '';
+
+            if (level === 4) {
+                className = ' class="section-header"';
             }
-        } catch (error) {
-            console.error('Error loading JSON module:', error);
-            throw error;
+
+            return `<h${level}${className} id="${escapedText}">${text}</h${level}>`;
+        };
+
+        // Custom table renderer with our styling
+        renderer.table = function(header, body) {
+            return `<div class="table-container">
+                <table class="content-table">
+                    <thead>${header}</thead>
+                    <tbody>${body}</tbody>
+                </table>
+            </div>`;
+        };
+
+        // Custom code block renderer with copy button
+        renderer.code = function(code, lang) {
+            const language = lang || 'text';
+            return `<div class="code-block-container">
+                <button class="copy-button">Copy</button>
+                <pre><code class="hljs language-${language}">${code}</code></pre>
+            </div>`;
+        };
+
+        marked.use({ renderer });
+    }
+
+    parseFunctionsFromMarkdown(markdown) {
+
+        const functions = [];
+
+        // Parse markdown function documentation using headers and structured content
+        // Look for function patterns like:
+        // ## FunctionName (Client/Server/Shared)
+        // ### Description
+        // ### Syntax
+        // ### Parameters
+        // ### Returns
+        // ### Example
+
+        const sections = this.splitMarkdownBySections(markdown);
+
+        for (const section of sections) {
+            const func = this.parseMarkdownFunctionSection(section);
+            if (func) {
+                functions.push(func);
+            }
         }
-    }    renderJsonModule(moduleData, tocData = null, moduleName = 'unknown', category = 'unknown') {
-        if (!moduleData || (!moduleData.clientFunctions && !moduleData.serverFunctions && !moduleData.sharedFunctions)) {
-            return '<div class="error-message">No module data available</div>';
+        return functions;
+    }
+
+    splitMarkdownBySections(markdown) {
+        // Split markdown by ## headers (function definitions)
+        const sections = [];
+        const lines = markdown.split('\n');
+        let currentSection = [];
+
+        for (const line of lines) {
+            if (line.match(/^##\s+\w+.*\((Client|Server|Shared)\)/i)) {
+                if (currentSection.length > 0) {
+                    sections.push(currentSection.join('\n'));
+                }
+                currentSection = [line];
+            } else {
+                currentSection.push(line);
+            }
         }
 
-        // Store current module info for TOC generation
-        this.currentModuleName = moduleName;
-        this.currentModuleToc = tocData;
-        this.currentCategory = category;
+        if (currentSection.length > 0) {
+            sections.push(currentSection.join('\n'));
+        }
 
-        let html = `
-            <div class="module-header">
-                <h1 id="overview">${moduleData.icon || '📦'} ${moduleData.name}</h1>
-                <p class="module-description">${moduleData.description || 'No description available.'}</p>
-                <div class="module-meta">
-                    <span class="module-category">📂 Category: ${category.charAt(0).toUpperCase() + category.slice(1)}</span>
+        return sections;
+    }
+
+    parseMarkdownFunctionSection(section) {
+        const lines = section.split('\n');
+        const headerLine = lines[0];
+
+        // Parse function header: ## FunctionName (Client/Server/Shared)
+        // Updated regex to capture function names with dots like LootTable.GetRandomItemsWithLimit
+        const headerMatch = headerLine.match(/^##\s+([^\s(]+).*\((Client|Server|Shared)\)/i);
+        if (!headerMatch) {
+            return null;
+        }
+
+        const fullName = headerMatch[1];
+        const side = headerMatch[2].toLowerCase();
+
+        // Extract just the function name part (after the last dot if present)
+        const nameParts = fullName.split('.');
+        const functionName = nameParts[nameParts.length - 1];
+
+        const func = {
+            name: functionName,
+            fullName: fullName, // Keep the full name for display
+            side: side,
+            description: '',
+            syntax: '',
+            parameters: [],
+            returns: [],
+            example: ''
+        };
+
+        let currentSection = 'description';
+        let currentContent = [];
+
+        for (let i = 1; i < lines.length; i++) {
+            const line = lines[i];
+
+            if (line.match(/^###\s+Description/i)) {
+                currentSection = 'description';
+                currentContent = [];
+            } else if (line.match(/^###\s+Syntax/i)) {
+                if (currentContent.length > 0) {
+                    func.description = currentContent.join('\n').trim();
+                }
+                currentSection = 'syntax';
+                currentContent = [];
+            } else if (line.match(/^###\s+Parameters/i)) {
+                if (currentContent.length > 0 && currentSection === 'syntax') {
+                    func.syntax = this.extractCodeFromContent(currentContent.join('\n'));
+                }
+                currentSection = 'parameters';
+                currentContent = [];
+            } else if (line.match(/^###\s+Returns/i)) {
+                if (currentContent.length > 0 && currentSection === 'parameters') {
+                    func.parameters = this.parseParametersFromMarkdown(currentContent.join('\n'));
+                }
+                currentSection = 'returns';
+                currentContent = [];
+            } else if (line.match(/^###\s+Example/i)) {
+                if (currentContent.length > 0 && currentSection === 'returns') {
+                    func.returns = this.parseReturnsFromMarkdown(currentContent.join('\n'));
+                } else if (currentContent.length > 0 && currentSection === 'parameters') {
+                    func.parameters = this.parseParametersFromMarkdown(currentContent.join('\n'));
+                }
+                currentSection = 'example';
+                currentContent = [];
+            } else if (line.trim() !== '') {
+                currentContent.push(line);
+            }
+        }
+
+        // Handle the last section
+        if (currentContent.length > 0) {
+            switch (currentSection) {
+                case 'description':
+                    func.description = currentContent.join('\n').trim();
+                    break;
+                case 'syntax':
+                    func.syntax = this.extractCodeFromContent(currentContent.join('\n'));
+                    break;
+                case 'parameters':
+                    func.parameters = this.parseParametersFromMarkdown(currentContent.join('\n'));
+                    break;
+                case 'returns':
+                    func.returns = this.parseReturnsFromMarkdown(currentContent.join('\n'));
+                    break;
+                case 'example':
+                    func.example = this.extractCodeFromContent(currentContent.join('\n'));
+                    break;
+            }
+        }
+
+        return func;
+    }
+
+    extractCodeFromContent(content) {
+        // Extract code from markdown code blocks
+        const codeBlockMatch = content.match(/```(?:lua|javascript|js)?\s*([\s\S]*?)\s*```/);
+        if (codeBlockMatch) {
+            return codeBlockMatch[1].trim();
+        }
+
+        // Extract code from inline code
+        const inlineCodeMatch = content.match(/`([^`]+)`/);
+        if (inlineCodeMatch) {
+            return inlineCodeMatch[1];
+        }
+
+        // Return plain text if no code blocks found
+        return content.trim();
+    }
+
+    parseParametersFromMarkdown(content) {
+        const parameters = [];
+
+        // Look for list items with parameter information
+        // Format: - **paramName** (type): description
+        const paramRegex = /[-*]\s*\*\*(\w+)\*\*\s*\(([^)]+)\):\s*(.+)/gi;
+        let match;
+
+        while ((match = paramRegex.exec(content)) !== null) {
+            parameters.push({
+                name: match[1],
+                type: match[2].trim(),
+                description: match[3].trim()
+            });
+        }
+
+        // Alternative format: - paramName (type) - description
+        if (parameters.length === 0) {
+            const altParamRegex = /[-*]\s*(\w+)\s*\(([^)]+)\)\s*[-–—]\s*(.+)/gi;
+            while ((match = altParamRegex.exec(content)) !== null) {
+                parameters.push({
+                    name: match[1],
+                    type: match[2].trim(),
+                    description: match[3].trim()
+                });
+            }
+        }
+
+        return parameters;
+    }
+
+    parseReturnsFromMarkdown(content) {
+        const returns = [];
+
+        // Look for return type information
+        // Format: - (type): description
+        const returnRegex = /[-*]\s*\(([^)]+)\):\s*(.+)/gi;
+        let match;
+
+        while ((match = returnRegex.exec(content)) !== null) {
+            returns.push({
+                type: match[1].trim(),
+                description: match[2].trim()
+            });
+        }
+
+        // Alternative format: Returns type - description
+        if (returns.length === 0) {
+            const altReturnRegex = /Returns?\s+(\w+)\s*[-–—]\s*(.+)/gi;
+            while ((match = altReturnRegex.exec(content)) !== null) {
+                returns.push({
+                    type: match[1],
+                    description: match[2].trim()
+                });
+            }
+        }
+
+        return returns;
+    }
+
+    convertMarkdownToHTML(markdown) {
+
+        // Remove function sections before rendering regular markdown content
+        // Function sections will be rendered separately as cards
+        let cleanMarkdown = this.removeFunctionSections(markdown);
+
+        // Remove META and TOC comments
+        cleanMarkdown = cleanMarkdown.replace(/<!--META[\s\S]*?-->/g, '');
+        cleanMarkdown = cleanMarkdown.replace(/<!--TOC:[\s\S]*?-->/g, '');
+
+        // Use marked.js to convert markdown to HTML
+        const html = marked.parse(cleanMarkdown);
+        return html;
+    }
+
+    removeFunctionSections(markdown) {
+        // Remove function sections (## FunctionName (Side) ... until next non-function ## or end)
+        const lines = markdown.split('\n');
+        const cleanLines = [];
+        let inFunctionSection = false;
+
+        for (let i = 0; i < lines.length; i++) {
+            const line = lines[i];
+
+            // Check if this line starts a function section
+            if (line.match(/^##\s+\w+.*\((Client|Server|Shared)\)/i)) {
+                inFunctionSection = true;
+                continue;
+            }
+
+            // Check if this line starts a non-function section (like ## Overview)
+            if (line.match(/^##\s+/) && !line.match(/\((Client|Server|Shared)\)/i)) {
+                inFunctionSection = false;
+                cleanLines.push(line);
+                continue;
+            }
+
+            // If we're not in a function section, keep the line
+            if (!inFunctionSection) {
+                cleanLines.push(line);
+            }
+        }
+
+        let cleanMarkdown = cleanLines.join('\n');
+
+        // Clean up any leftover function-related content
+        cleanMarkdown = cleanMarkdown.replace(/^## (Client|Server|Shared) Functions\s*$/gm, '');
+        cleanMarkdown = cleanMarkdown.replace(/^Context:.*$/gm, '');
+        cleanMarkdown = cleanMarkdown.replace(/^Syntax:.*$/gm, '');
+        cleanMarkdown = cleanMarkdown.replace(/^Parameters:.*$/gm, '');
+        cleanMarkdown = cleanMarkdown.replace(/^Returns:.*$/gm, '');
+        cleanMarkdown = cleanMarkdown.replace(/^Example:.*$/gm, '');
+
+        return cleanMarkdown;
+    }
+
+    renderFunction(func, side, moduleName = 'unknown') {
+        const anchor = this.generateAnchor(func.name, side, moduleName);
+
+        const parameters = func.parameters?.map(p => `
+            <li>
+                <code>${p.name}</code>
+                <span class="param-type">(${p.type})</span>
+                ${p.optional ? '<span class="param-optional">optional</span>' : ''}
+                - <span class="param-desc">${p.description}</span>
+            </li>`).join('') || '<li>None</li>';
+
+        const returns = func.returns?.map(r => `
+            <li>
+                <span class="param-type">(${r.type})</span>
+                - <span class="param-desc">${r.description}</span>
+            </li>`).join('') || '<li>None</li>';
+
+        const example = func.example ?
+            `<div class="code-block-container">
+                <button class="copy-button">Copy</button>
+                <pre><code class="lua">${Array.isArray(func.example) ? func.example.join('\n') : func.example}</code></pre>
+            </div>` : '<p>No example provided.</p>';
+
+        return `
+            <div class="function-card" id="${anchor}">
+                <div class="function-header">
+                    <span class="function-name">${func.fullName || func.name}</span>
+                    <div class="function-meta">
+                        <span class="function-side ${side}">${side}</span>
+                        <button class="copy-link-btn" title="Copy Link" data-anchor="${anchor}">🔗</button>
+                    </div>
+                </div>
+                <div class="function-body">
+                    <p class="function-description">${func.description || 'No description provided.'}</p>
+                    <h4>Parameters</h4>
+                    <ul class="param-list">${parameters}</ul>
+                    <h4>Returns</h4>
+                    <ul class="param-list">${returns}</ul>
+                    <h4>Example</h4>
+                    ${example}
                 </div>
             </div>
         `;
+    }
 
-        // Client Functions
-        if (moduleData.clientFunctions && moduleData.clientFunctions.length > 0) {
-            html += '<section class="functions-section"><h2 id="client-functions">🖥️ Client Functions</h2><div class="functions-grid">';
-            moduleData.clientFunctions.forEach(func => {
-                html += this.renderFunction(func, 'client', moduleName);
-            });
-            html += '</div></section>';        }
+    generateAnchor(name, side, module) {
+        return `${name}-${side}-${module}`.toLowerCase().replace(/[^a-z0-9-]/g, '');
+    }
 
-        // Server Functions
-        if (moduleData.serverFunctions && moduleData.serverFunctions.length > 0) {
-            html += '<section class="functions-section"><h2 id="server-functions">🖧 Server Functions</h2><div class="functions-grid">';
-            moduleData.serverFunctions.forEach(func => {
-                html += this.renderFunction(func, 'server', moduleName);
-            });
-            html += '</div></section>';
-        }
+    updateTableOfContents(functions = []) {
+        const tocContainer = document.getElementById('toc-container');
+        const tocContent = document.getElementById('toc-content');
 
-        // Shared Functions
-        if (moduleData.sharedFunctions && moduleData.sharedFunctions.length > 0) {
-            html += '<section class="functions-section"><h2 id="shared-functions">🔗 Shared Functions</h2><div class="functions-grid">';
-            moduleData.sharedFunctions.forEach(func => {
-                html += this.renderFunction(func, 'shared', moduleName);
-            });
-            html += '</div></section>';
-        }
+        if (!tocContainer || !tocContent) return;
 
-        return html;
-    }renderMarkdown(content) {
-        // Simple but better markdown renderer
-        let html = content
-            // Headers
-            .replace(/^# (.+)$/gm, '<h1>$1</h1>')
-            .replace(/^## (.+)$/gm, '<h2>$1</h2>')
-            .replace(/^### (.+)$/gm, '<h3>$1</h3>')
-            .replace(/^#### (.+)$/gm, '<h4>$1</h4>')
+        // Generate TOC from both content headers and functions
+        const tocItems = this.generateTocItems(functions);
 
-            // Code blocks
-            .replace(/```(\w+)?\n([\s\S]*?)```/g, '<div class="code-block-container"><pre class="code-block"><code class="language-$1">$2</code></pre></div>')
-
-            // Inline code
-            .replace(/`([^`]+)`/g, '<code class="inline-code">$1</code>')
-
-            // Bold and italic
-            .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-            .replace(/\*(.+?)\*/g, '<em>$1</em>')
-
-            // Lists
-            .replace(/^[\-\*] (.+)$/gm, '<li>$1</li>')
-
-            // Line breaks and paragraphs
-            .replace(/\n\n/g, '</p><p>')
-            .replace(/^(.+)$/gm, '<p>$1</p>')
-
-            // Clean up headers in paragraphs
-            .replace(/<\/p><p><h([1-6])>/g, '</p><h$1>')
-            .replace(/<\/h([1-6])><p>/g, '</h$1><p>')
-
-            // Clean up lists
-            .replace(/<p><li>/g, '<ul><li>')
-            .replace(/<\/li><\/p>/g, '</li></ul>')
-            .replace(/<\/ul><ul>/g, '');
-
-        // Wrap content in a container
-        return `<div class="markdown-content">${html}</div>`;
-    }    renderFunction(func, side, moduleName = 'unknown') {
-        const sideClass = side === 'client' ? 'client' : 'server';
-        const sideIcon = side === 'client' ? '🖥️' : '🖧';
-
-        // Create comprehensive unique anchor ID: functionname-side-module
-        const cleanFunctionName = func.name.toLowerCase().replace(/[^a-z0-9]/g, '');
-        const cleanModuleName = moduleName.toLowerCase().replace(/[^a-z0-9]/g, '');
-        const anchorId = `${cleanFunctionName}-${side}-${cleanModuleName}`;
-
-        console.log(`🔗 Creating anchor: ${anchorId} for function ${func.name} (${side}) in ${moduleName}`);
-
-        let parametersHtml = '';
-        if (func.parameters && func.parameters.length > 0) {
-            parametersHtml = `
-                <div class="function-parameters">
-                    <h4>Parameters:</h4>
-                    <ul>
-                        ${func.parameters.map(param => `
-                            <li><code>${param.name}</code> (${param.type}) - ${param.description || ''}</li>
-                        `).join('')}
-                    </ul>
-                </div>
-            `;        }        return `
-            <div class="function-card" id="${anchorId}">
-                <div class="function-header">
-                    <h3>${func.name}</h3>
-                    <div class="function-badges">
-                        <span class="badge ${sideClass}">${sideIcon} ${side}</span>
-                        <button class="copy-link-btn" title="Copy direct link to this function" data-anchor="${anchorId}">🔗</button>
-                    </div>
-                </div>
-                <p>${func.description || 'No description available.'}</p>
-                <div class="function-syntax">
-                    <h4>Syntax:</h4>
-                    <div class="code-block-container">
-                        <pre class="code-block"><code>${func.syntax || func.name + '()'}</code></pre>
-                        <button class="copy-button" title="Copy code">📋</button>
-                    </div>
-                </div>
-                ${parametersHtml}
-                ${func.example ? `
-                    <div class="function-example">
-                        <h4>Example:</h4>
-                        <div class="code-block-container">
-                            <pre class="code-block"><code>${func.example}</code></pre>
-                            <button class="copy-button" title="Copy code">📋</button>
-                        </div>
-                    </div>
-                ` : ''}
-            </div>
-        `;}
-
-    copyCode(button) {
-        const codeBlock = button.parentNode.querySelector('code');
-        const text = codeBlock.textContent;
-
-        navigator.clipboard.writeText(text).then(() => {
-            const originalText = button.textContent;
-            button.textContent = '✅';
-            button.style.color = 'var(--accent-color)';
-
-            setTimeout(() => {
-                button.textContent = originalText;
-                button.style.color = '';
-            }, 2000);
-        }).catch(err => {
-            console.error('Failed to copy code:', err);
-            button.textContent = '❌';
-            setTimeout(() => {
-                button.textContent = '📋';
-            }, 2000);
-        });
-    }    // Apply syntax highlighting to all code blocks after content is loaded
-    applySyntaxHighlighting() {
-        // Apply Lua syntax highlighting to code blocks
-        const codeBlocks = document.querySelectorAll('.code-block code');
-        codeBlocks.forEach(block => {
-            this.applyLuaSyntaxHighlighting(block);
-        });
-
-        // Set up copy button event listeners
-        const copyButtons = document.querySelectorAll('.copy-button');
-        copyButtons.forEach(button => {
-            button.addEventListener('click', () => this.copyCode(button));
-        });
-    }    applyLuaSyntaxHighlighting(codeElement) {
-        let html = codeElement.textContent;
-
-        // First, fix newline characters - convert \n to actual line breaks
-        html = html.replace(/\\n/g, '\n');
-
-        // Convert multiple consecutive newlines to single line breaks
-        html = html.replace(/\n+/g, '\n');
-
-        // Remove leading/trailing whitespace but preserve internal formatting
-        html = html.trim();
-
-        // Lua keywords
-        const keywords = [
-            'and', 'break', 'do', 'else', 'elseif', 'end', 'false', 'for',
-            'function', 'if', 'in', 'local', 'nil', 'not', 'or', 'repeat',
-            'return', 'then', 'true', 'until', 'while'
-        ];
-
-        // Apply highlighting in specific order to avoid conflicts
-
-        // 1. Protect strings first
-        html = html.replace(/(["'])(?:(?=(\\?))\2.)*?\1/g, '<span class="lua-string">$&</span>');
-
-        // 2. Highlight comments (but not inside strings)
-        html = html.replace(/--.*$/gm, '<span class="lua-comment">$&</span>');
-
-        // 3. Highlight numbers
-        html = html.replace(/\b(\d+\.?\d*)\b/g, '<span class="lua-number">$1</span>');
-
-        // 4. Highlight keywords (but not inside strings/comments)
-        keywords.forEach(keyword => {
-            const regex = new RegExp(`\\b(${keyword})\\b(?![^<]*</span>)`, 'g');
-            html = html.replace(regex, '<span class="lua-keyword">$1</span>');
-        });
-
-        // 5. Highlight function calls (word followed by parentheses)
-        html = html.replace(/\b([a-zA-Z_][a-zA-Z0-9_]*)\s*(?=\()/g, '<span class="lua-function">$1</span>');
-
-        // 6. Highlight special Lua operators and symbols
-        html = html.replace(/(\.\.|\:\:|\=\=|\~\=|\<\=|\>\=|\.|\:)/g, '<span class="lua-operator">$1</span>');
-
-        codeElement.innerHTML = html;
-    }    async buildSearchIndex() {
-        console.log('📚 Building search index...');
-        this.searchIndex = [];
-
-        const indexPromises = [];
-
-        // Debug: Log the entire structure
-        console.log('🔍 All modules structure:', this.allModules);
-
-        // Index all modules and their functions
-        for (const [categoryName, categoryData] of Object.entries(this.allModules)) {
-            console.log(`📂 Processing category: ${categoryName}`, categoryData);
-            if (categoryData.items) {
-                for (const [itemName, itemData] of Object.entries(categoryData.items)) {
-                    console.log(`  📄 Processing item: ${itemName}`, itemData);
-
-                    // Check if this item has nested items (like "Modules" containing actual modules)
-                    if (itemData.items) {
-                        console.log(`  📁 Found nested items in ${itemName}:`, Object.keys(itemData.items));
-                        // Process nested items
-                        for (const [nestedName, nestedData] of Object.entries(itemData.items)) {
-                            console.log(`    📋 Processing nested item: ${nestedName}`, nestedData);
-
-                            // Add nested module to search index
-                            this.searchIndex.push({
-                                type: 'module',
-                                name: nestedName,
-                                category: categoryName,
-                                path: nestedData.path,
-                                description: nestedData.description || '',
-                                data: nestedData
-                            });
-
-                            // If it's a JSON module, index its functions
-                            if (nestedData.type === 'json-module' && nestedData.jsonFile) {
-                                console.log(`    🔧 Found JSON module: ${nestedName}, queueing for indexing...`);
-                                indexPromises.push(this.indexJsonModuleFunctions(nestedName, categoryName, nestedData));
-                            }
-                        }
-                    } else {
-                        // Add regular module/page to search index
-                        this.searchIndex.push({
-                            type: 'module',
-                            name: itemName,
-                            category: categoryName,
-                            path: itemData.path,
-                            description: itemData.description || '',
-                            data: itemData
-                        });
-
-                        // If it's a JSON module, index its functions
-                        if (itemData.type === 'json-module' && itemData.jsonFile) {
-                            console.log(`  🔧 Found JSON module: ${itemName}, queueing for indexing...`);
-                            indexPromises.push(this.indexJsonModuleFunctions(itemName, categoryName, itemData));
-                        }
-                    }
-                }
-            }
-        }
-
-        console.log(`⏳ Waiting for ${indexPromises.length} JSON modules to be indexed...`);
-
-        // Wait for all function indexing to complete
-        await Promise.all(indexPromises);
-
-        console.log(`✅ Search index built with ${this.searchIndex.length} items`);
-        console.log('📊 Search index breakdown:');
-        const modules = this.searchIndex.filter(item => item.type === 'module').length;
-        const clientFunctions = this.searchIndex.filter(item => item.type === 'function' && item.side === 'client').length;
-        const serverFunctions = this.searchIndex.filter(item => item.type === 'function' && item.side === 'server').length;
-        console.log(`   📦 Modules: ${modules}`);
-        console.log(`   🖥️ Client Functions: ${clientFunctions}`);
-        console.log(`   🖧 Server Functions: ${serverFunctions}`);
-    }    async indexJsonModuleFunctions(moduleName, categoryName, moduleItem) {
-        try {
-            console.log(`📥 Indexing functions for module: ${moduleName}`);
-            const response = await fetch(moduleItem.jsonFile);
-            if (response.ok) {
-                const moduleData = await response.json();
-                let functionsAdded = 0;
-
-                // Index client functions
-                if (moduleData.clientFunctions && Array.isArray(moduleData.clientFunctions)) {
-                    console.log(`   🖥️ Found ${moduleData.clientFunctions.length} client functions`);
-                    moduleData.clientFunctions.forEach(func => {
-                        this.searchIndex.push({
-                            type: 'function',
-                            side: 'client',
-                            name: func.name,
-                            module: moduleName,
-                            category: categoryName,
-                            path: moduleItem.path,
-                            description: func.description || '',
-                            syntax: func.syntax || '',
-                            example: func.example || '',
-                            parameters: func.parameters || [],
-                            data: func
-                        });
-                        functionsAdded++;
-                    });
-                }
-
-                // Index server functions
-                if (moduleData.serverFunctions && Array.isArray(moduleData.serverFunctions)) {
-                    console.log(`   🖧 Found ${moduleData.serverFunctions.length} server functions`);
-                    moduleData.serverFunctions.forEach(func => {
-                        this.searchIndex.push({
-                            type: 'function',
-                            side: 'server',
-                            name: func.name,
-                            module: moduleName,
-                            category: categoryName,
-                            path: moduleItem.path,
-                            description: func.description || '',
-                            syntax: func.syntax || '',
-                            example: func.example || '',
-                            parameters: func.parameters || [],
-                            data: func
-                        });
-                        functionsAdded++;
-                    });
-                }
-
-                console.log(`   ✅ Added ${functionsAdded} functions from ${moduleName}`);
-            } else {
-                console.warn(`⚠️ Failed to fetch JSON for ${moduleName}: ${response.status}`);
-            }
-        } catch (error) {
-            console.warn(`⚠️ Could not index functions for ${moduleName}:`, error);
-        }
-    }handleSearch(query) {
-        console.log('🔍 Search query:', query);
-
-        if (!query || query.trim().length < 2) {
-            this.hideSearchResultsOnly();
+        if (tocItems.length === 0) {
+            tocContainer.style.display = 'none';
             return;
         }
 
-        const searchTerm = query.toLowerCase().trim();
-        const results = this.searchIndex.filter(item => {
-            return (
-                item.name.toLowerCase().includes(searchTerm) ||
-                item.description.toLowerCase().includes(searchTerm) ||
-                (item.module && item.module.toLowerCase().includes(searchTerm)) ||
-                (item.category && item.category.toLowerCase().includes(searchTerm)) ||
-                (item.syntax && item.syntax.toLowerCase().includes(searchTerm))
-            );
-        });
+        tocContent.innerHTML = tocItems;
+        tocContainer.style.display = 'block';
 
-        // Sort results by relevance
-        results.sort((a, b) => {
-            const aNameMatch = a.name.toLowerCase().startsWith(searchTerm);
-            const bNameMatch = b.name.toLowerCase().startsWith(searchTerm);
-
-            if (aNameMatch && !bNameMatch) return -1;
-            if (!aNameMatch && bNameMatch) return 1;
-
-            return a.name.localeCompare(b.name);
-        });
-
-        this.showSearchResults(results, searchTerm);
+        // Add click handlers
+        this.addTocClickHandlers(tocContainer);
     }
 
-    showSearchResults(results, searchTerm) {
-        let searchContainer = document.querySelector('.search-results');
+    generateTocItems(functions = []) {
+        let tocHtml = '';
 
-        if (!searchContainer) {
-            // Create search results container
-            searchContainer = document.createElement('div');
-            searchContainer.className = 'search-results';
+        // First, add content headers from the rendered HTML
+        const contentArea = document.getElementById('content-area');
+        if (contentArea) {
+            const headers = contentArea.querySelectorAll('h2, h3, h4');
+            const contentHeaders = [];
 
-            const searchInputContainer = document.querySelector('.search-container');
-            if (searchInputContainer) {
-                searchInputContainer.parentNode.insertBefore(searchContainer, searchInputContainer.nextSibling);
+            headers.forEach(header => {
+                // Skip the "Functions" header as we'll handle that separately
+                if (header.textContent.trim() === 'Functions') return;
+
+                const level = parseInt(header.tagName.charAt(1));
+                const text = header.textContent.trim();
+                const id = header.id || this.generateHeaderId(text);
+
+                // Ensure the header has an ID for linking
+                if (!header.id) {
+                    header.id = id;
+                }
+
+                contentHeaders.push({
+                    level: level,
+                    text: text, // Use original text with emojis
+                    id: id,
+                    element: header
+                });
+            });
+
+            // Generate hierarchical content TOC
+            if (contentHeaders.length > 0) {
+                const hierarchicalToc = this.buildHierarchicalToc(contentHeaders);
+
+                tocHtml += `
+                    <div class="toc-category">
+                        <h4 class="toc-category-header">
+                            <span class="toc-category-icon">📄</span>
+                            Content
+                            <span class="toc-count">(${contentHeaders.length})</span>
+                        </h4>
+                        <ul class="toc-list toc-category-list">
+                            ${hierarchicalToc}
+                        </ul>
+                    </div>
+                `;
             }
         }
 
+        // Then, add functions if they exist
+        if (functions.length > 0) {
+            // Group functions by side (Client, Server, Shared)
+            const groupedFunctions = {
+                'Client': [],
+                'Server': [],
+                'Shared': []
+            };
+
+            functions.forEach(func => {
+                const side = func.side.charAt(0).toUpperCase() + func.side.slice(1);
+                if (groupedFunctions[side]) {
+                    groupedFunctions[side].push(func);
+                }
+            });
+
+            // Generate functions TOC
+            for (const [category, categoryFunctions] of Object.entries(groupedFunctions)) {
+                if (categoryFunctions.length > 0) {
+                    const categoryIcon = {
+                        'Client': '🖥️',
+                        'Server': '⚙️',
+                        'Shared': '🔄'
+                    }[category];
+
+                    tocHtml += `
+                        <div class="toc-category">
+                            <h4 class="toc-category-header">
+                                <span class="toc-category-icon">${categoryIcon}</span>
+                                ${category} Functions
+                                <span class="toc-count">(${categoryFunctions.length})</span>
+                            </h4>
+                            <ul class="toc-list toc-category-list">
+                                ${categoryFunctions.map(func => {
+                                    const anchor = this.generateAnchor(func.name, func.side, this.currentModuleName);
+                                    const displayName = func.fullName || func.name;
+                                    return `<li><a href="#${anchor}" class="toc-link" data-side="${func.side}">${displayName}</a></li>`;
+                                }).join('')}
+                            </ul>
+                        </div>
+                    `;
+                }
+            }
+        }
+
+        return tocHtml;
+    }
+
+    buildHierarchicalToc(headers) {
+        let tocHtml = '';
+        let i = 0;
+
+        while (i < headers.length) {
+            const header = headers[i];
+
+            // Check if this is a main header (h2)
+            if (header.level === 2) {
+                // Look for children (h3, h4)
+                const children = [];
+                let j = i + 1;
+
+                while (j < headers.length && headers[j].level > 2) {
+                    if (headers[j].level <= header.level) break;
+                    children.push(headers[j]);
+                    j++;
+                }
+
+                // Create collapsible section if there are children
+                if (children.length > 0) {
+                    const childrenHtml = this.buildChildrenToc(children);
+                    tocHtml += `
+                        <li class="toc-collapsible">
+                            <div class="toc-header-with-toggle">
+                                <button class="toc-toggle collapsed" aria-expanded="false">▶</button>
+                                <a href="#${header.id}" class="toc-link main-header" data-level="${header.level}">${header.text}</a>
+                            </div>
+                            <ul class="toc-children collapsed">
+                                ${childrenHtml}
+                            </ul>
+                        </li>
+                    `;
+                } else {
+                    // Simple header without children
+                    tocHtml += `<li class="toc-no-toggle"><a href="#${header.id}" class="toc-link" data-level="${header.level}">${header.text}</a></li>`;
+                }
+
+                i = j; // Skip processed children
+            } else {
+                // Standalone header (shouldn't happen with proper structure, but handle it)
+                tocHtml += `<li><a href="#${header.id}" class="toc-link" data-level="${header.level}">${header.text}</a></li>`;
+                i++;
+            }
+        }
+
+        return tocHtml;
+    }
+
+    buildChildrenToc(children) {
+        let childrenHtml = '';
+        let i = 0;
+
+        while (i < children.length) {
+            const child = children[i];
+
+            // Check for nested children (h4 under h3)
+            if (child.level === 3) {
+                const nestedChildren = [];
+                let j = i + 1;
+
+                while (j < children.length && children[j].level > 3) {
+                    nestedChildren.push(children[j]);
+                    j++;
+                }
+
+                if (nestedChildren.length > 0) {
+                    const nestedHtml = nestedChildren.map(nested => {
+                        return `<li class="toc-nested"><a href="#${nested.id}" class="toc-link nested" data-level="${nested.level}">${nested.text}</a></li>`;
+                    }).join('');
+
+                    childrenHtml += `
+                        <li class="toc-collapsible">
+                            <div class="toc-header-with-toggle">
+                                <button class="toc-toggle collapsed" aria-expanded="false">▶</button>
+                                <a href="#${child.id}" class="toc-link sub-header" data-level="${child.level}">${child.text}</a>
+                            </div>
+                            <ul class="toc-children collapsed">
+                                ${nestedHtml}
+                            </ul>
+                        </li>
+                    `;
+                } else {
+                    childrenHtml += `<li class="toc-no-toggle"><a href="#${child.id}" class="toc-link" data-level="${child.level}">${child.text}</a></li>`;
+                }
+
+                i = j;
+            } else {
+                childrenHtml += `<li class="toc-no-toggle"><a href="#${child.id}" class="toc-link" data-level="${child.level}">${child.text}</a></li>`;
+                i++;
+            }
+        }
+
+        return childrenHtml;
+    }
+
+    cleanHeaderText(text) {
+        // Remove emojis and extra formatting from header text for TOC
+        return text.replace(/[\u{1F600}-\u{1F64F}]|[\u{1F300}-\u{1F5FF}]|[\u{1F680}-\u{1F6FF}]|[\u{1F700}-\u{1F77F}]|[\u{1F780}-\u{1F7FF}]|[\u{1F800}-\u{1F8FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]/gu, '').trim();
+    }
+
+    generateHeaderId(text) {
+        // Remove emojis and special characters for ID generation, but preserve for display
+        return text.toLowerCase()
+            .replace(/[\u{1F600}-\u{1F64F}]|[\u{1F300}-\u{1F5FF}]|[\u{1F680}-\u{1F6FF}]|[\u{1F700}-\u{1F77F}]|[\u{1F780}-\u{1F7FF}]|[\u{1F800}-\u{1F8FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]/gu, '') // Remove emojis for ID
+            .replace(/[^\w\s-]/g, '') // Remove special characters
+            .replace(/\s+/g, '-')      // Replace spaces with dashes
+            .replace(/-+/g, '-')       // Replace multiple dashes with single dash
+            .trim('-');                // Remove leading/trailing dashes
+    }
+
+    getHeaderIcon(text) {
+        // No contextual icons - just return empty string
+        // Let the original markdown emojis show through
+        return '';
+    }
+
+    addTocClickHandlers(tocContainer) {
+        // Handle TOC link clicks for navigation
+        tocContainer.querySelectorAll('.toc-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const anchorId = link.getAttribute('href').substring(1);
+                const element = document.getElementById(anchorId);
+                if (element) {
+                    this.scrollToElement(element);
+                }
+            });
+        });
+
+        // Handle TOC toggle buttons for collapse/expand
+        tocContainer.querySelectorAll('.toc-toggle').forEach(toggleBtn => {
+            toggleBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+
+                const isExpanded = toggleBtn.getAttribute('aria-expanded') === 'true';
+                const childrenContainer = toggleBtn.closest('.toc-collapsible').querySelector('.toc-children');
+
+                if (isExpanded) {
+                    // Collapse
+                    toggleBtn.setAttribute('aria-expanded', 'false');
+                    toggleBtn.classList.add('collapsed');
+                    toggleBtn.classList.remove('expanded');
+                    toggleBtn.textContent = '▶';
+                    childrenContainer.classList.add('collapsed');
+                    childrenContainer.classList.remove('expanded');
+                } else {
+                    // Expand
+                    toggleBtn.setAttribute('aria-expanded', 'true');
+                    toggleBtn.classList.remove('collapsed');
+                    toggleBtn.classList.add('expanded');
+                    toggleBtn.textContent = '▼';
+                    childrenContainer.classList.remove('collapsed');
+                    childrenContainer.classList.add('expanded');
+                }
+            });
+        });
+    }
+
+    scrollToElement(element) {
+        const header = document.querySelector('.header');
+        const headerHeight = header ? header.offsetHeight : 60;
+        const additionalOffset = 20;
+        const totalOffset = headerHeight + additionalOffset;
+
+        const targetPosition = element.getBoundingClientRect().top + window.pageYOffset - totalOffset;
+
+        window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+        });
+    }
+
+    async buildSearchIndex() {
+        this.searchIndex = [];
+
+        const addToIndex = async (item, path, category) => {
+            if (item.type === 'markdown') {
+                try {
+                    // Load the markdown content
+                    const response = await fetch(`./assets/pages/${path}.md`);
+                    if (response.ok) {
+                        const content = await response.text();
+                        const functions = this.parseFunctionsFromMarkdown(content);
+
+                        // Add the main module/page to index
+                        this.searchIndex.push({
+                            name: item.name || path.split('/').pop(),
+                            path: path,
+                            category: category,
+                            type: 'module',
+                            description: item.meta?.description || this.extractDescription(content),
+                            content: content.toLowerCase(),
+                            functions: functions.map(f => (f.fullName || f.name).toLowerCase())
+                        });
+
+                        // Add each function as a separate searchable item
+                        functions.forEach(func => {
+                            const displayName = func.fullName || func.name;
+                            this.searchIndex.push({
+                                name: displayName,
+                                path: path,
+                                category: category,
+                                type: 'function',
+                                side: func.side,
+                                description: func.description || '',
+                                parentModule: item.name || path.split('/').pop(),
+                                anchor: this.generateAnchor(func.name, func.side, path.split('/').pop())
+                            });
+                        });
+                    }
+                } catch (error) {
+                }
+            } else if (item.type === 'subsection' && item.items) {
+                for (const key of Object.keys(item.items)) {
+                    await addToIndex(item.items[key], item.items[key].path || `${path}/${key}`, category);
+                }
+            }
+        };
+
+        // Process all categories
+        for (const category of Object.keys(this.allModules)) {
+            const categoryData = this.allModules[category];
+            if (categoryData.items) {
+                for (const key of Object.keys(categoryData.items)) {
+                    const item = categoryData.items[key];
+                    const itemPath = item.path || `${category}/${key}`;
+                    await addToIndex(item, itemPath, category);
+                }
+            }
+        }
+    }
+
+    extractDescription(content) {
+        // Try to extract description from META comment first
+        const metaMatch = content.match(/<!--META[\s\S]*?description:\s*([^\n]+)/);
+        if (metaMatch) {
+            return metaMatch[1].trim();
+        }
+
+        // Fallback: extract from the first paragraph after the title
+        const lines = content.split('\n');
+        let foundTitle = false;
+        for (const line of lines) {
+            if (line.startsWith('#') && !foundTitle) {
+                foundTitle = true;
+                continue;
+            }
+            if (foundTitle && line.trim() && !line.startsWith('#') && !line.startsWith('<!--')) {
+                return line.trim().substring(0, 150); // First 150 chars
+            }
+        }
+
+        return '';
+    }
+
+    handleSearch(query) {
+        if (!query.trim()) {
+            this.hideSearchResults();
+            return;
+        }
+
+        const queryLower = query.toLowerCase();
+        const results = [];
+
+        // Search through all indexed items
+        this.searchIndex.forEach(item => {
+            let score = 0;
+            let matchType = '';
+
+            if (item.type === 'function') {
+                // Exact function name match gets highest score
+                if (item.name.toLowerCase() === queryLower) {
+                    score = 100;
+                    matchType = 'exact function';
+                }
+                // Function name starts with query
+                else if (item.name.toLowerCase().startsWith(queryLower)) {
+                    score = 90;
+                    matchType = 'function prefix';
+                }
+                // Function name contains query
+                else if (item.name.toLowerCase().includes(queryLower)) {
+                    score = 80;
+                    matchType = 'function contains';
+                }
+                // Function description contains query
+                else if (item.description.toLowerCase().includes(queryLower)) {
+                    score = 70;
+                    matchType = 'function description';
+                }
+            } else if (item.type === 'module') {
+                // Module name match
+                if (item.name.toLowerCase().includes(queryLower)) {
+                    score = 60;
+                    matchType = 'module name';
+                }
+                // Module description match
+                else if (item.description.toLowerCase().includes(queryLower)) {
+                    score = 50;
+                    matchType = 'module description';
+                }
+                // Content match (search in the actual markdown content)
+                else if (item.content && item.content.includes(queryLower)) {
+                    score = 40;
+                    matchType = 'content match';
+                }
+                // Function names in module match
+                else if (item.functions && item.functions.some(fn => fn.includes(queryLower))) {
+                    score = 65;
+                    matchType = 'has matching function';
+                }
+            }
+
+            if (score > 0) {
+                results.push({
+                    ...item,
+                    score: score,
+                    matchType: matchType
+                });
+            }
+        });
+
+        // Sort by score (highest first), then by name
+        results.sort((a, b) => {
+            if (b.score !== a.score) {
+                return b.score - a.score;
+            }
+            return a.name.localeCompare(b.name);
+        });
+
+        // Limit results to top 10
+        const limitedResults = results.slice(0, 10);
+
+        this.showSearchResults(limitedResults, query);
+    }
+
+    showSearchResults(results, searchTerm) {
+        const searchResults = document.querySelector('.search-results');
+        if (!searchResults) return;
+
         if (results.length === 0) {
-            searchContainer.innerHTML = `
-                <div class="search-no-results">
-                    <p>No results found for "${searchTerm}"</p>
+            searchResults.innerHTML = `
+                <div class="search-results-container">
+                    <h3>No results found for "${searchTerm}"</h3>
+                    <p>Try a different search term or browse the navigation.</p>
                 </div>
             `;
         } else {
-            const resultsHtml = results.slice(0, 10).map(result => {
-                const icon = result.type === 'function'
-                    ? (result.side === 'client' ? '🖥️' : '🖧')
-                    : '📦';
+            const resultsHtml = results.map(result => {
+                let resultContent = '';
+                let clickHandler = '';
 
-                const badge = result.type === 'function'
-                    ? `<span class="badge ${result.side}">${icon} ${result.side}</span>`
-                    : `<span class="badge module">${icon} module</span>`;
+                if (result.type === 'function') {
+                    // For functions, navigate to the module and scroll to the function
+                    clickHandler = `window.app.navigateToFunction('${result.path}', '${result.anchor}')`;
+                    const sideLabel = result.side ? `(${result.side.charAt(0).toUpperCase() + result.side.slice(1)})` : '';
 
-                return `
-                    <div class="search-result-item" data-path="${result.path}" data-anchor="${result.type === 'function' ? this.generateAnchor(result) : ''}">
-                        <div class="search-result-header">
-                            <span class="search-result-name">${this.highlightMatch(result.name, searchTerm)}</span>
-                            ${badge}
+                    resultContent = `
+                        <div class="search-result-item function-result" onclick="${clickHandler}">
+                            <h4>
+                                <span class="function-icon">⚡</span>
+                                ${result.name} ${sideLabel}
+                                <span class="match-type">${result.matchType}</span>
+                            </h4>
+                            <p class="result-path">${result.category} → ${result.parentModule}</p>
+                            <p class="result-description">${result.description || 'Function in ' + result.parentModule}</p>
                         </div>
-                        <div class="search-result-path">${result.category} → ${result.module || result.name}</div>
-                        ${result.description ? `<div class="search-result-description">${this.highlightMatch(result.description, searchTerm)}</div>` : ''}
-                    </div>
-                `;
+                    `;
+                } else {
+                    // For modules, navigate to the module
+                    clickHandler = `window.app.navigateToPath('${result.path}')`;
+
+                    resultContent = `
+                        <div class="search-result-item module-result" onclick="${clickHandler}">
+                            <h4>
+                                <span class="module-icon">📄</span>
+                                ${result.name}
+                                <span class="match-type">${result.matchType}</span>
+                            </h4>
+                            <p class="result-path">${result.category} → ${result.path}</p>
+                            <p class="result-description">${result.description}</p>
+                        </div>
+                    `;
+                }
+
+                return resultContent;
             }).join('');
-              searchContainer.innerHTML = `
-                <div class="search-results-header">
-                    <span>Found ${results.length} result${results.length === 1 ? '' : 's'} for "${searchTerm}"</span>
-                    <button class="search-close">✕</button>
-                </div>
-                <div class="search-results-list">
+
+            searchResults.innerHTML = `
+                <div class="search-results-container">
+                    <h3>Search Results for "${searchTerm}" (${results.length})</h3>
                     ${resultsHtml}
                 </div>
             `;
         }
-          searchContainer.style.display = 'block';
 
-        // Add click handler for close button
-        const closeButton = searchContainer.querySelector('.search-close');
-        if (closeButton) {
-            closeButton.addEventListener('click', () => this.hideSearchResults());
+        searchResults.style.display = 'block';
+    }
+
+    async navigateToFunction(path, anchor, updateUrl = true) {
+        // Update URL if needed
+        if (updateUrl) {
+            const newHash = `#${path}@${anchor}`;
+            if (window.location.hash !== newHash) {
+                window.location.hash = newHash;
+            }
+        }
+        
+        // Navigate to the module first (don't update URL again)
+        await this.navigateToPath(path, false);
+
+        // Wait a bit for content to load, then scroll to the function
+        setTimeout(() => {
+            const element = document.getElementById(anchor);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                // Highlight the function briefly
+                element.style.backgroundColor = 'var(--accent-color-alpha)';
+                setTimeout(() => {
+                    element.style.backgroundColor = '';
+                }, 2000);
+            }
+        }, 100);
+
+        // Hide search results
+        this.hideSearchResults();
+    }
+
+    hideSearchResults() {
+        const searchResults = document.querySelector('.search-results');
+        if (searchResults) {
+            searchResults.style.display = 'none';
         }
 
-        // Add click handlers for search results
-        searchContainer.querySelectorAll('.search-result-item').forEach(item => {
-            item.addEventListener('click', () => {
-                const path = item.dataset.path;
-                const anchor = item.dataset.anchor;
+        // Also clear the search input when hiding results via navigation
+        const searchInput = document.getElementById('search-input');
+        if (searchInput && searchInput.value) {
+            searchInput.value = '';
+        }
+    }
 
-                this.hideSearchResults();
-                this.navigateToPath(path);
+    setupCopyLinkButtons() {
+        // Remove any existing event listeners to prevent duplicates
+        document.querySelectorAll('.copy-link-btn').forEach(btn => {
+            const newBtn = btn.cloneNode(true);
+            btn.parentNode.replaceChild(newBtn, btn);
+        });
+        
+        document.querySelectorAll('.copy-button').forEach(btn => {
+            const newBtn = btn.cloneNode(true);
+            btn.parentNode.replaceChild(newBtn, btn);
+        });
 
-                // If it's a function, scroll to it after a delay
-                if (anchor) {
-                    setTimeout(() => {
-                        const element = document.getElementById(anchor);
-                        if (element) {
-                            const header = document.querySelector('.header');
-                            const headerHeight = header ? header.offsetHeight : 60;
-                            const targetPosition = element.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
+        // Set up copy link buttons
+        document.querySelectorAll('.copy-link-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const button = e.currentTarget;
+                const anchor = button.getAttribute('data-anchor');
+                
+                if (!anchor) {
+                    return;
+                }
+                
+                // Get current page path from the hash and combine with anchor using @ separator
+                const currentPath = window.location.hash.slice(1); // Remove the #
+                let basePath = currentPath;
+                
+                // If current path already has an anchor, remove it
+                if (currentPath.includes('@')) {
+                    basePath = currentPath.split('@')[0];
+                }
+                
+                const url = `${window.location.origin}${window.location.pathname}#${basePath}@${anchor}`;
 
-                            window.scrollTo({
-                                top: targetPosition,
-                                behavior: 'smooth'
-                            });
-
-                            // Highlight the found element
-                            element.classList.add('toc-highlight');
-                            setTimeout(() => element.classList.remove('toc-highlight'), 2000);
+                if (navigator.clipboard && button) {
+                    navigator.clipboard.writeText(url).then(() => {
+                        // Double check the button still exists
+                        if (button && button.textContent !== undefined) {
+                            const originalText = button.textContent;
+                            button.textContent = '✅';
+                            setTimeout(() => {
+                                if (button && button.textContent !== undefined) {
+                                    button.textContent = originalText || '🔗';
+                                }
+                            }, 2000);
                         }
-                    }, 500);
+                    }).catch((err) => {
+                    });
+                } else {
+                    // Fallback for browsers without clipboard API
+                }
+            });
+        });
+
+        // Set up code copy buttons
+        document.querySelectorAll('.copy-button').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const button = e.currentTarget;
+                const codeElement = button.nextElementSibling?.querySelector('code');
+                
+                if (!codeElement) {
+                    return;
+                }
+                
+                const code = codeElement.textContent;
+
+                if (navigator.clipboard && button && code) {
+                    navigator.clipboard.writeText(code).then(() => {
+                        // Double check the button still exists
+                        if (button && button.textContent !== undefined) {
+                            const originalText = button.textContent;
+                            button.textContent = 'Copied!';
+                            setTimeout(() => {
+                                if (button && button.textContent !== undefined) {
+                                    button.textContent = originalText || 'Copy';
+                                }
+                            }, 2000);
+                        }
+                    }).catch((err) => {
+                    });
+                } else {
                 }
             });
         });
     }
 
-    generateAnchor(result) {
-        if (result.type === 'function') {
-            const cleanFunctionName = result.name.toLowerCase().replace(/[^a-z0-9]/g, '');
-            const cleanModuleName = result.module.toLowerCase().replace(/[^a-z0-9]/g, '');
-            return `${cleanFunctionName}-${result.side}-${cleanModuleName}`;
-        }
-        return '';
+    loadInitialContent() {
+        const defaultPath = 'Community Bridge/overview';
+        this.navigateToPath(defaultPath);
     }
 
-    highlightMatch(text, searchTerm) {
-        if (!text || !searchTerm) return text;
-
-        const regex = new RegExp(`(${searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-        return text.replace(regex, '<mark>$1</mark>');
-    }    hideSearchResultsOnly() {
-        const searchContainer = document.querySelector('.search-results');
-        if (searchContainer) {
-            searchContainer.style.display = 'none';
-        }
-    }
-
-    hideSearchResults() {
-        const searchContainer = document.querySelector('.search-results');
-        if (searchContainer) {
-            searchContainer.style.display = 'none';
-        }
-
-        // Clear search input - only when explicitly hiding search
-        const searchInput = document.getElementById('search-input');
-        if (searchInput) {
-            searchInput.value = '';
-        }
-    }updateTableOfContents() {
-        console.log('📋 Updating table of contents...');
-        const tocContainer = document.querySelector('.toc-list');
-        if (!tocContainer) {
-            console.warn('⚠️ TOC container not found');
-            return;
-        }
-
-        // Check if we have TOC data from the current module
-        if (this.currentModuleToc && this.currentModuleToc.items) {
-            this.renderTocFromData(this.currentModuleToc, tocContainer);
-        } else {
-            // Fallback to old method for non-module pages
-            this.renderTocFromHeadings(tocContainer);
-        }
-    }    renderTocFromData(tocData, tocContainer) {
-        console.log('📋 Rendering TOC from toc.json data');
-
-        let tocHtml = '';
-        const moduleName = this.currentModuleName || 'unknown';
-
-        const renderTocItems = (items, level = 0, parentType = null) => {
-            return items.map(item => {
-                const indent = level * 1;
-                const icon = level === 0 ? '' :
-                           item.title.includes('Functions') ? '' : '⚡ ';
-
-                // Determine the correct anchor based on context
-                let anchor = item.anchor;                // If this is a function under Client Functions, Server Functions, or Shared Functions
-                if (level > 0 && parentType && !item.title.includes('Functions')) {
-                    const side = parentType.includes('Client') ? 'client' :
-                                parentType.includes('Server') ? 'server' :
-                                parentType.includes('Shared') ? 'shared' : 'client';
-                    const cleanFunctionName = item.title.toLowerCase().replace(/[^a-z0-9]/g, '');
-                    const cleanModuleName = moduleName.toLowerCase().replace(/[^a-z0-9]/g, '');
-                    anchor = `#${cleanFunctionName}-${side}-${cleanModuleName}`;
-                    console.log(`🔗 Generated TOC anchor: ${anchor} for ${item.title} (${side})`);
-                }
-
-                let html = `
-                    <li class="toc-item toc-level-${level + 1}" style="margin-left: ${indent}rem;">
-                        <a href="${anchor}" class="toc-link">
-                            ${icon}${item.title}
-                        </a>
-                    </li>
-                `;
-
-                // Render children if they exist, passing parent type for context
-                if (item.children && item.children.length > 0) {
-                    const currentParentType = item.title.includes('Functions') ? item.title : parentType;
-                    html += renderTocItems(item.children, level + 1, currentParentType);
-                }
-
-                return html;
-            }).join('');
-        };
-
-        tocHtml = renderTocItems(tocData.items);
-        tocContainer.innerHTML = tocHtml;
-
-        // Add click handlers for smooth scrolling
-        this.addTocClickHandlers(tocContainer);
-
-        console.log(`✅ TOC updated from toc.json with ${tocData.items.length} main items`);
-    }
-
-    renderTocFromHeadings(tocContainer) {
-        console.log('📋 Rendering TOC from headings (fallback)');
-        const mainContent = document.querySelector('.main-content');
-        if (!mainContent) {
-            console.warn('⚠️ Main content not found for TOC');
-            return;
-        }
-
-        // Find main headings only (h1, h2)
-        const headings = mainContent.querySelectorAll('h1, h2');
-
-        if (headings.length === 0) {
-            tocContainer.innerHTML = '<li class="toc-empty">No headings found</li>';
-            return;
-        }
-
-        let tocHtml = '';
-        headings.forEach((heading, index) => {
-            const level = parseInt(heading.tagName.charAt(1));
-            const text = heading.textContent.trim();
-            const id = heading.id || `heading-${index}`;
-
-            // Add ID to heading if it doesn't have one
-            if (!heading.id) {
-                heading.id = id;
-            }
-
-            const indent = (level - 1) * 1;
-
-            tocHtml += `
-                <li class="toc-item toc-level-${level}" style="margin-left: ${indent}rem;">
-                    <a href="#${id}" class="toc-link">
-                        ${text}
-                    </a>
-                </li>
-            `;
-        });
-
-        tocContainer.innerHTML = tocHtml;
-        this.addTocClickHandlers(tocContainer);
-
-        console.log(`✅ TOC updated from headings with ${headings.length} items`);
-    }    addTocClickHandlers(tocContainer) {
-        // Remove existing listeners
-        const newTocContainer = tocContainer.cloneNode(true);
-        tocContainer.parentNode.replaceChild(newTocContainer, tocContainer);
-
-        // Add click handlers for smooth scrolling with header offset
-        newTocContainer.addEventListener('click', (e) => {
-            if (e.target.classList.contains('toc-link')) {
-                e.preventDefault();
-                const href = e.target.getAttribute('href');
-
-                // Remove active class from all TOC links
-                newTocContainer.querySelectorAll('.toc-link').forEach(link => {
-                    link.classList.remove('active');
-                });
-
-                // Add active class to clicked TOC link
-                e.target.classList.add('active');
-
-                if (href.startsWith('#')) {
-                    const targetId = href.substring(1);
-
-                    // Update the browser URL to include the function anchor
-                    const currentPath = window.location.hash.slice(1);
-                    if (this.isFunctionAnchor(targetId)) {
-                        // For function anchors, update the URL completely
-                        window.history.pushState(null, null, `#${targetId}`);
-                        console.log('🔗 Updated URL to:', `#${targetId}`);
-                    }
-
-                    const targetElement = document.getElementById(targetId);
-                    if (targetElement) {
-                        this.scrollToElement(targetElement);
-                        this.highlightElement(targetElement);
-                        console.log(`📍 Scrolled to ${targetId} with highlight effect`);
-                    }
-                }
-            }
-        });
-    }
-
-    highlightElement(element) {
-        // Add highlight class for visual feedback
-        element.classList.add('toc-highlight');
-
-        // Remove highlight after animation completes
-        setTimeout(() => {
-            element.classList.remove('toc-highlight');
-        }, 2000); // 2 seconds to match a nice highlight duration
-
-        console.log('✨ Applied highlight effect to element:', element.id);
-    }    loadInitialContent() {
-        const hash = window.location.hash.slice(1);
-        if (hash) {
-            const decodedPath = decodeURIComponent(hash);
-
-            // Check if this is a function anchor
-            if (this.isFunctionAnchor(decodedPath)) {
-                console.log('🔗 Initial load with function anchor:', decodedPath);
-                // For function anchors, we need to load the appropriate module first
-                this.navigateToModuleForFunction(decodedPath);
-            } else {
-                // Regular page navigation
-                this.navigateToPath(decodedPath);
-            }
-        } else {
-            // Load default content
-            const firstItem = this.findFirstNavigationItem();
-            if (firstItem) {
-                this.navigateToPath(firstItem.path);
-            }
-        }
-    }
-
-    findFirstNavigationItem() {
-        for (const [category, categoryData] of Object.entries(this.allModules)) {
-            for (const [itemName, item] of Object.entries(categoryData.items)) {
-                if (item.path) {
-                    return item;
-                }
-                if (item.items) {
-                    for (const [subItemName, subItem] of Object.entries(item.items)) {
-                        if (subItem.path) {
-                            return subItem;
-                        }
-                    }
-                }
-            }
-        }
-        return null;
+    formatTitle(title) {
+        return title.replace(/[-_]/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
     }
 
     setLoading(loading) {
         this.isLoading = loading;
-        const mainContent = document.querySelector('.main-content');
-        if (mainContent && loading) {
-            mainContent.innerHTML = '<div class="loading">Loading...</div>';
+        const loadingElement = document.getElementById('loading');
+        if (loadingElement) {
+            loadingElement.style.display = loading ? 'block' : 'none';
         }
     }
 
     showError(message) {
-        const mainContent = document.querySelector('.main-content');
-        if (mainContent) {
-            mainContent.innerHTML = `
+        const contentArea = document.getElementById('content-area');
+        if (contentArea) {
+            contentArea.innerHTML = `
                 <div class="error-message">
-                    <h2>⚠️ Error</h2>
+                    <h2>❌ Error</h2>
                     <p>${message}</p>
                 </div>
             `;
         }
     }
 
-    setupCopyLinkButtons() {
-        const copyLinkButtons = document.querySelectorAll('.copy-link-btn');
-        copyLinkButtons.forEach(button => {
-            button.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const anchorId = button.getAttribute('data-anchor');
-                const currentUrl = window.location.origin + window.location.pathname;
-                const fullUrl = `${currentUrl}#${anchorId}`;
+    async loadGitHubContributors() {
+        const contributorsContainer = document.getElementById('github-contributors');
+        if (!contributorsContainer) return;
 
-                // Copy to clipboard
-                navigator.clipboard.writeText(fullUrl).then(() => {
-                    // Visual feedback
-                    const originalText = button.textContent;
-                    button.textContent = '✅';
-                    button.style.background = 'var(--accent-color)';
+        try {
+            // Fetch repositories first (members might be private)
+            const reposResponse = await fetch('https://api.github.com/orgs/TheOrderFivem/repos');
+            
+            if (!reposResponse.ok) {
+                throw new Error('Failed to fetch GitHub repositories');
+            }
 
-                    setTimeout(() => {
-                        button.textContent = originalText;
-                        button.style.background = '';
-                    }, 2000);
+            const repos = await reposResponse.json();
 
-                    console.log('🔗 Copied function link:', fullUrl);
-                }).catch(err => {
-                    console.error('Failed to copy link:', err);
-                    // Fallback: select text for manual copy
-                    const textArea = document.createElement('textarea');
-                    textArea.value = fullUrl;
-                    document.body.appendChild(textArea);
-                    textArea.select();
-                    document.execCommand('copy');
-                    document.body.removeChild(textArea);
+            // Get all unique contributors from repositories
+            const contributorsSet = new Set();
+            const contributorDetails = new Map();
 
-                    button.textContent = '📋';
-                    setTimeout(() => {
-                        button.textContent = '🔗';
-                    }, 2000);
-                });
-            });
-        });
+            // Try to fetch members (might be empty due to privacy settings)
+            try {
+                const membersResponse = await fetch('https://api.github.com/orgs/TheOrderFivem/members');
+                if (membersResponse.ok) {
+                    const members = await membersResponse.json();
+                    // Add organization members if available
+                    for (const member of members) {
+                        contributorDetails.set(member.login, {
+                            login: member.login,
+                            avatar_url: member.avatar_url,
+                            html_url: member.html_url,
+                            type: 'Member',
+                            contributions: 0
+                        });
+                        contributorsSet.add(member.login);
+                    }
+                }
+            } catch (e) {
+                // Members might be private, continue with repository contributors
+            }
 
-        console.log(`✅ Set up ${copyLinkButtons.length} copy link buttons`);
+            // Only process original repositories (not forks) to show actual contributors to your organization's work
+            // Filter out repositories we want to exclude and only include non-forked repos
+            const excludedRepos = ['RecipeImages', 'ox_inventory', 'ox_target', 'ox_doorlock'];
+            const filteredRepos = repos.filter(repo => !excludedRepos.includes(repo.name) && !repo.fork);
+            
+            for (const repo of filteredRepos.slice(0, 10)) { // Process original repos only
+                try {
+                    const contributorsResponse = await fetch(`https://api.github.com/repos/TheOrderFivem/${repo.name}/contributors`);
+                    if (contributorsResponse.ok) {
+                        const repoContributors = await contributorsResponse.json();
+                        for (const contributor of repoContributors.slice(0, 10)) { // Top 10 contributors per repo
+                            if (!contributorDetails.has(contributor.login)) {
+                                contributorDetails.set(contributor.login, {
+                                    login: contributor.login,
+                                    avatar_url: contributor.avatar_url,
+                                    html_url: contributor.html_url,
+                                    type: 'Contributor',
+                                    contributions: contributor.contributions
+                                });
+                            } else {
+                                // Update contributions count
+                                const existing = contributorDetails.get(contributor.login);
+                                existing.contributions += contributor.contributions;
+                            }
+                            contributorsSet.add(contributor.login);
+                        }
+                    }
+                } catch (e) {
+                }
+            }
+
+            // Sort contributors by contributions
+            const sortedContributors = Array.from(contributorDetails.values())
+                .sort((a, b) => b.contributions - a.contributions);
+
+            // Render contributors
+            this.renderGitHubContributors(contributorsContainer, sortedContributors, repos.length);
+
+        } catch (error) {
+            contributorsContainer.innerHTML = `
+                <div style="text-align: center; padding: 40px; color: #8b949e;">
+                    <p>Unable to load contributors at this time.</p>
+                    <p style="font-size: 0.9em; opacity: 0.7;">Visit our <a href="https://github.com/TheOrderFivem" target="_blank" style="color: #58a6ff;">GitHub organization</a> directly.</p>
+                </div>
+            `;
+        }
+    }
+
+    renderGitHubContributors(container, contributors, repoCount) {
+        const html = `
+            <div style="margin: 20px 0;">
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
+                    <div style="width: 40px; height: 40px; background: #238636; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2em;">
+                        🐙
+                    </div>
+                    <div>
+                        <h4 style="margin: 0; color: #f0f6fc;">GitHub Contributors</h4>
+                        <p style="margin: 0; color: #8b949e; font-size: 0.9em;">From ${repoCount} repositories in TheOrderFivem organization</p>
+                    </div>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px;">
+                    ${contributors.map(contributor => `
+                        <div style="background: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%); border: 1px solid #3a3a3a; border-radius: 12px; padding: 15px; text-align: center; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 16px rgba(0,0,0,0.3)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                            <img src="${contributor.avatar_url}" alt="${contributor.login}" style="width: 50px; height: 50px; border-radius: 50%; border: 2px solid #238636; margin-bottom: 10px;">
+                            <div style="color: #f0f6fc; font-weight: 600; margin-bottom: 5px;">${contributor.login}</div>
+                            <div style="color: #8b949e; font-size: 0.8em; margin-bottom: 8px;">${contributor.type}</div>
+                            ${contributor.contributions > 0 ? `<div style="color: #58a6ff; font-size: 0.8em;">${contributor.contributions} contributions</div>` : ''}
+                            <div style="margin-top: 10px;">
+                                <a href="${contributor.html_url}" target="_blank" style="color: #58a6ff; text-decoration: none; font-size: 0.8em;">View Profile</a>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+                
+                <div style="text-align: center; margin-top: 20px; padding: 20px; background: rgba(88, 166, 255, 0.1); border-radius: 8px;">
+                    <p style="color: #8b949e; margin: 0 0 10px 0;">Want to contribute to The Order Framework?</p>
+                    <a href="https://github.com/TheOrderFivem" target="_blank" style="display: inline-block; background: #238636; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 600;">
+                        🚀 Visit Our GitHub
+                    </a>
+                </div>
+            </div>
+        `;
+        
+        container.innerHTML = html;
     }
 }
 
