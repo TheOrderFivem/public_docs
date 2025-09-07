@@ -1,1 +1,1 @@
-WIP
+Note: This is a work-in-progress (WIP) version of the Orders documentation on GitHub Pages. The content is actively being developed and may change frequently. If you're submitting updates, please open a pull request (PR) to a feature branch or the staging branch so changes can be properly reviewed before merging.
