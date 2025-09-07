@@ -13,7 +13,7 @@ description 'Example resource using Community Bridge'
 version '1.0.0'
 
 -- Dependencies
-dependency 'community-bridge'
+dependency 'community_bridge'
 
 -- Client scripts
 client_scripts {

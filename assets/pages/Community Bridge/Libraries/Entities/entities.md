@@ -19,7 +19,7 @@ Registers an entity for proximity-based spawning and management. The entity will
 
 ### Syntax
 ```lua
-Bridge.ClientEntity.Create(entityData)
+Bridge.Entity.Create(entityData)
 ```
 
 ### Parameters
@@ -51,7 +51,7 @@ local npcData = {
     end
 }
 
-local pointData = Bridge.ClientEntity.Create(npcData)
+local pointData = Bridge.Entity.Create(npcData)
 print("Created entity with point ID: ", pointData.id))
 ```
 
@@ -62,7 +62,7 @@ Unregisters an entity and removes it from the world if currently spawned. Cleans
 
 ### Syntax
 ```lua
-Bridge.ClientEntity.Unregister(id)
+Bridge.Entity.Unregister(id)
 ```
 
 ### Parameters
@@ -73,13 +73,13 @@ Bridge.ClientEntity.Unregister(id)
 local Bridge = exports['community_bridge']:Bridge()
 
 -- Unregister the shop clerk
-Bridge.ClientEntity.Unregister("shop_clerk")
+Bridge.Entity.Unregister("shop_clerk")
 print("Shop clerk entity unregistered")
 
 -- Clean up all entities when leaving an area
 local entityIds = {"npc1", "npc2", "vehicle1"}
 for _, entityId in ipairs(entityIds) do
-    Bridge.ClientEntity.Unregister(entityId)
+    Bridge.Entity.Unregister(entityId)
 end
 ```
 
