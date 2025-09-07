@@ -2,145 +2,145 @@
   {
     "type": "folder",
     "name": "Banking",
-    "title": "🏦 Banking",
+    "title": "Banking",
     "icon": "🏦"
   },
   {
     "type": "folder",
     "name": "Clothing",
-    "title": "👕 Clothing",
+    "title": "Clothing",
     "icon": "👕"
   },
   {
     "type": "folder",
     "name": "Dialogue",
-    "title": "💬 Dialogue",
+    "title": "Dialogue",
     "icon": "💬"
   },
   {
     "type": "folder",
     "name": "Dispatch",
-    "title": "🚨 Dispatch",
+    "title": "Dispatch",
     "icon": "🚨"
   },
   {
     "type": "folder",
     "name": "Doorlock",
-    "title": "🔐 Doorlock",
+    "title": "Doorlock",
     "icon": "🔐"
   },
   {
     "type": "folder",
     "name": "Framework",
-    "title": "🏗️ Framework",
+    "title": "Framework",
     "icon": "🏗️"
   },
   {
     "type": "folder",
     "name": "Fuel",
-    "title": "⛽ Fuel",
+    "title": "Fuel",
     "icon": "⛽"
   },
   {
     "type": "folder",
     "name": "HelpText",
-    "title": "💬 HelpText",
+    "title": "HelpText",
     "icon": "💬"
   },
   {
     "type": "folder",
     "name": "Housing",
-    "title": "🏠 Housing",
+    "title": "Housing",
     "icon": "🏠"
   },
   {
     "type": "folder",
     "name": "Input",
-    "title": "⌨️ Input",
+    "title": "Input",
     "icon": "⌨️"
   },
   {
     "type": "folder",
     "name": "Inventory",
-    "title": "🎒 Inventory",
+    "title": "Inventory",
     "icon": "🎒"
   },
   {
     "type": "folder",
     "name": "Locales",
-    "title": "🌐 Locales",
+    "title": "Locales",
     "icon": "🌐"
   },
   {
     "type": "folder",
     "name": "Managment",
-    "title": "📊 Management",
+    "title": "Management",
     "icon": "📊"
   },
   {
     "type": "folder",
     "name": "Math",
-    "title": "🔢 Math",
+    "title": "Math",
     "icon": "🔢"
   },
   {
     "type": "folder",
     "name": "Menu",
-    "title": "📋 Menu",
+    "title": "Menu",
     "icon": "📋"
   },
   {
     "type": "folder",
     "name": "Notify",
-    "title": "🔔 Notify",
+    "title": "Notify",
     "icon": "🔔"
   },
   {
     "type": "folder",
     "name": "Phone",
-    "title": "📱 Phone",
+    "title": "Phone",
     "icon": "📱"
   },
   {
     "type": "folder",
     "name": "ProgressBar",
-    "title": "⏳ ProgressBar",
+    "title": "ProgressBar",
     "icon": "⏳"
   },
   {
     "type": "folder",
     "name": "Shops",
-    "title": "🛒 Shops",
+    "title": "Shops",
     "icon": "🛒"
   },
   {
     "type": "folder",
     "name": "Skills",
-    "title": "⭐ Skills",
+    "title": "Skills",
     "icon": "⭐"
   },
   {
     "type": "folder",
     "name": "Target",
-    "title": "🎯 Target",
+    "title": "Target",
     "icon": "🎯"
   },
   {
     "type": "folder",
     "name": "VehicleKey",
-    "title": "🗝️ VehicleKey",
+    "title": "VehicleKey",
     "icon": "🗝️"
   },
   {
     "type": "folder",
     "name": "Version",
-    "title": "🔖 Version",
+    "title": "Version",
     "icon": "🔖"
   },
   {
     "type": "folder",
     "name": "Weather",
-    "title": "🌤️ Weather",
+    "title": "Weather",
     "icon": "🌤️"
   }
 ]

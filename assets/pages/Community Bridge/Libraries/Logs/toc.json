@@ -10,8 +10,8 @@
       "anchor": "#server-functions",
       "children": [
         {
-          "title": "Send",
-          "anchor": "#function-send"
+          "title": "CreateLog",
+          "anchor": "#function-CreateLog"
         }
       ]
     }
