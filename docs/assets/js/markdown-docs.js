@@ -1950,10 +1950,14 @@ class CommunityBridgeDocumentation {
             };
 
             // Fetch repositories first (members might be private)
-            const reposResponse = await fetchWithTimeout('https://api.github.com/orgs/TheOrderFivem/repos');
+            const reposResponse = await fetchWithTimeout('https://api.github.com/orgs/TheOrderFivem/repos?per_page=50');
             
             if (!reposResponse.ok) {
-                throw new Error(`Failed to fetch GitHub repositories: ${reposResponse.status} ${reposResponse.statusText}`);
+                // If we get a rate limit or other error, show the fallback immediately
+                if (reposResponse.status === 403 || reposResponse.status === 429) {
+                    throw new Error('GitHub API rate limit reached. Showing cached contributors.');
+                }
+                throw new Error(`GitHub API error: ${reposResponse.status} ${reposResponse.statusText}`);
             }
 
             const repos = await reposResponse.json();
@@ -2029,26 +2033,28 @@ class CommunityBridgeDocumentation {
         } catch (error) {
             console.error('❌ Error loading GitHub contributors:', error);
             
-            let errorMessage = 'Unable to load contributors from GitHub API.';
-            let detailMessage = 'Visit our <a href="https://github.com/TheOrderFivem" target="_blank" style="color: #58a6ff;">GitHub organization</a> directly.';
-            
-            // Provide more specific error messages
-            if (error.name === 'AbortError') {
-                errorMessage = 'Request timed out while loading contributors.';
-                detailMessage = 'The GitHub API may be temporarily unavailable. Please try again later.';
-            } else if (error.message.includes('Failed to fetch')) {
-                errorMessage = 'Network error while loading contributors.';
-                detailMessage = 'Check your internet connection and try again.';
-            } else if (error.message.includes('Failed to fetch GitHub repositories')) {
-                errorMessage = 'GitHub API error while loading contributors.';
-                detailMessage = error.message + '. The API may be rate limited or temporarily unavailable.';
-            }
-            
-            // Provide a manual fallback with known contributors
+            // Show fallback contributors instead of error message
             const fallbackContributors = [
                 {
                     login: 'MrNewb',
                     avatar_url: 'https://github.com/MrNewb.png',
+                    html_url: 'https://github.com/MrNewb',
+                    type: 'Core Developer',
+                    contributions: 'Multiple repositories'
+                },
+                {
+                    login: 'gononono64',
+                    avatar_url: 'https://github.com/gononono64.png',
+                    html_url: 'https://github.com/gononono64',
+                    type: 'Core Developer',
+                    contributions: 'Multiple repositories'
+                }
+            ];
+            
+            // Render fallback contributors without error message
+            this.renderGitHubContributors(contributorsContainer, fallbackContributors, 0, true);
+        }
+        }
                     html_url: 'https://github.com/MrNewb',
                     type: 'Core Developer',
                     contributions: 'Multiple repositories'
