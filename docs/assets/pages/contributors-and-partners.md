@@ -1,12 +1,9 @@
 # <i class="fas fa-handshake"></i> Contributors & Partners
 
 Welcome to our community of developers, content creators, and partners who make The Order possible.
+Our org is built by a passionate community of developers who contribute their time, expertise, and creativity to make The Order better for everyone.
 
 ---
-
-## <i class="fas fa-trophy"></i> Contributors
-
-Our framework is built by a passionate community of developers who contribute their time, expertise, and creativity to make The Order better for everyone.
 
 ### Core Team
 
@@ -70,24 +67,6 @@ Our framework is built by a passionate community of developers who contribute th
   </div>
 </div>
 
-<div style="background: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%); border: 1px solid #3a3a3a; border-radius: 12px; padding: 20px; margin: 20px 0; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);">
-  <h4 style="color: #f0f6fc; margin: 0 0 15px 0; font-size: 1.3em;"><i class="fas fa-star"></i> Want to Contribute?</h4>
-  <p style="color: #8b949e; margin: 10px 0; line-height: 1.6;">
-    We're always looking for passionate developers to join our community! Whether you're interested in:
-  </p>
-  <ul style="color: #8b949e; margin: 10px 0; padding-left: 20px;">
-    <li><strong>Code Contributions</strong> - Bug fixes, new features, optimizations</li>
-    <li><strong>Documentation</strong> - Writing guides, tutorials, and examples</li>
-    <li><strong>Community Support</strong> - Helping other developers in Discord</li>
-    <li><strong>Testing & Feedback</strong> - Reporting issues and suggesting improvements</li>
-  </ul>
-  <p style="color: #8b949e; margin: 15px 0 20px 0;">
-    Join our Discord community to get started and connect with other contributors!
-  </p>
-  <a href="https://discord.gg/qVaR5Mj68G" target="_blank" style="display: inline-block; background: #238636; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;" onmouseover="this.style.background='#2ea043'" onmouseout="this.style.background='#238636'">
-    <i class="fas fa-rocket"></i> Join Our Community
-  </a>
-</div>
 
 ---
 
@@ -105,27 +84,11 @@ We're proud to work with these amazing organizations and creators who share our 
     <h4 style="color: #f0f6fc; margin: 0; font-size: 1.3em;">Content Partners</h4>
   </div>
   <p style="color: #8b949e; text-align: center; line-height: 1.6; margin: 15px 0;">
-    Content creators and educators helping spread knowledge about The Order Framework.
+    Content creators and educators helping spread knowledge about The Order.
   </p>
   <div style="text-align: center; margin-top: 15px;">
     <a href="https://www.youtube.com/@Qbdork" target="_blank" style="color: #58a6ff; text-decoration: none; font-weight: 600;">
       @Qbdork (Webby)
-    </a>
-  </div>
-</div>
-
-### Become a Partner
-
-<div style="background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%); padding: 25px; border-radius: 15px; margin: 30px 0; text-align: center; box-shadow: 0 8px 32px rgba(255, 107, 107, 0.2);">
-  <h4 style="color: white; margin: 0 0 15px 0; font-size: 1.5em; text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">
-    <i class="fas fa-star"></i> Partner with The Order
-  </h4>
-  <p style="color: rgba(255,255,255,0.95); margin: 0 0 20px 0; line-height: 1.7; font-size: 1.1em;">
-    Are you running a successful FiveM server or creating educational content? We'd love to partner with you!
-  </p>
-  <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-    <a href="https://discord.gg/qVaR5Mj68G" target="_blank" style="display: inline-block; background: rgba(255,255,255,0.2); color: white; padding: 12px 25px; border-radius: 25px; text-decoration: none; font-weight: bold; border: 2px solid white; transition: all 0.3s ease;" onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.2)'">
-      <i class="fas fa-comments"></i> Contact Us
     </a>
   </div>
 </div>
@@ -143,14 +106,6 @@ We want to give special recognition to our community members who go above and be
 - **Support Heroes** - Those who help answer questions and support other developers
 - **Feedback Providers** - Users who take time to provide detailed feedback and suggestions
 
-### Open Source Libraries
-
-The Order Framework is built on the shoulders of giants. We're grateful to the open source community and the maintainers of the libraries we use:
-
-- **FiveM** - The platform that makes it all possible
-- **ESX & QBCore** - Framework foundations that inspire our compatibility layers
-- **Community Scripts** - The countless developers who share their work
-
 ---
 
 ## <i class="fas fa-phone"></i> Get Involved
@@ -163,7 +118,7 @@ Ready to join our community? Here's how you can get started:
     <div style="font-size: 2em; margin-bottom: 10px;"><i class="fab fa-discord"></i></div>
     <h4 style="margin: 0 0 10px 0;">Join Discord</h4>
     <p style="margin: 0 0 15px 0; opacity: 0.9; font-size: 0.9em;">Connect with the community</p>
-    <a href="https://discord.gg/qVaR5Mj68G" target="_blank" style="color: white; text-decoration: underline;">Join Now</a>
+    <a href="https://discord.gg/MukwBuJjP7" target="_blank" style="color: white; text-decoration: underline;">Join Now</a>
   </div>
 
   <div style="background: #238636; padding: 20px; border-radius: 12px; text-align: center; color: white;">
@@ -177,7 +132,7 @@ Ready to join our community? Here's how you can get started:
     <div style="font-size: 2em; margin-bottom: 10px;"><i class="fas fa-book"></i></div>
     <h4 style="margin: 0 0 10px 0;">Share Knowledge</h4>
     <p style="margin: 0 0 15px 0; opacity: 0.9; font-size: 0.9em;">Create tutorials and guides</p>
-    <a href="https://discord.gg/qVaR5Mj68G" target="_blank" style="color: white; text-decoration: underline;">Get Started</a>
+    <a href="https://discord.gg/MukwBuJjP7" target="_blank" style="color: white; text-decoration: underline;">Get Started</a>
   </div>
 
 </div>
