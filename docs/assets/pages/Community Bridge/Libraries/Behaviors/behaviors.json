@@ -1,0 +1,380 @@
+{
+  "name": "Entity Behaviors",
+  "icon": "🎭",
+  "description": "The Entity Behaviors system provides a comprehensive framework for creating reusable entity functionality like animations, particles, clothing, weapons, and more. Behaviors automatically handle lifecycle events and can be mixed and matched on entities.",
+  "clientFunctions": [
+    {
+      "name": "Create",
+      "description": "Creates a custom behavior that can be applied to entities. Behaviors define how entities should respond to lifecycle events.",
+      "syntax": "Bridge.Entity.Behaviors.Create(behaviorId, behavior)",
+      "parameters": [
+        {
+          "name": "behaviorId",
+          "type": "string",
+          "description": "Unique identifier for the behavior"
+        },
+        {
+          "name": "behavior",
+          "type": "table",
+          "description": "Behavior definition with lifecycle callbacks"
+        }
+      ],
+      "returns": [],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Create a custom plate behavior\nBridge.Entity.Behaviors.Create(\"license_plate\", {\n    OnCreate = function(entityData)\n        print(\"License plate behavior created for:\", entityData.id)\n    end,\n    OnSpawn = function(entityData)\n        if entityData.license_plate and entityData.license_plate.text then\n            SetVehicleNumberPlateText(entityData.spawned, entityData.license_plate.text)\n        end\n    end,\n    OnUpdate = function(entityData)\n        -- Update logic here\n    end,\n    OnRemove = function(entityData)\n        print(\"License plate behavior removed for:\", entityData.id)\n    end\n})"
+    },
+    {
+      "name": "Get",
+      "description": "Retrieves a registered behavior by its ID.",
+      "syntax": "Bridge.Entity.Behaviors.Get(behaviorId)",
+      "parameters": [
+        {
+          "name": "behaviorId",
+          "type": "string",
+          "description": "The ID of the behavior to retrieve"
+        }
+      ],
+      "returns": [
+        {
+          "type": "table",
+          "description": "The behavior definition, or nil if not found"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\nlocal plateBehavior = Bridge.Entity.Behaviors.Get(\"license_plate\")\nif plateBehavior then\n    print(\"Found license plate behavior\")\nelse\n    print(\"Behavior not found\")\nend"
+    },
+    {
+      "name": "Remove",
+      "description": "Removes a registered behavior. Entities using this behavior will no longer have access to it.",
+      "syntax": "Bridge.Entity.Behaviors.Remove(behaviorId)",
+      "parameters": [
+        {
+          "name": "behaviorId",
+          "type": "string",
+          "description": "The ID of the behavior to remove"
+        }
+      ],
+      "returns": [
+        {
+          "type": "boolean",
+          "description": "True if behavior was removed, false if not found"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\nlocal removed = Bridge.Entity.Behaviors.Remove(\"license_plate\")\nif removed then\n    print(\"License plate behavior removed\")\nelse\n    print(\"Behavior not found\")\nend"
+    },
+    {
+      "name": "Set",
+      "description": "Updates or sets behavior data for an existing entity. This will trigger behavior updates and re-apply effects.",
+      "syntax": "Bridge.Entity.Set(entityId, behaviorKey, behaviorData)",
+      "parameters": [
+        {
+          "name": "entityId",
+          "type": "string",
+          "description": "The ID of the entity to update"
+        },
+        {
+          "name": "behaviorKey",
+          "type": "string",
+          "description": "The behavior property to update"
+        },
+        {
+          "name": "behaviorData",
+          "type": "table|any",
+          "description": "New behavior configuration"
+        }
+      ],
+      "returns": [],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\n-- Update animation\nBridge.Entity.Set(\"my_ped\", \"anim\", {\n    dict = \"amb@world_human_smoking@male@male_a@base\",\n    name = \"base\",\n    flags = 49,\n    duration = -1\n})\n\n-- Update follow target\nBridge.Entity.Set(\"follower_ped\", \"follow\", {\n    target = GetPlayerServerId(PlayerId()),\n    speed = 3.0,\n    distance = 2.5\n})"
+    },
+    {
+      "name": "Get",
+      "description": "Retrieves current entity data including all behavior configurations.",
+      "syntax": "Bridge.Entity.Get(entityId)",
+      "parameters": [
+        {
+          "name": "entityId",
+          "type": "string",
+          "description": "The ID of the entity to retrieve"
+        }
+      ],
+      "returns": [
+        {
+          "type": "table",
+          "description": "Complete entity data with all behavior configurations"
+        }
+      ],
+      "example": "local Bridge = exports['community_bridge']:Bridge()\n\nlocal entityData = Bridge.Entity.Get(\"my_ped\")\nif entityData then\n    print(\"Entity found:\", entityData.id)\n    if entityData.anim then\n        print(\"Animation:\", entityData.anim.dict, entityData.anim.name)\n    end\n    if entityData.weapon then\n        print(\"Weapon:\", entityData.weapon.name, \"Ammo:\", entityData.weapon.ammo)\n    end\nelse\n    print(\"Entity not found\")\nend"
+    }
+  ],
+  "serverFunctions": [],
+  "behaviors": [
+    {
+      "name": "Animation",
+      "property": "anim",
+      "description": "Handles entity animations with automatic playback, looping, and chaining support. Only works with ped entities.",
+      "properties": [
+        {
+          "name": "dict",
+          "type": "string",
+          "description": "Animation dictionary name"
+        },
+        {
+          "name": "name",
+          "type": "string", 
+          "description": "Animation name within the dictionary"
+        },
+        {
+          "name": "flags",
+          "type": "number",
+          "description": "Animation flags (default: 49)"
+        },
+        {
+          "name": "duration",
+          "type": "number",
+          "description": "Animation duration in milliseconds (-1 for infinite)"
+        },
+        {
+          "name": "onComplete",
+          "type": "function",
+          "description": "Callback function when animation completes"
+        }
+      ]
+    },
+    {
+      "name": "Attach",
+      "property": "attach",
+      "description": "Attaches entities to other entities or players using bone attachment system.",
+      "properties": [
+        {
+          "name": "target",
+          "type": "number|string",
+          "description": "Server ID of player or entity ID to attach to"
+        },
+        {
+          "name": "bone",
+          "type": "number",
+          "description": "Bone index to attach to (e.g., 57005 for right hand)"
+        },
+        {
+          "name": "offset",
+          "type": "vector3",
+          "description": "Position offset from bone (optional)"
+        },
+        {
+          "name": "rotation",
+          "type": "vector3",
+          "description": "Rotation offset (optional)"
+        }
+      ]
+    },
+    {
+      "name": "Clothing",
+      "property": "clothing",
+      "description": "Applies clothing components and props to ped entities with detailed customization options.",
+      "properties": [
+        {
+          "name": "components",
+          "type": "table",
+          "description": "Array of clothing components with drawable, texture, and component_id"
+        },
+        {
+          "name": "props",
+          "type": "table",
+          "description": "Array of props with drawable, texture, and prop_id"
+        }
+      ]
+    },
+    {
+      "name": "Follow",
+      "property": "follow",
+      "description": "Makes entities follow targets with configurable speed and distance parameters. Only works with ped entities.",
+      "properties": [
+        {
+          "name": "target",
+          "type": "number|string",
+          "description": "Server ID of player or entity ID to follow"
+        },
+        {
+          "name": "speed",
+          "type": "number",
+          "description": "Movement speed (default: 1.0)"
+        },
+        {
+          "name": "distance",
+          "type": "number",
+          "description": "Follow distance (default: 2.0)"
+        },
+        {
+          "name": "OnExit",
+          "type": "function",
+          "description": "Callback when entity stops following"
+        }
+      ]
+    },
+    {
+      "name": "Particles",
+      "property": "particles",
+      "description": "Attaches particle effects to entities with support for multiple simultaneous effects.",
+      "properties": [
+        {
+          "name": "dict",
+          "type": "string",
+          "description": "Particle dictionary name"
+        },
+        {
+          "name": "ptfx",
+          "type": "string",
+          "description": "Particle effect name"
+        },
+        {
+          "name": "offset",
+          "type": "vector3",
+          "description": "Position offset from entity"
+        },
+        {
+          "name": "rotation",
+          "type": "vector3",
+          "description": "Rotation offset"
+        },
+        {
+          "name": "size",
+          "type": "number",
+          "description": "Effect size multiplier"
+        },
+        {
+          "name": "color",
+          "type": "vector3",
+          "description": "RGB color values (0-255)"
+        },
+        {
+          "name": "looped",
+          "type": "boolean",
+          "description": "Whether effect should loop"
+        },
+        {
+          "name": "loopLength",
+          "type": "number",
+          "description": "Loop duration in milliseconds"
+        }
+      ]
+    },
+    {
+      "name": "Scenarios",
+      "property": "scenarios", 
+      "description": "Makes ped entities perform ambient scenarios like clipboard holding, smoking, etc.",
+      "properties": [
+        {
+          "name": "name",
+          "type": "string",
+          "description": "Scenario name (e.g., 'WORLD_HUMAN_CLIPBOARD')"
+        },
+        {
+          "name": "introClip",
+          "type": "boolean",
+          "description": "Play introduction clip"
+        },
+        {
+          "name": "duration",
+          "type": "number",
+          "description": "Scenario duration in milliseconds"
+        }
+      ]
+    },
+    {
+      "name": "Shop",
+      "property": "shop",
+      "description": "Adds shop interaction functionality to entities with inventory integration.",
+      "properties": [
+        {
+          "name": "items",
+          "type": "table",
+          "description": "Array of shop items"
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "description": "Currency type for transactions"
+        },
+        {
+          "name": "target",
+          "type": "table",
+          "description": "Target interaction configuration"
+        }
+      ]
+    },
+    {
+      "name": "Stash",
+      "property": "stash",
+      "description": "Adds inventory stash functionality to entities with target interaction support.",
+      "properties": [
+        {
+          "name": "label",
+          "type": "string",
+          "description": "Display name for the stash"
+        },
+        {
+          "name": "slots",
+          "type": "number",
+          "description": "Number of inventory slots (server-side)"
+        },
+        {
+          "name": "maxWeight",
+          "type": "number",
+          "description": "Maximum weight capacity (server-side)"
+        },
+        {
+          "name": "target",
+          "type": "table",
+          "description": "Target interaction configuration"
+        }
+      ]
+    },
+    {
+      "name": "Targets",
+      "property": "targets",
+      "description": "Adds interactive target zones to entities with customizable actions and UI.",
+      "properties": [
+        {
+          "name": "label",
+          "type": "string",
+          "description": "Target label displayed to players"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "description": "Target description text"
+        },
+        {
+          "name": "distance",
+          "type": "number",
+          "description": "Interaction distance"
+        },
+        {
+          "name": "icon",
+          "type": "string",
+          "description": "Font Awesome icon class"
+        },
+        {
+          "name": "onSelect",
+          "type": "function",
+          "description": "Callback function when target is selected"
+        }
+      ]
+    },
+    {
+      "name": "Weapon",
+      "property": "weapon",
+      "description": "Equips entities with weapons and ammunition. Only works with ped entities.",
+      "properties": [
+        {
+          "name": "name",
+          "type": "string",
+          "description": "Weapon hash or name"
+        },
+        {
+          "name": "ammo",
+          "type": "number",
+          "description": "Ammunition count"
+        }
+      ]
+    }
+  ]
+}

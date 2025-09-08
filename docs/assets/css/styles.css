@@ -484,6 +484,33 @@ body {
     margin-left: 0.5rem;
 }
 
+/* Nested parameter styling */
+.param-nested {
+    margin-left: 2rem !important;
+    border-left: 3px solid var(--accent-color);
+    background: var(--code-bg) !important;
+    position: relative;
+}
+
+.param-nested::before {
+    content: '';
+    position: absolute;
+    left: -3px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--accent-color);
+    opacity: 0.6;
+}
+
+.param-parent {
+    font-weight: 500;
+}
+
+.param-parent + .param-nested {
+    margin-top: 0.25rem;
+}
+
 /* Function body section headers */
 .function-body h4 {
     color: var(--text-primary);

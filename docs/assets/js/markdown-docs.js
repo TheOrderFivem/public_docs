@@ -264,7 +264,7 @@ class CommunityBridgeDocumentation {
 
         const folderItems = {};
         const knownModules = {
-            'Libraries': ['Anim', 'Batch', 'Cache', 'Callback', 'Cutscenes', 'Entities', 'Ids', 'Logs', 'Markers', 'Math', 'Particles', 'Placers', 'Point', 'Raycast', 'Scaleform', 'Shells', 'SQL', 'Table', 'Utility'],
+            'Libraries': ['Anim', 'Batch', 'Behaviors', 'Cache', 'Callback', 'Cutscenes', 'Entities', 'Ids', 'Logs', 'Markers', 'Math', 'Particles', 'Placers', 'Point', 'Raycast', 'Scaleform', 'Shells', 'SQL', 'Table', 'Utility'],
             'Modules': ['Banking', 'BossMenu', 'Clothing', 'Dialogue', 'Dispatch', 'Doorlock', 'Framework', 'Fuel', 'HelpText', 'Housing', 'Input', 'Inventory', 'Locales', 'Math', 'Menu', 'Notify', 'Phone', 'ProgressBar', 'Shops', 'Skills', 'Target', 'VehicleKey', 'Version', 'Weather']
         };
 
@@ -931,26 +931,31 @@ class CommunityBridgeDocumentation {
         const parameters = [];
 
         // Look for list items with parameter information
-        // Format: - **paramName** (type): description
-        const paramRegex = /[-*]\s*\*\*(\w+)\*\*\s*\(([^)]+)\):\s*(.+)/gi;
+        // Format: - **paramName** (type): description (parent parameters)
+        // Format: -- **paramName** (type): description (nested parameters)
+        const paramRegex = /(--?)\s*\*\*(\w+)\*\*\s*\(([^)]+)\):\s*(.+)/gi;
         let match;
 
         while ((match = paramRegex.exec(content)) !== null) {
+            const isNested = match[1] === '--';
             parameters.push({
-                name: match[1],
-                type: match[2].trim(),
-                description: match[3].trim()
+                name: match[2],
+                type: match[3].trim(),
+                description: match[4].trim(),
+                nested: isNested
             });
         }
 
         // Alternative format: - paramName (type) - description
         if (parameters.length === 0) {
-            const altParamRegex = /[-*]\s*(\w+)\s*\(([^)]+)\)\s*[-–—]\s*(.+)/gi;
+            const altParamRegex = /(--?)\s*(\w+)\s*\(([^)]+)\)\s*[-–—]\s*(.+)/gi;
             while ((match = altParamRegex.exec(content)) !== null) {
+                const isNested = match[1] === '--';
                 parameters.push({
-                    name: match[1],
-                    type: match[2].trim(),
-                    description: match[3].trim()
+                    name: match[2],
+                    type: match[3].trim(),
+                    description: match[4].trim(),
+                    nested: isNested
                 });
             }
         }
@@ -1050,7 +1055,7 @@ class CommunityBridgeDocumentation {
         const anchor = this.generateAnchor(func.name, side, moduleName);
 
         const parameters = func.parameters?.map(p => `
-            <li>
+            <li class="${p.nested ? 'param-nested' : 'param-parent'}">
                 <code>${p.name}</code>
                 <span class="param-type">(${p.type})</span>
                 ${p.optional ? '<span class="param-optional">optional</span>' : ''}

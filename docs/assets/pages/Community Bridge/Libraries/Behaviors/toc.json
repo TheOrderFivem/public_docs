@@ -1,0 +1,91 @@
+{
+  "title": "Entity Behaviors Library",
+  "items": [
+    {
+      "title": "Overview",
+      "anchor": "#overview"
+    },
+    {
+      "title": "Core Behavior System",
+      "anchor": "#core-behavior-system",
+      "children": [
+        {
+          "title": "Create",
+          "anchor": "#create-client"
+        },
+        {
+          "title": "Get",
+          "anchor": "#get-client"
+        },
+        {
+          "title": "Remove",
+          "anchor": "#remove-client"
+        }
+      ]
+    },
+    {
+      "title": "Built-in Behaviors",
+      "anchor": "#built-in-behaviors",
+      "children": [
+        {
+          "title": "Animation Behavior",
+          "anchor": "#animation-behavior"
+        },
+        {
+          "title": "Attach Behavior",
+          "anchor": "#attach-behavior"
+        },
+        {
+          "title": "Clothing Behavior",
+          "anchor": "#clothing-behavior"
+        },
+        {
+          "title": "Follow Behavior",
+          "anchor": "#follow-behavior"
+        },
+        {
+          "title": "Particles Behavior",
+          "anchor": "#particles-behavior"
+        },
+        {
+          "title": "Scenarios Behavior",
+          "anchor": "#scenarios-behavior"
+        },
+        {
+          "title": "Shop Behavior",
+          "anchor": "#shop-behavior"
+        },
+        {
+          "title": "Stash Behavior",
+          "anchor": "#stash-behavior"
+        },
+        {
+          "title": "Targets Behavior",
+          "anchor": "#targets-behavior"
+        },
+        {
+          "title": "Weapon Behavior",
+          "anchor": "#weapon-behavior"
+        }
+      ]
+    },
+    {
+      "title": "Behavior Management",
+      "anchor": "#behavior-management",
+      "children": [
+        {
+          "title": "Set",
+          "anchor": "#set-client"
+        },
+        {
+          "title": "Get",
+          "anchor": "#get-client-1"
+        }
+      ]
+    },
+    {
+      "title": "Combining Behaviors",
+      "anchor": "#combining-behaviors"
+    }
+  ]
+}
