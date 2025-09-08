@@ -67,7 +67,62 @@ class CommunityBridgeDocumentation {
             themeToggle.addEventListener('click', () => this.toggleTheme());
         }
 
+        // Setup mobile navigation toggle
+        this.setupMobileNavigation();
+        
         this.setupSearchInput();
+    }
+
+    setupMobileNavigation() {
+        const mobileToggle = document.getElementById('mobile-nav-toggle');
+        const sidebar = document.getElementById('sidebar');
+        const mobileOverlay = document.getElementById('mobile-overlay');
+        
+        if (mobileToggle && sidebar) {
+            // Toggle sidebar on burger menu click
+            mobileToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('open');
+            });
+
+            // Close sidebar when clicking on overlay
+            if (mobileOverlay) {
+                mobileOverlay.addEventListener('click', () => {
+                    sidebar.classList.remove('open');
+                });
+            }
+
+            // Close sidebar when clicking outside on mobile
+            document.addEventListener('click', (e) => {
+                const isClickInsideSidebar = sidebar.contains(e.target);
+                const isClickOnToggle = mobileToggle.contains(e.target);
+                const isClickOnOverlay = mobileOverlay && mobileOverlay.contains(e.target);
+                
+                if (!isClickInsideSidebar && !isClickOnToggle && !isClickOnOverlay && sidebar.classList.contains('open')) {
+                    sidebar.classList.remove('open');
+                }
+            });
+
+            // Close sidebar when clicking on navigation links
+            const updateNavLinks = () => {
+                const navLinks = sidebar.querySelectorAll('.nav-item, .nav-section-header, .nav-subsection-header');
+                navLinks.forEach(link => {
+                    // Remove existing listeners to prevent duplicates
+                    link.removeEventListener('click', this.closeMobileSidebar);
+                    link.addEventListener('click', this.closeMobileSidebar);
+                });
+            };
+
+            // Store reference for cleanup
+            this.closeMobileSidebar = () => {
+                sidebar.classList.remove('open');
+            };
+
+            // Initial setup
+            updateNavLinks();
+
+            // Update links when navigation is re-rendered
+            this.updateMobileNavLinks = updateNavLinks;
+        }
     }
 
     setupSearchInput() {
@@ -487,6 +542,11 @@ class CommunityBridgeDocumentation {
 
         // IMPORTANT: Set up navigation events AFTER rendering
         this.setupNavigationEvents();
+
+        // Update mobile navigation links
+        if (this.updateMobileNavLinks) {
+            this.updateMobileNavLinks();
+        }
 
         console.log('🎨 Navigation rendered successfully');
     }
