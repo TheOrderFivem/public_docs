@@ -1,4 +1,4 @@
-# Dispatch 🚨
+# <i class="fas fa-ambulance"></i> Dispatch
 
 <!--META
 nav: true

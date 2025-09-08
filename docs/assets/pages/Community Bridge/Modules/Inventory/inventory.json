@@ -1,6 +1,6 @@
 {
   "name": "Inventory",
-  "icon": "🎒",
+  "icon": "fas fa-boxes|#4caf50",
   "description": "The Inventory module provides a unified interface for handling player inventory items across different inventory systems. It supports various inventory systems like ox_inventory, qb-inventory, ps-inventory, and more.",
   "clientFunctions": [
     {

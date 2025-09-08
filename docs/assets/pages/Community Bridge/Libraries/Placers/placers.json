@@ -1,6 +1,6 @@
 {
   "name": "Placers",
-  "icon": "🏗️",
+  "icon": "fas fa-hammer|#ff7043",
   "description": "The Placers library provides interactive object placement systems with real-time preview, material validation, boundary checking, and advanced placement controls. Supports both simple and complex placement modes with collision detection and snap-to-ground functionality.",
   "clientFunctions": [
     {

@@ -1,6 +1,6 @@
 {
   "name": "Dispatch",
-  "icon": "🚨",
+  "icon": "fas fa-broadcast-tower|#f44336",
   "description": "The Dispatch module provides a unified interface for sending alerts and notifications to emergency services and other job-based players. It supports various dispatch systems.",
   "clientFunctions": [
     {

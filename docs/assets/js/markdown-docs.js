@@ -1,4 +1,5 @@
 // Community Bridge Documentation Site - Markdown Enhanced Version (Clean)
+console.log('🚀 JavaScript file loaded!');
 class CommunityBridgeDocumentation {
     constructor() {
         this.currentTheme = localStorage.getItem('theme') || 'dark';
@@ -2053,65 +2054,6 @@ class CommunityBridgeDocumentation {
             
             // Render fallback contributors without error message
             this.renderGitHubContributors(contributorsContainer, fallbackContributors, 0, true);
-        }
-        }
-                    html_url: 'https://github.com/MrNewb',
-                    type: 'Core Developer',
-                    contributions: 'Multiple repositories'
-                },
-                {
-                    login: 'gononono64',
-                    avatar_url: 'https://github.com/gononono64.png',
-                    html_url: 'https://github.com/gononono64',
-                    type: 'Core Developer',
-                    contributions: 'Multiple repositories'
-                }
-            ];
-            
-            contributorsContainer.innerHTML = `
-                <div style="margin: 20px 0;">
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
-                        <div style="width: 40px; height: 40px; background: #f85149; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2em;">
-                            ⚠️
-                        </div>
-                        <div>
-                            <h4 style="margin: 0; color: #f0f6fc;">${errorMessage}</h4>
-                            <p style="margin: 0; color: #8b949e; font-size: 0.9em;">${detailMessage}</p>
-                        </div>
-                    </div>
-                    
-                    <div style="margin-bottom: 20px;">
-                        <button onclick="window.app.loadGitHubContributors()" style="background: #238636; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; margin-right: 10px;">
-                            🔄 Retry Loading from GitHub
-                        </button>
-                        <a href="https://github.com/TheOrderFivem" target="_blank" style="display: inline-block; background: #21262d; color: #58a6ff; border: 1px solid #30363d; padding: 10px 20px; border-radius: 6px; text-decoration: none;">
-                            🐙 View on GitHub
-                        </a>
-                    </div>
-
-                    <h4 style="color: #f0f6fc; margin: 20px 0 15px 0;">Core Contributors</h4>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px;">
-                        ${fallbackContributors.map(contributor => `
-                            <div style="background: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%); border: 1px solid #3a3a3a; border-radius: 12px; padding: 15px; text-align: center; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 16px rgba(0,0,0,0.3)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
-                                <img src="${contributor.avatar_url}" alt="${contributor.login}" style="width: 50px; height: 50px; border-radius: 50%; border: 2px solid #238636; margin-bottom: 10px;">
-                                <div style="color: #f0f6fc; font-weight: 600; margin-bottom: 5px;">${contributor.login}</div>
-                                <div style="color: #8b949e; font-size: 0.8em; margin-bottom: 8px;">${contributor.type}</div>
-                                <div style="color: #58a6ff; font-size: 0.8em;">${contributor.contributions}</div>
-                                <div style="margin-top: 10px;">
-                                    <a href="${contributor.html_url}" target="_blank" style="color: #58a6ff; text-decoration: none; font-size: 0.8em;">View Profile</a>
-                                </div>
-                            </div>
-                        `).join('')}
-                    </div>
-                    
-                    <div style="text-align: center; margin-top: 20px; padding: 20px; background: rgba(88, 166, 255, 0.1); border-radius: 8px;">
-                        <p style="color: #8b949e; margin: 0 0 10px 0;">Want to contribute to The Order Framework?</p>
-                        <a href="https://github.com/TheOrderFivem" target="_blank" style="display: inline-block; background: #238636; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 600;">
-                            🚀 Visit Our GitHub
-                        </a>
-                    </div>
-                </div>
-            `;
         }
     }
 

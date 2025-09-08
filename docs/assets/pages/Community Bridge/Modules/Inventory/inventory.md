@@ -1,4 +1,4 @@
-# Inventory 🎒
+# <i class="fas fa-archive"></i> Inventory
 
 <!--META
 nav: true

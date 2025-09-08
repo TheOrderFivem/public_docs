@@ -1,6 +1,6 @@
 {
   "name": "Doorlock",
-  "icon": "fas fa-lock",
+  "icon": "fas fa-lock|#8b5a2b",
   "description": "The Doorlock module provides functions for managing door locking states across different doorlock systems. It handles locking and unlocking doors with various access controls.",
   "clientFunctions": [
     {

@@ -1,6 +1,6 @@
 {
   "name": "SQL",
-  "icon": "🗄️",
+  "icon": "fas fa-database|#66bb6a",
   "description": "The SQL library provides simplified database operations with automatic table creation, upsert functionality, and common CRUD operations. It works with oxmysql and handles common database patterns used in FiveM development.",
   "clientFunctions": [],
   "serverFunctions": [

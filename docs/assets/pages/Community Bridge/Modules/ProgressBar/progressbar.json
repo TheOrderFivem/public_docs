@@ -1,6 +1,6 @@
 {
   "name": "ProgressBar",
-  "icon": "⏳",
+  "icon": "fas fa-tasks|#ff9800",
   "description": "The ProgressBar module provides a unified interface for displaying progress bars during various actions. It supports different progress bar systems and styles.",
   "clientFunctions": [
     {

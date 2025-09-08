@@ -1,6 +1,6 @@
 {
   "name": "Math",
-  "icon": "🔢",
+  "icon": "fas fa-calculator|#ff6b35",
   "description": "The Math utility library provides advanced mathematical functions for game development including clamping, remapping, normalization, vector operations, and coordinate transformations. Essential for positioning, movement, and physics calculations.",
   "clientFunctions": [],
   "serverFunctions": [],

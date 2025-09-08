@@ -1,4 +1,4 @@
-# Doorlock 🚪
+# <i class="fas fa-door-closed"></i> Doorlock
 
 <!--META
 nav: true

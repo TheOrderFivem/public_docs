@@ -1,9 +1,6 @@
 # <i class="fas fa-rocket"></i> Getting Started with Community Bridge
 
-> **Welcome to Community Bridge!** A universal compatib// Client-side notifications
-Bridge.Notify.SendNotify('<i class="fas fa-check"></i> Task completed!', 'success', 5000)
-Bridge.Notify.SendNotify('<i class="fas fa-times"></i> Something went wrong!', 'error')
-Bridge.Notify.SendNotify('<i class="fas fa-info-circle"></i> Information message', 'info')y layer for FiveM that bridges different frameworks and resources, providing unified APIs for common functionality like inventories, notifications, and more.
+> **Welcome to Community Bridge!** A universal compatibility layer for FiveM that bridges different frameworks and resources, providing unified APIs for common functionality like inventories, notifications, and more.
 
 ---
 

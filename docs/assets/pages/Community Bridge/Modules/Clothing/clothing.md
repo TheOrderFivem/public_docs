@@ -1,4 +1,4 @@
-# Clothing 👕
+# <i class="fas fa-tshirt"></i> Clothing
 
 <!--META
 nav: true

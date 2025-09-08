@@ -1,6 +1,6 @@
 {
   "name": "Particles",
-  "icon": "✨",
+  "icon": "fas fa-bolt|#ffd700",
   "description": "The Particles library provides comprehensive particle effect management with automatic asset loading, proximity-based spawning, and support for various particle types including looped, non-looped, entity-attached, and bone-attached effects.",
   "clientFunctions": [
     {

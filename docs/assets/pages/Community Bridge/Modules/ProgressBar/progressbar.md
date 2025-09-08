@@ -1,4 +1,4 @@
-# ProgressBar ⏳
+# <i class="fas fa-hourglass-half"></i> ProgressBar
 
 <!--META
 nav: true

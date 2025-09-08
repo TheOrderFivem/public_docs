@@ -1,4 +1,5 @@
-# Particles ✨
+# <i class="fas fa-bolt"></i> Particles
+
 
 <!--META
 nav: true

@@ -1,6 +1,6 @@
 {
   "name": "Utility",
-  "icon": "🛠️",
+  "icon": "fas fa-tools|#4fc3f7",
   "description": "The Utility library provides a comprehensive collection of client-side helper functions for common FiveM operations including entity creation, blip management, UI utilities, and coordinate operations. Essential for game world manipulation and player interaction.",
   "clientFunctions": [
     {
