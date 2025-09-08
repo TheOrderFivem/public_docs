@@ -23,10 +23,22 @@ Bridge.Entity.Create(entityData)
 ```
 
 ### Parameters
-- **entityData** (table): Entity configuration with id, entityType, model, coords, rotation, and optional callbacks
+- **entityData** (table): Entity configuration containing:
+  -- **id** (string|nil): Unique identifier for the entity (auto-generated if nil)
+  -- **entityType** (string): Type of entity: 'object', 'ped', or 'vehicle'
+  -- **model** (string|number): Model name or hash for the entity
+  -- **coords** (vector3): Spawn coordinates for the entity
+  -- **rotation** (vector3|nil): Rotation vector for objects
+  -- **heading** (number|nil): Heading for peds/vehicles (alternative to rotation)
+  -- **spawnDistance** (number|nil): Distance at which entity spawns (default: 50.0)
+  -- **OnSpawn** (function|nil): Callback function when entity spawns
+  -- **OnRemove** (function|nil): Callback function when entity despawns
+  -- **OnUpdate** (function|nil): Callback function when entity updates
+  -- **OnMove** (function|nil): Callback function when entity moves
+  -- Additional properties for behaviors and metadata
 
 ### Returns
-- (table): Point system data.
+- (table): Point system data for the registered entity
 
 ### Example
 ```lua
@@ -38,7 +50,7 @@ local npcData = {
     entityType = "ped",
     model = "a_m_m_business_01",
     coords = vector3(25.7, -1347.3, 29.5),
-    rotation = 180.0,
+    heading = 180.0,
     spawnDistance = 25.0,
     OnSpawn = function(data)
         print("Shop clerk spawned: ", data.id)
@@ -52,34 +64,34 @@ local npcData = {
 }
 
 local pointData = Bridge.Entity.Create(npcData)
-print("Created entity with point ID: ", pointData.id))
+print("Created entity with point ID: ", pointData.id)
 ```
 
-## Unregister (Client)
+## Destroy (Client)
 
 ### Description
-Unregisters an entity and removes it from the world if currently spawned. Cleans up all associated resources.
+Destroys an entity and removes it from the world if currently spawned. Cleans up all associated resources. Also available as `Unregister` (deprecated).
 
 ### Syntax
 ```lua
-Bridge.Entity.Unregister(id)
+Bridge.Entity.Destroy(id)
 ```
 
 ### Parameters
-- **id** (string | number): The ID of the entity to unregister
+- **id** (string|number): The ID of the entity to destroy
 
 ### Example
 ```lua
 local Bridge = exports['community_bridge']:Bridge()
 
--- Unregister the shop clerk
-Bridge.Entity.Unregister("shop_clerk")
-print("Shop clerk entity unregistered")
+-- Destroy the shop clerk
+Bridge.Entity.Destroy("shop_clerk")
+print("Shop clerk entity destroyed")
 
 -- Clean up all entities when leaving an area
 local entityIds = {"npc1", "npc2", "vehicle1"}
 for _, entityId in ipairs(entityIds) do
-    Bridge.Entity.Unregister(entityId)
+    Bridge.Entity.Destroy(entityId)
 end
 ```
 
@@ -90,16 +102,18 @@ Creates a server-side entity representation that will be synchronized to all cli
 
 ### Syntax
 ```lua
-Bridge.ServerEntity.Create(id, entityType, model, coords, rotation, meta)
+Bridge.Entity.Create(data)
 ```
 
 ### Parameters
-- **id** (string | nil): Unique identifier for the entity (auto-generated if nil)
-- **entityType** (string): Type of entity: 'object', 'ped', or 'vehicle'
-- **model** (string | number): Model name or hash for the entity
-- **coords** (vector3): Spawn coordinates for the entity
-- **rotation** (vector3 | number | nil): Rotation vector for objects or heading for peds/vehicles
-- **meta** (table | nil): Additional metadata and configuration options
+- **data** (table): Entity configuration containing:
+  -- **id** (string|nil): Unique identifier for the entity (auto-generated if nil)
+  -- **entityType** (string): Type of entity: 'object', 'ped', or 'vehicle'
+  -- **model** (string|number): Model name or hash for the entity
+  -- **coords** (vector3): Spawn coordinates for the entity
+  -- **rotation** (vector3|nil): Rotation vector for objects
+  -- **heading** (number|nil): Heading for peds/vehicles (alternative to rotation)
+  -- Additional properties for behaviors and metadata
 
 ### Returns
 - (table): The created entity data structure
@@ -109,79 +123,77 @@ Bridge.ServerEntity.Create(id, entityType, model, coords, rotation, meta)
 local Bridge = exports['community_bridge']:Bridge()
 
 -- Create a security guard NPC
-local guard = Bridge.ServerEntity.Create(
-    "security_guard_01",
-    "ped",
-    "s_m_m_security_01",
-    vector3(100.0, 200.0, 30.0),
-    180.0,
-    {
-        spawnDistance = 50.0,
-        health = 200,
-        armor = 100,
-        weapon = "WEAPON_PISTOL"
+local guard = Bridge.Entity.Create({
+    id = "security_guard_01",
+    entityType = "ped",
+    model = "s_m_m_security_01",
+    coords = vector3(100.0, 200.0, 30.0),
+    heading = 180.0,
+    spawnDistance = 50.0,
+    weapon = {
+        name = "WEAPON_PISTOL",
+        ammo = 100
+    },
+    clothing = {
+        components = {
+            { drawable = 0, texture = 0, component_id = 0 }
+        }
     }
-)
+})
 
 -- Create a police vehicle
-local policeVehicle = Bridge.ServerEntity.Create(
-    nil, -- Auto-generate ID
-    "vehicle",
-    "police",
-    vector3(150.0, 250.0, 30.0),
-    90.0,
-    {
-        spawnDistance = 75.0,
-        primaryColor = 0,
-        secondaryColor = 0,
-        plate = "POLICE01"
-    }
-)
+local policeVehicle = Bridge.Entity.Create({
+    entityType = "vehicle",
+    model = "police",
+    coords = vector3(150.0, 250.0, 30.0),
+    heading = 90.0,
+    spawnDistance = 75.0
+})
 
 print("Created entities: " .. guard.id .. " and " .. policeVehicle.id)
 ```
 
-## Delete (Server)
+## Destroy (Server)
 
 ### Description
-Deletes a server-side entity and notifies all clients to remove it from their world.
+Destroys a server-side entity and notifies all clients to remove it from their world. Also available as `Delete` (deprecated).
 
 ### Syntax
 ```lua
-Bridge.ServerEntity.Delete(id)
+Bridge.Entity.Destroy(id)
 ```
 
 ### Parameters
-- **id** (string | number): The ID of the entity to delete
+- **id** (string|number): The ID of the entity to destroy
 
 ### Example
 ```lua
 local Bridge = exports['community_bridge']:Bridge()
 
--- Delete the security guard
-Bridge.ServerEntity.Delete("security_guard_01")
-print("Security guard deleted")
+-- Destroy the security guard
+Bridge.Entity.Destroy("security_guard_01")
+print("Security guard destroyed")
 
 -- Clean up all event entities
 local eventEntities = {"event_npc_1", "event_vehicle_1", "event_prop_1"}
 for _, entityId in ipairs(eventEntities) do
-    Bridge.ServerEntity.Delete(entityId)
+    Bridge.Entity.Destroy(entityId)
 end
 print("Event cleanup completed")
 ```
 
-## Update (Server)
+## Set (Server)
 
 ### Description
 Updates specific data fields for a server-side entity and synchronizes the changes to all clients.
 
 ### Syntax
 ```lua
-Bridge.ServerEntity.Update(id, data)
+Bridge.Entity.Set(id, data)
 ```
 
 ### Parameters
-- **id** (string | number): The ID of the entity to update
+- **id** (string|number): The ID of the entity to update
 - **data** (table): Table containing the fields to update
 
 ### Returns
@@ -191,11 +203,13 @@ Bridge.ServerEntity.Update(id, data)
 ```lua
 local Bridge = exports['community_bridge']:Bridge()
 
--- Update guard's position and health
-local success = Bridge.ServerEntity.Update("security_guard_01", {
+-- Update guard's position and weapon
+local success = Bridge.Entity.Set("security_guard_01", {
     coords = vector3(105.0, 205.0, 30.0),
-    health = 150,
-    weapon = "WEAPON_CARBINERIFLE"
+    weapon = {
+        name = "WEAPON_CARBINERIFLE",
+        ammo = 200
+    }
 })
 
 if success then
@@ -204,96 +218,131 @@ else
     print("Failed to update guard - entity not found")
 end
 
--- Update vehicle colors
-Bridge.ServerEntity.Update("police_vehicle_01", {
-    primaryColor = 12, -- Red
-    secondaryColor = 0,  -- Black
-    plate = "EMERGENCY"
+-- Update vehicle with stash behavior
+Bridge.Entity.Set("police_vehicle_01", {
+    stash = {
+        label = "Police Storage",
+        slots = 30,
+        maxWeight = 50000
+    }
 })
 ```
 
-## TriggerAction (Server)
+## Get (Server)
 
 ### Description
-Triggers a specific action on the client-side entity. Actions are only executed if the entity is currently spawned for the client.
+Retrieves a server-side entity by its ID.
 
 ### Syntax
 ```lua
-Bridge.ServerEntity.TriggerAction(entityId, actionName, endPosition, ...)
+Bridge.Entity.Get(id)
 ```
 
 ### Parameters
-- **entityId** (string | number): The ID of the entity to trigger action on
-- **actionName** (string): Name of the action function to execute
-- **endPosition** (vector3 | nil): Optional end position for movement actions
-- **...** (any): Additional arguments for the action function
+- **id** (string|number): The ID of the entity to retrieve
+
+### Returns
+- (table|nil): The entity data if found, nil if not found
 
 ### Example
 ```lua
 local Bridge = exports['community_bridge']:Bridge()
 
--- Make guard walk to a position
-Bridge.ServerEntity.TriggerAction(
-    "security_guard_01",
-    "WalkTo",
-    vector3(110.0, 210.0, 30.0),
-    1.0 -- Speed
-)
+-- Get entity data
+local guard = Bridge.Entity.Get("security_guard_01")
+if guard then
+    print("Found guard at coords:", guard.coords)
+    print("Guard model:", guard.model)
+    print("Guard entity type:", guard.entityType)
+else
+    print("Guard not found")
+end
 
--- Make guard play an animation
-Bridge.ServerEntity.TriggerAction(
-    "security_guard_01",
-    "PlayAnimation",
-    nil,
-    "amb@world_human_guard_stand@male@base",
-    "base",
-    -1 -- Loop indefinitely
-)
-
--- Make vehicle flash lights
-Bridge.ServerEntity.TriggerAction(
-    "police_vehicle_01",
-    "FlashLights",
-    nil,
-    5000 -- Duration in ms
-)
+-- Check if entity exists before updating
+if Bridge.Entity.Get("some_entity_id") then
+    Bridge.Entity.Set("some_entity_id", { 
+        weapon = { name = "WEAPON_PISTOL", ammo = 50 }
+    })
+end
 ```
 
-## TriggerActions (Server)
+## Get (Client)
 
 ### Description
-Triggers multiple actions in sequence on the client-side entity. Actions are queued and executed in order.
+Retrieves a client-side entity by its ID.
 
 ### Syntax
 ```lua
-Bridge.ServerEntity.TriggerActions(entityId, actions, endPosition)
+Bridge.Entity.Get(id)
 ```
 
 ### Parameters
-- **entityId** (string | number): The ID of the entity to trigger actions on
-- **actions** (table): Array of action objects with name and params properties
-- **endPosition** (vector3 | nil): Optional final position for movement sequences
+- **id** (string|number): The ID of the entity to retrieve
+
+### Returns
+- (table|nil): The entity point data if found, nil if not found
 
 ### Example
 ```lua
 local Bridge = exports['community_bridge']:Bridge()
 
--- Create a complex guard patrol sequence
-local patrolActions = {
-    { name = "WalkTo", params = {vector3(115.0, 200.0, 30.0), 1.0} },
-    { name = "Wait", params = {3000} },
-    { name = "PlayAnimation", params = {"amb@world_human_cop_idles@male@idle_b", "idle_e", 5000} },
-    { name = "WalkTo", params = {vector3(105.0, 220.0, 30.0), 1.0} },
-    { name = "Wait", params = {2000} },
-    { name = "WalkTo", params = {vector3(100.0, 200.0, 30.0), 1.0} }
-}
+-- Get entity data
+local clerk = Bridge.Entity.Get("shop_clerk")
+if clerk then
+    print("Found clerk at coords:", clerk.coords)
+    print("Is spawned:", clerk.spawned ~= nil)
+    if clerk.spawned then
+        print("Entity handle:", clerk.spawned)
+    end
+else
+    print("Clerk not found")
+end
 
-Bridge.Entities.TriggerActions(
-    "security_guard_01",
-    patrolActions,
-    vector3(100.0, 200.0, 30.0) -- End at starting position
-)
+-- Check if entity exists and is spawned
+local entity = Bridge.Entity.Get("some_entity_id")
+if entity and entity.spawned then
+    print("Entity is currently spawned in world")
+end
+```
 
-print("Guard patrol sequence started")
+## Set (Client)
+
+### Description
+Sets a property value for a client-side entity.
+
+### Syntax
+```lua
+Bridge.Entity.Set(id, key, value)
+```
+
+### Parameters
+- **id** (string|number): The ID of the entity to update
+- **key** (string): The property name to set
+- **value** (any): The value to set
+
+### Example
+```lua
+local Bridge = exports['community_bridge']:Bridge()
+
+-- Update entity behaviors
+Bridge.Entity.Set("shop_clerk", "weapon", {
+    name = "WEAPON_PISTOL",
+    ammo = 100
+})
+
+Bridge.Entity.Set("shop_clerk", "clothing", {
+    components = {
+        { drawable = 4, texture = 1, component_id = 11 }
+    }
+})
+
+-- Update callback functions
+Bridge.Entity.Set("shop_clerk", "OnSpawn", function(data)
+    print("Updated spawn callback for:", data.id)
+    -- Apply any custom logic here
+end)
+
+-- Update coordinates (will trigger respawn if spawned)
+Bridge.Entity.Set("shop_clerk", "coords", vector3(30.0, -1350.0, 29.5))
 ```
 
