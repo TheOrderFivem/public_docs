@@ -18,7 +18,7 @@ Our org is built by a passionate community of developers who contribute their ti
       </div>
     </div>
     <p style="color: rgba(255,255,255,0.95); margin: 0 0 15px 0; line-height: 1.6; font-size: 0.95em;">
-      Core developer of The Order, focusing on architecture design and implementation.
+      Founder and core developer of The Order.
     </p>
     <div style="display: flex; gap: 10px; flex-wrap: wrap;">
       <a href="https://github.com/MrNewb" target="_blank" style="display: inline-block; background: #24292e; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.9em; transition: all 0.3s ease;" onmouseover="this.style.background='#0366d6'" onmouseout="this.style.background='#24292e'">
@@ -42,7 +42,7 @@ Our org is built by a passionate community of developers who contribute their ti
       </div>
     </div>
     <p style="color: rgba(255,255,255,0.95); margin: 0 0 15px 0; line-height: 1.6; font-size: 0.95em;">
-      Core developer of The Order, specializing in system optimization and feature development.
+      Core developer of The Order.
     </p>
     <div style="display: flex; gap: 10px; flex-wrap: wrap;">
       <a href="https://github.com/gononono64" target="_blank" style="display: inline-block; background: #24292e; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.9em; transition: all 0.3s ease;" onmouseover="this.style.background='#0366d6'" onmouseout="this.style.background='#24292e'">

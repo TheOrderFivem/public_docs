@@ -21,14 +21,13 @@ Community Bridge automatically detects and provides translation layers for the f
 
 ### <i class="fas fa-layer-group"></i> Frameworks
 - **ESX Legacy** - Complete player data, money, and job system integration
-- **QBCore** - Full framework compatibility including player management
+- **QBCore/Qb forks** - Full framework compatibility including player management
 - **Custom Frameworks** - Extensible detection for custom implementations
 
 ### <i class="fas fa-cube"></i> Inventory Systems
 - **ox_inventory** - Modern inventory with metadata support
 - **qb-inventory** - QBCore's default inventory system
 - **qs-inventory** - QuasarStore inventory implementation
-- **esx_inventoryhud** - ESX inventory systems
 - **Custom Inventories** - Plugin system for custom inventory resources
 
 ### <i class="fas fa-bell"></i> Notification Systems
@@ -41,7 +40,6 @@ Community Bridge automatically detects and provides translation layers for the f
 ### <i class="fas fa-crosshairs"></i> Targeting Systems
 - **ox_target** - Optimized targeting system
 - **qb-target** - QBCore's targeting implementation
-- **bt-target** - Alternative targeting resource
 - **Custom Target** - Support for custom targeting systems
 
 ### <i class="fas fa-home"></i> Housing Systems
@@ -89,7 +87,7 @@ Community Bridge is a **universal translation layer** that automatically detects
 
 Community Bridge automatically detects and translates calls for:
 
-- **<i class="fas fa-cube"></i> Frameworks**: ESX, QBCore, and others
+- **<i class="fas fa-cube"></i> Frameworks**: ESX, QBCore, and qb forks
 - **<i class="fas fa-briefcase"></i> Inventories**: ox_inventory, qb-inventory, qs-inventory, and more
 - **<i class="fas fa-bell"></i> Notifications**: Various notification systems
 - **<i class="fas fa-crosshairs"></i> Targeting**: Different target systems
