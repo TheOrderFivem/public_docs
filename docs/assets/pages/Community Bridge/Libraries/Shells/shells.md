@@ -1,4 +1,4 @@
-# Shells 🏠
+# <i class="fas fa-terminal"></i> Shells
 
 <!--META
 nav: true

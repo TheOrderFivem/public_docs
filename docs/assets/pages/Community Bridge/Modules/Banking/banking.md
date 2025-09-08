@@ -1,4 +1,4 @@
-# Banking 🏦
+# <i class="fas fa-university"></i> Banking
 
 <!--META
 nav: true

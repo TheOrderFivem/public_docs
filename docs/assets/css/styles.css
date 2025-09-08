@@ -2632,3 +2632,120 @@ a:focus-visible {
   color: var(--accent-color);
   font-weight: 600;
 }
+
+/* Documentation buttons (GitHub, Releases, etc.) */
+.button-group {
+  display: flex;
+  gap: 12px;
+  margin: 24px 0;
+  flex-wrap: wrap;
+}
+
+.doc-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.doc-button:hover {
+  border-color: var(--border-light);
+  background: var(--nav-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.doc-button svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.doc-button i {
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.github-button {
+  border-color: #333;
+  background: #24292f;
+  color: white;
+}
+
+.github-button:hover {
+  background: #32383f;
+  border-color: #444;
+  color: white;
+}
+
+[data-theme="light"] .github-button {
+  border-color: #d0d7de;
+  background: #f6f8fa;
+  color: #24292f;
+}
+
+[data-theme="light"] .github-button:hover {
+  background: #f3f4f6;
+  border-color: #d0d7de;
+  color: #24292f;
+}
+
+.releases-button {
+  border-color: var(--accent-color);
+  background: var(--accent-light);
+  color: var(--accent-color);
+}
+
+.releases-button:hover {
+  background: var(--accent-color);
+  color: white;
+  border-color: var(--accent-hover);
+}
+
+/* Mobile button adjustments */
+@media (max-width: 768px) {
+  .button-group {
+    gap: 8px;
+  }
+  
+  .doc-button {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+  
+  .doc-button svg {
+    width: 14px;
+    height: 14px;
+  }
+  
+  .doc-button i {
+    font-size: 14px;
+  }
+}
+
+/* Font Awesome icons in content */
+.content-area h1 i,
+.content-area h2 i,
+.content-area h3 i,
+.content-area h4 i,
+.content-area h5 i,
+.content-area h6 i {
+  margin-right: 0.5rem;
+  color: var(--accent-color);
+}
+
+.content-area li strong i {
+  margin-right: 0.5rem;
+  color: var(--accent-color);
+  width: 16px;
+  text-align: center;
+}

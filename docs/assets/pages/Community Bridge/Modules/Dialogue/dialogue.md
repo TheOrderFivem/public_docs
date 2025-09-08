@@ -1,4 +1,4 @@
-# Dialogue 💬
+# <i class="fas fa-comments"></i> Dialogue
 
 <!--META
 nav: true

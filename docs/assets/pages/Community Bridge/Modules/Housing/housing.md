@@ -1,4 +1,4 @@
-# Housing 🏠
+# <i class="fas fa-home"></i> Housing
 
 <!--META
 nav: true

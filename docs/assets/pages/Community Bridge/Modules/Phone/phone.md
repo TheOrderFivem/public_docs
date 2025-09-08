@@ -1,4 +1,4 @@
-# Phone 📱
+# <i class="fas fa-mobile-alt"></i> Phone
 
 <!--META
 nav: true

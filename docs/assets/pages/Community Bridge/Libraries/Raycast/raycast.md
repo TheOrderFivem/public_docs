@@ -1,4 +1,4 @@
-# Raycast 🎯
+# <i class="fas fa-crosshairs"></i> Raycast
 
 <!--META
 nav: true

@@ -1,4 +1,4 @@
-# Point 📍
+# <i class="fas fa-map-marker-alt"></i> Point
 
 <!--META
 nav: true

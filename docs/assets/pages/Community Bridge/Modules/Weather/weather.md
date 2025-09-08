@@ -1,4 +1,4 @@
-# Weather 🌤️
+# <i class="fas fa-cloud-sun"></i> Weather
 
 <!--META
 nav: true

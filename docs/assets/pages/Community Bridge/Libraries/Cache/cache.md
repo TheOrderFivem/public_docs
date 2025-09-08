@@ -1,4 +1,4 @@
-# Cache 💾
+# <i class="fas fa-database"></i> Cache
 
 <!--META
 nav: true

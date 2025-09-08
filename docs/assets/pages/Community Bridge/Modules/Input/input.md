@@ -1,4 +1,4 @@
-# Input ⌨️
+# <i class="fas fa-keyboard"></i> Input
 
 <!--META
 nav: true

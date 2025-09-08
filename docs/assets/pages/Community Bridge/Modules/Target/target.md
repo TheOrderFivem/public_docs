@@ -1,4 +1,4 @@
-# Target 🎯
+# <i class="fas fa-bullseye"></i> Target
 
 <!--META
 nav: true

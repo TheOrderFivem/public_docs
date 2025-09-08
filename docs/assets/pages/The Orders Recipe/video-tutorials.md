@@ -1,6 +1,6 @@
-# Installation Tutorial �
+# <i class="fas fa-video"></i> Installation Tutorial
 
-## Installing The Orders Recipe
+## <i class="fas fa-download"></i> Installing The Orders Recipe
 
 Follow this step-by-step video guide to install The Orders Recipe on your FiveM server. This tutorial covers everything from downloading the necessary files to configuring your server for this out of the box qb install with community_bridge and its ox forks.:
 
@@ -28,10 +28,10 @@ Follow this step-by-step video guide to install The Orders Recipe on your FiveM 
   </p>
   <div style="display: flex; gap: 10px; flex-wrap: wrap;">
     <a href="https://discord.gg/qVaR5Mj68G" target="_blank" style="display: inline-block; background: #5865f2; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; transition: all 0.3s ease;" onmouseover="this.style.background='#4752c4'" onmouseout="this.style.background='#5865f2'">
-      💬 Join His Discord
+      <i class="fab fa-discord"></i> Join His Discord
     </a>
     <a href="https://www.youtube.com/@Qbdork" target="_blank" style="display: inline-block; background: #ff0000; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; transition: all 0.3s ease;" onmouseover="this.style.background='#cc0000'" onmouseout="this.style.background='#ff0000'">
-      📺 His YouTube Channel
+      <i class="fab fa-youtube"></i> His YouTube Channel
     </a>
   </div>
 </div>

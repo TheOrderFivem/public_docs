@@ -1,4 +1,4 @@
-# Shops 🛍️
+# <i class="fas fa-shopping-bag"></i> Shops
 
 <!--META
 nav: true

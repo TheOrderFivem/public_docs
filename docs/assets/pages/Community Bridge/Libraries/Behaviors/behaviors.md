@@ -1,4 +1,4 @@
-# Entity Behaviors 🎭
+# <i class="fas fa-cogs"></i> Entity Behaviors
 
 <!--META
 nav: true

@@ -1,4 +1,4 @@
-# Anim 🎭
+# <i class="fas fa-play"></i> Anim
 
 <!--META
 nav: true

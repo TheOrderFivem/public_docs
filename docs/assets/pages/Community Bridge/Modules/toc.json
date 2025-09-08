@@ -3,144 +3,144 @@
     "type": "folder",
     "name": "Banking",
     "title": "Banking",
-    "icon": "🏦"
+    "icon": "fas fa-university"
   },
   {
     "type": "folder",
     "name": "Clothing",
     "title": "Clothing",
-    "icon": "👕"
+    "icon": "fas fa-tshirt"
   },
   {
     "type": "folder",
     "name": "Dialogue",
     "title": "Dialogue",
-    "icon": "💬"
+    "icon": "fas fa-comments"
   },
   {
     "type": "folder",
     "name": "Dispatch",
     "title": "Dispatch",
-    "icon": "🚨"
+    "icon": "fas fa-broadcast-tower"
   },
   {
     "type": "folder",
     "name": "Doorlock",
     "title": "Doorlock",
-    "icon": "🔐"
+    "icon": "fas fa-lock"
   },
   {
     "type": "folder",
     "name": "Framework",
     "title": "Framework",
-    "icon": "🏗️"
+    "icon": "fas fa-layer-group"
   },
   {
     "type": "folder",
     "name": "Fuel",
     "title": "Fuel",
-    "icon": "⛽"
+    "icon": "fas fa-gas-pump"
   },
   {
     "type": "folder",
     "name": "HelpText",
     "title": "HelpText",
-    "icon": "💬"
+    "icon": "fas fa-question-circle"
   },
   {
     "type": "folder",
     "name": "Housing",
     "title": "Housing",
-    "icon": "🏠"
+    "icon": "fas fa-home"
   },
   {
     "type": "folder",
     "name": "Input",
     "title": "Input",
-    "icon": "⌨️"
+    "icon": "fas fa-keyboard"
   },
   {
     "type": "folder",
     "name": "Inventory",
     "title": "Inventory",
-    "icon": "🎒"
+    "icon": "fas fa-briefcase"
   },
   {
     "type": "folder",
     "name": "Locales",
     "title": "Locales",
-    "icon": "🌐"
+    "icon": "fas fa-globe"
   },
   {
     "type": "folder",
     "name": "Managment",
     "title": "Management",
-    "icon": "📊"
+    "icon": "fas fa-chart-bar"
   },
   {
     "type": "folder",
     "name": "Math",
     "title": "Math",
-    "icon": "🔢"
+    "icon": "fas fa-calculator"
   },
   {
     "type": "folder",
     "name": "Menu",
     "title": "Menu",
-    "icon": "📋"
+    "icon": "fas fa-list"
   },
   {
     "type": "folder",
     "name": "Notify",
     "title": "Notify",
-    "icon": "🔔"
+    "icon": "fas fa-bell"
   },
   {
     "type": "folder",
     "name": "Phone",
     "title": "Phone",
-    "icon": "📱"
+    "icon": "fas fa-mobile-alt"
   },
   {
     "type": "folder",
     "name": "ProgressBar",
     "title": "ProgressBar",
-    "icon": "⏳"
+    "icon": "fas fa-progress-bar"
   },
   {
     "type": "folder",
     "name": "Shops",
     "title": "Shops",
-    "icon": "🛒"
+    "icon": "fas fa-shopping-bag"
   },
   {
     "type": "folder",
     "name": "Skills",
     "title": "Skills",
-    "icon": "⭐"
+    "icon": "fas fa-chart-line"
   },
   {
     "type": "folder",
     "name": "Target",
     "title": "Target",
-    "icon": "🎯"
+    "icon": "fas fa-bullseye"
   },
   {
     "type": "folder",
     "name": "VehicleKey",
     "title": "VehicleKey",
-    "icon": "🗝️"
+    "icon": "fas fa-key"
   },
   {
     "type": "folder",
     "name": "Version",
     "title": "Version",
-    "icon": "🔖"
+    "icon": "fas fa-code-branch"
   },
   {
     "type": "folder",
     "name": "Weather",
     "title": "Weather",
-    "icon": "🌤️"
+    "icon": "fas fa-cloud-sun"
   }
 ]

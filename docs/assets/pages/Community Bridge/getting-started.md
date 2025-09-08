@@ -1,31 +1,34 @@
-# 🚀 Getting Started with Community Bridge
+# <i class="fas fa-rocket"></i> Getting Started with Community Bridge
 
-> **Welcome to Community Bridge!** A universal compatibility layer for FiveM that bridges different frameworks and resources, providing unified APIs for common functionality like inventories, notifications, and more.
+> **Welcome to Community Bridge!** A universal compatib// Client-side notifications
+Bridge.Notify.SendNotify('<i class="fas fa-check"></i> Task completed!', 'success', 5000)
+Bridge.Notify.SendNotify('<i class="fas fa-times"></i> Something went wrong!', 'error')
+Bridge.Notify.SendNotify('<i class="fas fa-info-circle"></i> Information message', 'info')y layer for FiveM that bridges different frameworks and resources, providing unified APIs for common functionality like inventories, notifications, and more.
 
 ---
 
-## 📋 Prerequisites
+## <i class="fas fa-clipboard-list"></i> Prerequisites
 
 Before getting started, make sure you have:
 
 | Requirement | Description |
 |-------------|-------------|
-| 🖥️ **FiveM Server** | A working FiveM server instance |
-| 📝 **Lua Knowledge** | Basic understanding of Lua scripting |
-| 🔧 **Framework** | Any supported framework (ESX, QBCore, etc.) or standalone |
-| 📦 **Resources** | Compatible inventory/notification resources (optional) |
+| <i class="fas fa-desktop"></i> **FiveM Server** | A working FiveM server instance |
+| <i class="fas fa-code"></i> **Lua Knowledge** | Basic understanding of Lua scripting |
+| <i class="fas fa-wrench"></i> **Framework** | Any supported framework (ESX, QBCore, etc.) or standalone |
+| <i class="fas fa-cube"></i> **Resources** | Compatible inventory/notification resources (optional) |
 
-> ℹ️ **Note**: Community Bridge works standalone or with existing frameworks - no database setup required!
+> <i class="fas fa-info-circle"></i> **Note**: Community Bridge works standalone or with existing frameworks - no database setup required!
 
 ---
 
-## 📦 Installation
+## <i class="fas fa-cube"></i> Installation
 
 ### Simple 3-Step Setup
 
-1. 📥 **Download** the latest release from [GitHub](https://github.com/The-Order-Of-The-Sacred-Framework/community_bridge)
-2. 📂 **Extract** and place the `community_bridge` folder in your resources directory
-3. ▶️ **Start** the resource in your `server.cfg`
+1. <i class="fas fa-download"></i> **Download** the latest release from [GitHub](https://github.com/The-Order-Of-The-Sacred-Framework/community_bridge)
+2. <i class="fas fa-folder"></i> **Extract** and place the `community_bridge` folder in your resources directory
+3. <i class="fas fa-play"></i> **Start** the resource in your `server.cfg`
 
 ```bash
 # Example directory structure
@@ -54,21 +57,21 @@ ensure community_bridge
 ensure your-custom-resource
 ```
 
-> ⚠️ **Start Order**: Place Community Bridge after your framework and inventory resources for best compatibility.
+> <i class="fas fa-exclamation-triangle"></i> **Start Order**: Place Community Bridge after your framework and inventory resources for best compatibility.
 
 ---
 
-## 🤝 How It Works
+## <i class="fas fa-handshake"></i> How It Works
 
 ### Auto-Detection Magic
 
 Community Bridge automatically detects and bridges with:
 
-- **📦 Frameworks**: ESX, QBCore, and more
-- **🎒 Inventories**: ox_inventory, qb-inventory, qs-inventory, and others
-- **📢 Notifications**: Various notification systems
-- **🎯 Targeting**: Different target systems
-- **🏠 Housing**: Multiple housing resources
+- **<i class="fas fa-cube"></i> Frameworks**: ESX, QBCore, and more
+- **<i class="fas fa-briefcase"></i> Inventories**: ox_inventory, qb-inventory, qs-inventory, and others
+- **<i class="fas fa-bullhorn"></i> Notifications**: Various notification systems
+- **<i class="fas fa-bullseye"></i> Targeting**: Different target systems
+- **<i class="fas fa-home"></i> Housing**: Multiple housing resources
 
 ### Universal API
 
@@ -87,7 +90,7 @@ Bridge.Notify.SendNotify('Hello World!', 'success')
 
 ---
 
-## 💻 Basic Usage
+## <i class="fas fa-laptop-code"></i> Basic Usage
 
 ### Getting Started with Bridge
 
@@ -101,7 +104,7 @@ Bridge.Notify.SendNotify('Community Bridge is working!', 'success')
 
 ### Example Implementations
 
-#### 🎒 Inventory Operations
+#### <i class="fas fa-briefcase"></i> Inventory Operations
 ```lua
 local Bridge = exports['community_bridge']:Bridge()
 
@@ -120,7 +123,7 @@ local breadCount = Bridge.Inventory.GetItemCount(source, 'bread')
 print('Player has ' .. breadCount .. ' bread')
 ```
 
-#### 📢 Notifications
+#### <i class="fas fa-bullhorn"></i> Notifications
 ```lua
 local Bridge = exports['community_bridge']:Bridge()
 
@@ -133,7 +136,7 @@ Bridge.Notify.SendNotify('ℹ️ Information message', 'info')
 Bridge.Notify.Player(source, 'Welcome to the server!', 'success')
 ```
 
-#### 🎯 Framework Integration
+#### <i class="fas fa-bullseye"></i> Framework Integration
 ```lua
 local Bridge = exports['community_bridge']:Bridge()
 
@@ -149,7 +152,7 @@ Bridge.Framework.AddMoney(source, 'bank', 1000)
 
 ---
 
-## ⚙️ Configuration
+## <i class="fas fa-cog"></i> Configuration
 
 ### Settings Overview
 
@@ -157,9 +160,9 @@ Community Bridge uses configuration files in the `settings/` folder to customize
 
 | File | Purpose |
 |------|---------|
-| `clientConfig.lua` | 🎮 Client-side settings and preferences |
-| `serverConfig.lua` | 🖥️ Server-side configuration |
-| `sharedConfig.lua` | 🔄 Shared settings for modules and resources |
+| `clientConfig.lua` | <i class="fas fa-gamepad"></i> Client-side settings and preferences |
+| `serverConfig.lua` | <i class="fas fa-server"></i> Server-side configuration |
+| `sharedConfig.lua` | <i class="fas fa-sync-alt"></i> Shared settings for modules and resources |
 
 ### Module Configuration
 
@@ -168,15 +171,15 @@ Enable or disable specific modules in `sharedConfig.lua`:
 ```lua
 Config.Modules = {
     -- Core Modules
-    Framework = true,    -- ✅ Framework bridging (ESX, QBCore, etc.)
-    Inventory = true,    -- ✅ Inventory bridging
-    Notify = true,       -- ✅ Notification bridging
+    Framework = true,    -- <i class="fas fa-check"></i> Framework bridging (ESX, QBCore, etc.)
+    Inventory = true,    -- <i class="fas fa-check"></i> Inventory bridging
+    Notify = true,       -- <i class="fas fa-check"></i> Notification bridging
 
     -- Optional Modules
-    Target = true,       -- ✅ Target system bridging
-    Housing = false,     -- ❌ Disable housing bridge
-    Banking = true,      -- ✅ Banking/economy bridging
-    Skills = false,      -- ❌ Disable skills system
+    Target = true,       -- <i class="fas fa-check"></i> Target system bridging
+    Housing = false,     -- <i class="fas fa-times"></i> Disable housing bridge
+    Banking = true,      -- <i class="fas fa-check"></i> Banking/economy bridging
+    Skills = false,      -- <i class="fas fa-times"></i> Disable skills system
 }
 ```
 
@@ -195,7 +198,7 @@ Config.Resources = {
 
 ---
 
-## 🔧 Advanced Features
+## <i class="fas fa-wrench"></i> Advanced Features
 
 ### Multi-Resource Support
 
@@ -245,23 +248,23 @@ Config.Debug = true
 
 ---
 
-## 🚫 Troubleshooting
+## <i class="fas fa-ban"></i> Troubleshooting
 
 ### Common Issues
 
 #### Module Not Working
 | Problem | Solution |
 |---------|----------|
-| Function not found | ✅ Check if the module is enabled in config |
-| Resource not detected | 🔍 Verify resource is started before Community Bridge |
-| Wrong inventory used | ⚙️ Set specific resource in config override |
+| Function not found | <i class="fas fa-check"></i> Check if the module is enabled in config |
+| Resource not detected | <i class="fas fa-search"></i> Verify resource is started before Community Bridge |
+| Wrong inventory used | <i class="fas fa-cog"></i> Set specific resource in config override |
 
 #### Resource Detection Issues
 | Problem | Solution |
 |---------|----------|
-| Bridge using wrong resource | 📝 Use resource override in config |
-| Multiple resources conflict | 🎯 Disable conflicting resources or set priority |
-| Resource not supported | 📖 Check compatibility list in documentation |
+| Bridge using wrong resource | <i class="fas fa-edit"></i> Use resource override in config |
+| Multiple resources conflict | <i class="fas fa-bullseye"></i> Disable conflicting resources or set priority |
+| Resource not supported | <i class="fas fa-book"></i> Check compatibility list in documentation |
 
 ### Debug Steps
 
@@ -273,15 +276,15 @@ Config.Debug = true
 
 ---
 
-## 📚 Next Steps
+## <i class="fas fa-book"></i> Next Steps
 
 ### Explore the Documentation
 
 | Section | Description |
 |---------|-------------|
-| [📦 Modules](./Modules/) | Core modules like Framework, Inventory, Notify |
-| [📚 Libraries](./Libraries/) | Utility libraries for common tasks |
-| [💡 Examples](./Examples/) | Real-world usage examples |
+| [<i class="fas fa-cube"></i> Modules](./Modules/) | Core modules like Framework, Inventory, Notify |
+| [<i class="fas fa-book"></i> Libraries](./Libraries/) | Utility libraries for common tasks |
+| [<i class="fas fa-lightbulb"></i> Examples](./Examples/) | Real-world usage examples |
 
 ### Quick Examples
 
@@ -306,8 +309,8 @@ end
 
 ### Community & Support
 
-- 🌐 **GitHub**: [community_bridge repository](https://github.com/The-Order-Of-The-Sacred-Framework/community_bridge)
-- 📖 **Documentation**: Explore modules and libraries in this documentation
-- 🐛 **Issues**: Report bugs and request features on GitHub
+- <i class="fas fa-globe"></i> **GitHub**: [community_bridge repository](https://github.com/The-Order-Of-The-Sacred-Framework/community_bridge)
+- <i class="fas fa-book"></i> **Documentation**: Explore modules and libraries in this documentation
+- <i class="fas fa-bug"></i> **Issues**: Report bugs and request features on GitHub
 
-> 🚀 **Ready to build?** Start with the [Module Documentation](./Modules/) to see all available functionality!
+> <i class="fas fa-rocket"></i> **Ready to build?** Start with the [Module Documentation](./Modules/) to see all available functionality!

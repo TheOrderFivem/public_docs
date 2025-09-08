@@ -1,4 +1,4 @@
-# Notify 🔔
+# <i class="fas fa-bell"></i> Notify
 
 <!--META
 nav: true

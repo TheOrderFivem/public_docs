@@ -1,26 +1,26 @@
-# Getting Started with The Orders Recipe 🚀
+# <i class="fas fa-rocket"></i> Getting Started with The Orders Recipe
 
 The Orders Recipe is a txAdmin recipe that automatically installs QBCore with curated community alternatives and enhanced features.
 
-## What You Get
+## <i class="fas fa-gift"></i> What You Get
 
-- **QBCore Framework** - Complete QB framework
-- **Community Bridge** - Enhanced compatibility system
-- **Modified ox_inventory** - QB-compatible inventory system
-- **Curated Resources** - Community-tested alternatives
-- **Auto Configuration** - Everything pre-configured
+- **<i class="fas fa-layer-group"></i> QBCore Framework** - Complete QB framework
+- **<i class="fas fa-bridge-water"></i> Community Bridge** - Enhanced compatibility system
+- **<i class="fas fa-briefcase"></i> Modified ox_inventory** - QB-compatible inventory system
+- **<i class="fas fa-gem"></i> Curated Resources** - Community-tested alternatives
+- **<i class="fas fa-magic"></i> Auto Configuration** - Everything pre-configured
 
-## Prerequisites
+## <i class="fas fa-clipboard-list"></i> Prerequisites
 
-- **FiveM Server** with txAdmin access
-- **MySQL Database** (auto-configured)
-- **2GB+ Storage** space
+- **<i class="fas fa-server"></i> FiveM Server** with txAdmin access
+- **<i class="fas fa-database"></i> MySQL Database** (auto-configured)
+- **<i class="fas fa-hdd"></i> 2GB+ Storage** space
 
-⚠️ **Important**: Installing a recipe wipes all existing server files and database data. Do this first when setting up a new server.
+<i class="fas fa-exclamation-triangle"></i> **Important**: Installing a recipe wipes all existing server files and database data. Do this first when setting up a new server.
 
-## Installation
+## <i class="fas fa-download"></i> Installation
 
-### txAdmin Method (Recommended)
+### <i class="fas fa-tools"></i> txAdmin Method (Recommended)
 
 1. Open your txAdmin panel
 2. Go to Recipe Manager during setup (or Settings > Recipe Manager)
@@ -28,7 +28,7 @@ The Orders Recipe is a txAdmin recipe that automatically installs QBCore with cu
 4. Configure server name and admin credentials
 5. Click "Install Recipe" and wait for completion
 
-## After Installation
+## <i class="fas fa-check-circle"></i> After Installation
 
 Your server is automatically configured with:
 - All QBCore resources
@@ -36,28 +36,28 @@ Your server is automatically configured with:
 - Community Bridge system
 - Optimized database and settings
 
-### First Steps
+### <i class="fas fa-play"></i> First Steps
 
-1. **Start Server** - Everything loads automatically
-2. **Join Server** - Create your first character
-3. **Set Admin** - Use admin commands through txAdmin
-4. **Test Features** - Try inventory, phone, basic systems
+1. **<i class="fas fa-power-off"></i> Start Server** - Everything loads automatically
+2. **<i class="fas fa-sign-in-alt"></i> Join Server** - Create your first character
+3. **<i class="fas fa-user-shield"></i> Set Admin** - Use admin commands through txAdmin
+4. **<i class="fas fa-vial"></i> Test Features** - Try inventory, phone, basic systems
 
-## Customization
+## <i class="fas fa-palette"></i> Customization
 
-### Resource Management
+### <i class="fas fa-cube"></i> Resource Management
 - Enable/disable resources in txAdmin
 - Add community resources
 - Monitor performance
 
-### Server Settings
+### <i class="fas fa-cog"></i> Server Settings
 - Modify server.cfg through txAdmin
 - Adjust player limits and game settings
 - Set up Discord integration
 
-## Troubleshooting
+## <i class="fas fa-life-ring"></i> Troubleshooting
 
-**Need Help?**
+**<i class="fas fa-question-circle"></i> Need Help?**
 1. Check txAdmin logs for errors
 2. Review txAdmin documentation
 3. Ask in our Discord community

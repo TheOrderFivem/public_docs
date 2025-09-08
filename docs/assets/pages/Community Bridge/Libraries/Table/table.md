@@ -1,4 +1,4 @@
-# Table 📊
+# <i class="fas fa-table"></i> Table
 
 <!--META
 nav: true

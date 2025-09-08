@@ -1,10 +1,10 @@
-# Contributors & Partners 🤝
+# <i class="fas fa-handshake"></i> Contributors & Partners
 
 Welcome to our community of developers, content creators, and partners who make The Order possible.
 
 ---
 
-## 🏆 Contributors
+## <i class="fas fa-trophy"></i> Contributors
 
 Our framework is built by a passionate community of developers who contribute their time, expertise, and creativity to make The Order better for everyone.
 
@@ -25,13 +25,13 @@ Our framework is built by a passionate community of developers who contribute th
     </p>
     <div style="display: flex; gap: 10px; flex-wrap: wrap;">
       <a href="https://github.com/MrNewb" target="_blank" style="display: inline-block; background: #24292e; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.9em; transition: all 0.3s ease;" onmouseover="this.style.background='#0366d6'" onmouseout="this.style.background='#24292e'">
-        🐙 GitHub
+        <i class="fab fa-github"></i> GitHub
       </a>
       <a href="https://mrnewbscripts.tebex.io/" target="_blank" style="display: inline-block; background: #00d4aa; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.9em; transition: all 0.3s ease;" onmouseover="this.style.background='#00b894'" onmouseout="this.style.background='#00d4aa'">
-        🛒 Tebex Store
+        <i class="fas fa-shopping-cart"></i> Tebex Store
       </a>
       <a href="https://discord.gg/mrnewbscripts" target="_blank" style="display: inline-block; background: #5865f2; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.9em; transition: all 0.3s ease;" onmouseover="this.style.background='#4752c4'" onmouseout="this.style.background='#5865f2'">
-        💬 Discord
+        <i class="fab fa-discord"></i> Discord
       </a>
     </div>
   </div>
@@ -49,13 +49,13 @@ Our framework is built by a passionate community of developers who contribute th
     </p>
     <div style="display: flex; gap: 10px; flex-wrap: wrap;">
       <a href="https://github.com/gononono64" target="_blank" style="display: inline-block; background: #24292e; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.9em; transition: all 0.3s ease;" onmouseover="this.style.background='#0366d6'" onmouseout="this.style.background='#24292e'">
-        🐙 GitHub
+        <i class="fab fa-github"></i> GitHub
       </a>
       <a href="https://mrcscripts.tebex.io/" target="_blank" style="display: inline-block; background: #00d4aa; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.9em; transition: all 0.3s ease;" onmouseover="this.style.background='#00b894'" onmouseout="this.style.background='#00d4aa'">
-        🛒 Tebex Store
+        <i class="fas fa-shopping-cart"></i> Tebex Store
       </a>
       <a href="https://discord.gg/aQYJYptZNP" target="_blank" style="display: inline-block; background: #5865f2; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.9em; transition: all 0.3s ease;" onmouseover="this.style.background='#4752c4'" onmouseout="this.style.background='#5865f2'">
-        💬 Discord
+        <i class="fab fa-discord"></i> Discord
       </a>
     </div>
   </div>
@@ -71,7 +71,7 @@ Our framework is built by a passionate community of developers who contribute th
 </div>
 
 <div style="background: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%); border: 1px solid #3a3a3a; border-radius: 12px; padding: 20px; margin: 20px 0; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);">
-  <h4 style="color: #f0f6fc; margin: 0 0 15px 0; font-size: 1.3em;">🌟 Want to Contribute?</h4>
+  <h4 style="color: #f0f6fc; margin: 0 0 15px 0; font-size: 1.3em;"><i class="fas fa-star"></i> Want to Contribute?</h4>
   <p style="color: #8b949e; margin: 10px 0; line-height: 1.6;">
     We're always looking for passionate developers to join our community! Whether you're interested in:
   </p>
@@ -85,13 +85,13 @@ Our framework is built by a passionate community of developers who contribute th
     Join our Discord community to get started and connect with other contributors!
   </p>
   <a href="https://discord.gg/qVaR5Mj68G" target="_blank" style="display: inline-block; background: #238636; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;" onmouseover="this.style.background='#2ea043'" onmouseout="this.style.background='#238636'">
-    🚀 Join Our Community
+    <i class="fas fa-rocket"></i> Join Our Community
   </a>
 </div>
 
 ---
 
-## 🤝 Partners
+## <i class="fas fa-handshake"></i> Partners
 
 We're proud to work with these amazing organizations and creators who share our vision for quality FiveM development.
 
@@ -100,7 +100,7 @@ We're proud to work with these amazing organizations and creators who share our 
 <div style="background: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%); border: 1px solid #3a3a3a; border-radius: 12px; padding: 20px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);">
   <div style="text-align: center; margin-bottom: 15px;">
     <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 2em; color: white; box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);">
-      📺
+      <i class="fas fa-video"></i>
     </div>
     <h4 style="color: #f0f6fc; margin: 0; font-size: 1.3em;">Content Partners</h4>
   </div>
@@ -118,21 +118,21 @@ We're proud to work with these amazing organizations and creators who share our 
 
 <div style="background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%); padding: 25px; border-radius: 15px; margin: 30px 0; text-align: center; box-shadow: 0 8px 32px rgba(255, 107, 107, 0.2);">
   <h4 style="color: white; margin: 0 0 15px 0; font-size: 1.5em; text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">
-    🌟 Partner with The Order
+    <i class="fas fa-star"></i> Partner with The Order
   </h4>
   <p style="color: rgba(255,255,255,0.95); margin: 0 0 20px 0; line-height: 1.7; font-size: 1.1em;">
     Are you running a successful FiveM server or creating educational content? We'd love to partner with you!
   </p>
   <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
     <a href="https://discord.gg/qVaR5Mj68G" target="_blank" style="display: inline-block; background: rgba(255,255,255,0.2); color: white; padding: 12px 25px; border-radius: 25px; text-decoration: none; font-weight: bold; border: 2px solid white; transition: all 0.3s ease;" onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.2)'">
-      💬 Contact Us
+      <i class="fas fa-comments"></i> Contact Us
     </a>
   </div>
 </div>
 
 ---
 
-## 🙏 Special Thanks
+## <i class="fas fa-heart"></i> Special Thanks
 
 ### Community Recognition
 
@@ -153,28 +153,28 @@ The Order Framework is built on the shoulders of giants. We're grateful to the o
 
 ---
 
-## 📞 Get Involved
+## <i class="fas fa-phone"></i> Get Involved
 
 Ready to join our community? Here's how you can get started:
 
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin: 30px 0;">
   
   <div style="background: #5865f2; padding: 20px; border-radius: 12px; text-align: center; color: white;">
-    <div style="font-size: 2em; margin-bottom: 10px;">💬</div>
+    <div style="font-size: 2em; margin-bottom: 10px;"><i class="fab fa-discord"></i></div>
     <h4 style="margin: 0 0 10px 0;">Join Discord</h4>
     <p style="margin: 0 0 15px 0; opacity: 0.9; font-size: 0.9em;">Connect with the community</p>
     <a href="https://discord.gg/qVaR5Mj68G" target="_blank" style="color: white; text-decoration: underline;">Join Now</a>
   </div>
 
   <div style="background: #238636; padding: 20px; border-radius: 12px; text-align: center; color: white;">
-    <div style="font-size: 2em; margin-bottom: 10px;">🔧</div>
+    <div style="font-size: 2em; margin-bottom: 10px;"><i class="fas fa-wrench"></i></div>
     <h4 style="margin: 0 0 10px 0;">Contribute Code</h4>
     <p style="margin: 0 0 15px 0; opacity: 0.9; font-size: 0.9em;">Help build the framework</p>
     <a href="https://github.com/TheOrderFivem" target="_blank" style="color: white; text-decoration: underline;">GitHub</a>
   </div>
 
   <div style="background: #ff6b6b; padding: 20px; border-radius: 12px; text-align: center; color: white;">
-    <div style="font-size: 2em; margin-bottom: 10px;">📚</div>
+    <div style="font-size: 2em; margin-bottom: 10px;"><i class="fas fa-book"></i></div>
     <h4 style="margin: 0 0 10px 0;">Share Knowledge</h4>
     <p style="margin: 0 0 15px 0; opacity: 0.9; font-size: 0.9em;">Create tutorials and guides</p>
     <a href="https://discord.gg/qVaR5Mj68G" target="_blank" style="color: white; text-decoration: underline;">Get Started</a>

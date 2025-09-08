@@ -1,4 +1,4 @@
-# SQL 🗄️
+# <i class="fas fa-database"></i> SQL
 
 <!--META
 nav: true

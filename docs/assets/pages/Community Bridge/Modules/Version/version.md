@@ -1,4 +1,4 @@
-# Version 🔄
+# <i class="fas fa-code-branch"></i> Version
 
 <!--META
 nav: true

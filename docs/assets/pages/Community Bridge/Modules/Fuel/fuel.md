@@ -1,4 +1,4 @@
-# Fuel ⛽
+# <i class="fas fa-gas-pump"></i> Fuel
 
 <!--META
 nav: true

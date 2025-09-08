@@ -1,4 +1,4 @@
-# Callback 📞
+# <i class="fas fa-phone"></i> Callback
 
 <!--META
 nav: true

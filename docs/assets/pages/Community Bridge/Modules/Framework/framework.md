@@ -1,4 +1,4 @@
-# Framework 🏗️
+# <i class="fas fa-layer-group"></i> Framework
 
 <!--META
 nav: true

@@ -1,35 +1,101 @@
-# 🌉 Community Bridge Overview
+# <i class="fas fa-bridge-water"></i> Community Bridge Overview
 
-> **A Universal Translation Layer for FiveM** - Automatically bridging different resources with unified APIs for seamless cross-resource compatibility.
+**Universal Translation Layer for FiveM** - Automatically bridging different resources with unified APIs for seamless cross-resource compatibility.
+
+<div class="button-group">
+  <a href="https://github.com/The-Order-Of-The-Sacred-Framework/community_bridge" target="_blank" class="doc-button github-button">
+    <i class="fab fa-github"></i>
+    GitHub
+  </a>
+  <a href="https://github.com/The-Order-Of-The-Sacred-Framework/community_bridge/releases" target="_blank" class="doc-button releases-button">
+    <i class="fas fa-download"></i>
+    Releases
+  </a>
+</div>
 
 ---
 
-## 🤔 What is Community Bridge?
+## <i class="fas fa-check-circle"></i> Compatibility
+
+Community Bridge automatically detects and provides translation layers for the following resources:
+
+### <i class="fas fa-layer-group"></i> Frameworks
+- **ESX Legacy** - Complete player data, money, and job system integration
+- **QBCore** - Full framework compatibility including player management
+- **Custom Frameworks** - Extensible detection for custom implementations
+
+### <i class="fas fa-cube"></i> Inventory Systems
+- **ox_inventory** - Modern inventory with metadata support
+- **qb-inventory** - QBCore's default inventory system
+- **qs-inventory** - QuasarStore inventory implementation
+- **esx_inventoryhud** - ESX inventory systems
+- **Custom Inventories** - Plugin system for custom inventory resources
+
+### <i class="fas fa-bell"></i> Notification Systems
+- **ox_lib** - Modern notification system
+- **qb-core** - QBCore's built-in notifications
+- **esx_notify** - ESX notification system
+- **okokNotify** - Popular notification resource
+- **Custom Notify** - Extensible for any notification system
+
+### <i class="fas fa-crosshairs"></i> Targeting Systems
+- **ox_target** - Optimized targeting system
+- **qb-target** - QBCore's targeting implementation
+- **bt-target** - Alternative targeting resource
+- **Custom Target** - Support for custom targeting systems
+
+### <i class="fas fa-home"></i> Housing Systems
+- **qb-houses** - QBCore housing system
+- **okokHousing** - Advanced housing implementation
+- **Custom Housing** - Extensible housing detection
+
+### <i class="fas fa-university"></i> Banking Systems
+- **qb-banking** - QBCore banking integration
+- **esx_banking** - ESX banking systems
+- **okokBanking** - Feature-rich banking system
+- **Custom Banking** - Plugin support for banking resources
+
+---
+
+<div class="button-group">
+  <a href="https://github.com/The-Order-Of-The-Sacred-Framework/community_bridge" target="_blank" class="doc-button github-button">
+    <i class="fab fa-github"></i>
+    GitHub
+  </a>
+  <a href="https://github.com/The-Order-Of-The-Sacred-Framework/community_bridge/releases" target="_blank" class="doc-button releases-button">
+    <i class="fas fa-download"></i>
+    Releases
+  </a>
+</div>
+
+---
+
+## <i class="fas fa-question-circle"></i> What is Community Bridge?
 
 Community Bridge is a **universal translation layer** that automatically detects and bridges different FiveM resources, providing developers with unified APIs. Instead of learning different APIs for each inventory system, notification system, or framework, Community Bridge translates your calls to work with whatever resources are actually running on the server.
 
 ### How It Works
 
-- **🔍 Auto-Detection**: Automatically detects which resources are running (ox_inventory, qb-inventory, ESX, QBCore, etc.)
-- **🔄 API Translation**: Translates unified API calls to the specific resource's API
-- **⚡ Zero Configuration**: Works out of the box - no module enabling/disabling needed
-- **🎯 Developer Focus**: Write code once, works with any compatible resource
+- **<i class="fas fa-search"></i> Auto-Detection**: Automatically detects which resources are running (ox_inventory, qb-inventory, ESX, QBCore, etc.)
+- **<i class="fas fa-sync-alt"></i> API Translation**: Translates unified API calls to the specific resource's API
+- **<i class="fas fa-bolt"></i> Zero Configuration**: Works out of the box - no module enabling/disabling needed
+- **<i class="fas fa-bullseye"></i> Developer Focus**: Write code once, works with any compatible resource
 
 ---
 
-## ✨ Key Features
+## <i class="fas fa-sparkles"></i> Key Features
 
-### 🤝 Automatic Resource Detection
+### <i class="fas fa-handshake"></i> Automatic Resource Detection
 
 Community Bridge automatically detects and translates calls for:
 
-- **📦 Frameworks**: ESX, QBCore, and others
-- **🎒 Inventories**: ox_inventory, qb-inventory, qs-inventory, and more
-- **📢 Notifications**: Various notification systems
-- **🎯 Targeting**: Different target systems
-- **🏠 Housing**: Multiple housing resources
+- **<i class="fas fa-cube"></i> Frameworks**: ESX, QBCore, and others
+- **<i class="fas fa-briefcase"></i> Inventories**: ox_inventory, qb-inventory, qs-inventory, and more
+- **<i class="fas fa-bell"></i> Notifications**: Various notification systems
+- **<i class="fas fa-crosshairs"></i> Targeting**: Different target systems
+- **<i class="fas fa-home"></i> Housing**: Multiple housing resources
 
-### 🔄 Unified Translation APIs
+### <i class="fas fa-sync"></i> Unified Translation APIs
 
 ```lua
 -- Write once, works with any inventory resource
@@ -45,22 +111,20 @@ Bridge.Inventory.AddItem(source, 'bread', 5)
 Bridge.Notify.SendNotify('Hello World!', 'success')
 ```
 
-### 🎛️ Translation Categories
+### <i class="fas fa-sliders-h"></i> Translation Categories
 
-Community Bridge provides translation layers for:
-
-#### 📦 Core Systems
+#### <i class="fas fa-cubes"></i> Core Systems
 - **Framework**: Player data, money, jobs (ESX ↔ QBCore ↔ Custom)
 - **Inventory**: Item management across different inventory systems
 - **Notify**: Notifications across different notification resources
 - **Target**: Targeting systems (qb-target, ox_target, etc.)
 
-#### 🏠 Advanced Systems
+#### <i class="fas fa-home"></i> Advanced Systems
 - **Housing**: Various housing resources
 - **Banking**: Economy systems integration
 - **Vehicle Systems**: Fuel, keys, and vehicle management
 
-#### 📚 Utility Libraries
+#### <i class="fas fa-book"></i> Utility Libraries
 - **Anim**: Animation utilities
 - **Cache**: Caching helpers
 - **Logs**: Logging utilities
@@ -70,9 +134,9 @@ Community Bridge provides translation layers for:
 
 ---
 
-## 🏛️ How Translation Works
+## <i class="fas fa-university"></i> How Translation Works
 
-### 🔍 Detection Process
+### <i class="fas fa-search"></i> Detection Process
 ```
 1. Server starts Community Bridge
 2. Bridge scans for running resources
@@ -81,7 +145,7 @@ Community Bridge provides translation layers for:
 5. Ready to translate API calls
 ```
 
-### 🔄 Translation Flow
+### <i class="fas fa-sync-alt"></i> Translation Flow
 ```
 Your Code → Community Bridge → Detected Resource
     ↓              ↓               ↓
@@ -90,7 +154,7 @@ Bridge.Inventory → ox_inventory → exports.ox_inventory:AddItem()
 Bridge.Inventory → qb-inventory → exports['qb-inventory']:AddItem()
 ```
 
-### 📁 File Structure
+### <i class="fas fa-folder-open"></i> File Structure
 ```
 📁 community_bridge/
 ├── 📄 fxmanifest.lua
@@ -113,13 +177,13 @@ Bridge.Inventory → qb-inventory → exports['qb-inventory']:AddItem()
 
 ---
 
-## 🚀 Getting Started
+## <i class="fas fa-rocket"></i> Getting Started
 
 ### Simple 3-Step Setup
 
-1. **📥 Download**: Get Community Bridge from GitHub
-2. **📂 Install**: Place in your resources directory
-3. **▶️ Start**: Add to server.cfg (after other resources)
+1. **<i class="fas fa-download"></i> Download**: Get Community Bridge from GitHub
+2. **<i class="fas fa-folder"></i> Install**: Place in your resources directory
+3. **<i class="fas fa-play"></i> Start**: Add to server.cfg (after other resources)
 
 ```cfg
 # Start your framework first
@@ -136,7 +200,7 @@ ensure community_bridge
 ensure your-custom-resource
 ```
 
-> ⚠️ **Critical**: Community Bridge must start AFTER the resources it needs to detect!
+> <i class="fas fa-exclamation-triangle"></i> **Critical**: Community Bridge must start AFTER the resources it needs to detect!
 
 ### Immediate Usage
 
@@ -150,7 +214,7 @@ Bridge.Notify.SendNotify('Community Bridge detected your resources!', 'success')
 
 ---
 
-## ⚙️ Configuration (Limited)
+## <i class="fas fa-cog"></i> Configuration (Limited)
 
 ### Auto-Detection Override
 
@@ -172,13 +236,13 @@ Config.Resources = {
 Config.Debug = true     -- See what resources are detected
 ```
 
-> 📝 **Note**: Unlike traditional frameworks, you DON'T enable/disable modules. Community Bridge automatically provides translation for whatever it detects.
+> <i class="fas fa-sticky-note"></i> **Note**: Unlike traditional frameworks, you DON'T enable/disable modules. Community Bridge automatically provides translation for whatever it detects.
 
 ---
 
-## 🎯 Use Cases
+## <i class="fas fa-bullseye"></i> Use Cases
 
-### 🔄 Multi-Server Compatibility
+### <i class="fas fa-sync-alt"></i> Multi-Server Compatibility
 Write one script that works on any server:
 ```lua
 -- Same code works whether server uses ESX or QBCore
@@ -186,14 +250,14 @@ local playerData = Bridge.Framework.GetPlayerData(source)
 Bridge.Framework.AddMoney(source, 'bank', 1000)
 ```
 
-### 📦 Resource Migration
+### <i class="fas fa-cube"></i> Resource Migration
 Server switching from ox_inventory to qb-inventory? Your scripts don't need to change:
 ```lua
 -- This call automatically translates to whatever inventory is running
 Bridge.Inventory.AddItem(source, 'bread', 5)
 ```
 
-### 🚀 Universal Script Development
+### <i class="fas fa-rocket"></i> Universal Script Development
 Build scripts for the FiveM community:
 ```lua
 -- Works on any server configuration
@@ -208,7 +272,7 @@ end
 
 ---
 
-## 🔍 Detection Examples
+## <i class="fas fa-search"></i> Detection Examples
 
 ### What Gets Detected
 
@@ -242,15 +306,15 @@ print('Detected Inventory:', Bridge.GetDetectedInventory())
 
 ---
 
-## 🎯 Best Practices
+## <i class="fas fa-bullseye"></i> Best Practices
 
-### ✅ Development
+### <i class="fas fa-check"></i> Development
 - **Start Order**: Always start Community Bridge after target resources
 - **Detection Check**: Use debug mode to verify detection is working
 - **Fallbacks**: Check if modules exist before using them
 - **Testing**: Test your scripts on different server configurations
 
-### 🔒 Error Handling
+### <i class="fas fa-lock"></i> Error Handling
 ```lua
 local Bridge = exports['community_bridge']:Bridge()
 
@@ -264,16 +328,16 @@ end
 
 ---
 
-## 📚 Next Steps
+## <i class="fas fa-book"></i> Next Steps
 
 ### Essential Resources
 
 | Resource | Description |
 |----------|-------------|
-| **🚀 Getting Started** | Installation and basic usage |
-| **📦 Modules** | Available translation modules |
-| **📚 Libraries** | Utility library reference |
-| **💡 Examples** | Real-world implementation examples |
+| **<i class="fas fa-rocket"></i> Getting Started** | Installation and basic usage |
+| **<i class="fas fa-cube"></i> Modules** | Available translation modules |
+| **<i class="fas fa-book"></i> Libraries** | Utility library reference |
+| **<i class="fas fa-lightbulb"></i> Examples** | Real-world implementation examples |
 
 ### Quick Validation
 
@@ -289,21 +353,21 @@ print('- Notify available:', Bridge.Notify ~= nil)
 
 ### Community & Support
 
-- **🌐 GitHub**: [community_bridge repository](https://github.com/The-Order-Of-The-Sacred-Framework/community_bridge)
-- **📖 Documentation**: Complete API translation reference
-- **🐛 Issues**: Report detection issues or request new resource support
+- **<i class="fas fa-globe"></i> GitHub**: [community_bridge repository](https://github.com/The-Order-Of-The-Sacred-Framework/community_bridge)
+- **<i class="fas fa-book"></i> Documentation**: Complete API translation reference
+- **<i class="fas fa-bug"></i> Issues**: Report detection issues or request new resource support
 
 ---
 
-## 🌟 Why Use Community Bridge?
+## <i class="fas fa-star"></i> Why Use Community Bridge?
 
 | Benefit | Description |
 |---------|-------------|
-| **⚡ Write Once, Run Anywhere** | Single codebase works across different server configurations |
-| **🔍 Zero Configuration** | Automatic detection means no complex setup |
-| **🎯 Future-Proof** | New resource support added without changing your code |
-| **🔄 Migration Friendly** | Switch resources without rewriting scripts |
-| **📈 Community Compatible** | Build scripts that work on any server |
+| **<i class="fas fa-bolt"></i> Write Once, Run Anywhere** | Single codebase works across different server configurations |
+| **<i class="fas fa-search"></i> Zero Configuration** | Automatic detection means no complex setup |
+| **<i class="fas fa-bullseye"></i> Future-Proof** | New resource support added without changing your code |
+| **<i class="fas fa-sync-alt"></i> Migration Friendly** | Switch resources without rewriting scripts |
+| **<i class="fas fa-chart-line"></i> Community Compatible** | Build scripts that work on any server |
 
 > **Perfect for script developers and server owners!**
 >

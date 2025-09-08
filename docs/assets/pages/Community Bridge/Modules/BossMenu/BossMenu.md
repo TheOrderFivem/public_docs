@@ -1,4 +1,4 @@
-# BossMenu 🏢
+# <i class="fas fa-building"></i> BossMenu
 
 <!--META
 nav: true

@@ -1,4 +1,4 @@
-# Placers 🏗️
+# <i class="fas fa-cube"></i> Placers
 
 <!--META
 nav: true

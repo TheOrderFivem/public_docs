@@ -1,4 +1,4 @@
-# Menu 📋
+# <i class="fas fa-list"></i> Menu
 
 <!--META
 nav: true

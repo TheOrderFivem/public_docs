@@ -1,4 +1,4 @@
-# Logs 📝
+# <i class="fas fa-file-alt"></i> Logs
 
 <!--META
 nav: true

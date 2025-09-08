@@ -1,4 +1,4 @@
-# Cutscenes 🎬
+# <i class="fas fa-film"></i> Cutscenes
 
 <!--META
 nav: true

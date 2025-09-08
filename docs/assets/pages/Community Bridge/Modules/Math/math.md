@@ -1,4 +1,4 @@
-# Math 🧮
+# <i class="fas fa-calculator"></i> Math
 
 <!--META
 nav: true

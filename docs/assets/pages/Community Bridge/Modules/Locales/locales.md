@@ -1,4 +1,4 @@
-# Locales 🌍
+# <i class="fas fa-globe"></i> Locales
 
 <!--META
 nav: true

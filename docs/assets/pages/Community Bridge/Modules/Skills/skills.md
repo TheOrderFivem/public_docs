@@ -1,4 +1,4 @@
-# Skills 🎯
+# <i class="fas fa-chart-line"></i> Skills
 
 <!--META
 nav: true

@@ -268,7 +268,7 @@ class CommunityBridgeDocumentation {
         try {
             // Create Community Bridge as the main section
             structure['Community Bridge'] = {
-                icon: '🌉',
+                icon: 'fas fa-bridge',
                 items: {},
                 type: 'section'
             };
@@ -280,7 +280,7 @@ class CommunityBridgeDocumentation {
                     const response = await fetch(`./assets/pages/Community Bridge/${fileName}.md`);
                     if (response.ok) {
                         const content = await response.text();
-                        const icon = this.extractIconFromMarkdown(content) || '📄';
+                        const icon = this.extractIconFromMarkdown(content) || 'fas fa-file-alt';
 
                         structure['Community Bridge'].items[fileName] = {
                             path: `Community Bridge/${fileName}`,
@@ -296,12 +296,12 @@ class CommunityBridgeDocumentation {
             }
 
             // Discover all subsections under Community Bridge
-            await this.discoverSubsection(structure, 'Libraries', '📚');
-            await this.discoverSubsection(structure, 'Modules', '📦');
+            await this.discoverSubsection(structure, 'Libraries', 'fas fa-book');
+            await this.discoverSubsection(structure, 'Modules', 'fas fa-cubes');
 
             // Create The Orders Recipe as a separate main section
             structure['The Orders Recipe'] = {
-                icon: '🍳',
+                icon: 'fas fa-utensils',
                 items: {},
                 type: 'section'
             };
@@ -482,13 +482,20 @@ class CommunityBridgeDocumentation {
     }
 
     extractIconFromMarkdown(content) {
-        // Look for the main header pattern: # ModuleName Icon
-        // Example: # Anim 🎭
-        const headerMatch = content.match(/^#\s+(\w+)\s+([\u{1F600}-\u{1F64F}]|[\u{1F300}-\u{1F5FF}]|[\u{1F680}-\u{1F6FF}]|[\u{1F700}-\u{1F77F}]|[\u{1F780}-\u{1F7FF}]|[\u{1F800}-\u{1F8FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}])/mu);
+        // Look for Font Awesome icons in header pattern: # <i class="fas fa-icon"></i> ModuleName
+        const faHeaderMatch = content.match(/^#\s+<i\s+class="([^"]+)"><\/i>/m);
+        
+        if (faHeaderMatch) {
+            console.log(`🎯 Found Font Awesome icon: ${faHeaderMatch[1]}`);
+            return faHeaderMatch[1];
+        }
 
-        if (headerMatch) {
-            console.log(`🎯 Found icon in header: ${headerMatch[2]} for ${headerMatch[1]}`);
-            return headerMatch[2];
+        // Look for emoji patterns in headers: # ModuleName 🎯 or # 🎯 ModuleName
+        const emojiHeaderMatch = content.match(/^#\s*(?:(\w+)\s+)?([\u{1F600}-\u{1F64F}]|[\u{1F300}-\u{1F5FF}]|[\u{1F680}-\u{1F6FF}]|[\u{1F700}-\u{1F77F}]|[\u{1F780}-\u{1F7FF}]|[\u{1F800}-\u{1F8FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}])/mu);
+
+        if (emojiHeaderMatch) {
+            console.log(`🎯 Found emoji icon in header: ${emojiHeaderMatch[2]}`);
+            return emojiHeaderMatch[2];
         }
 
         // Fallback: look for any emoji in the first few lines
@@ -496,7 +503,7 @@ class CommunityBridgeDocumentation {
         for (const line of lines) {
             const emojiMatch = line.match(/([\u{1F600}-\u{1F64F}]|[\u{1F300}-\u{1F5FF}]|[\u{1F680}-\u{1F6FF}]|[\u{1F700}-\u{1F77F}]|[\u{1F780}-\u{1F7FF}]|[\u{1F800}-\u{1F8FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}])/u);
             if (emojiMatch) {
-                console.log(`🎯 Found fallback icon: ${emojiMatch[1]}`);
+                console.log(`🎯 Found fallback emoji icon: ${emojiMatch[1]}`);
                 return emojiMatch[1];
             }
         }
@@ -516,18 +523,20 @@ class CommunityBridgeDocumentation {
         for (const [categoryName, categoryData] of Object.entries(this.allModules)) {
             // Handle root-level pages (direct markdown files)
             if (categoryData.type === 'markdown') {
+                const iconHtml = this.renderIcon(categoryData.icon || 'fas fa-file-alt');
                 html += `
                     <div class="nav-item" data-path="${categoryData.path}" data-type="markdown">
-                        <span class="nav-icon">${categoryData.icon || '📄'}</span>
+                        <span class="nav-icon">${iconHtml}</span>
                         <span class="nav-title">${categoryData.name || categoryName}</span>
                     </div>
                 `;
             } else {
                 // Handle sections with sub-items
+                const iconHtml = this.renderIcon(categoryData.icon || '📁');
                 html += `
                     <div class="nav-section expanded" data-category="${categoryName}">
                         <div class="nav-section-header" data-category="${categoryName}">
-                            <span class="nav-icon">${categoryData.icon || '📁'}</span>
+                            <span class="nav-icon">${iconHtml}</span>
                             <span class="nav-title">${categoryName}</span>
                         </div>
                         <div class="nav-items">
@@ -551,6 +560,23 @@ class CommunityBridgeDocumentation {
         console.log('🎨 Navigation rendered successfully');
     }
 
+    renderIcon(icon) {
+        if (!icon) return '📄';
+        
+        // Check if it's a Font Awesome icon class
+        if (icon.includes('fa-') || icon.includes('fas ') || icon.includes('far ') || icon.includes('fab ') || icon.includes('fal ') || icon.includes('fad ')) {
+            return `<i class="${icon}"></i>`;
+        }
+        
+        // Check if it's already HTML (Font Awesome wrapped in <i> tags)
+        if (icon.startsWith('<i ') && icon.includes('class=') && icon.endsWith('</i>')) {
+            return icon;
+        }
+        
+        // For emojis and plain text, return as-is
+        return icon;
+    }
+
     renderNavItems(items) {
         let html = '';
 
@@ -559,7 +585,7 @@ class CommunityBridgeDocumentation {
                 html += `
                     <div class="nav-subsection collapsed" data-subsection="${itemName}">
                         <div class="nav-subsection-header" data-subsection="${itemName}">
-                            <span class="nav-icon">${itemData.icon || '📁'}</span>
+                            <span class="nav-icon">${this.renderIcon(itemData.icon || '📁')}</span>
                             <span class="nav-title">${itemName}</span>
                         </div>
                         <div class="nav-items">
@@ -570,7 +596,7 @@ class CommunityBridgeDocumentation {
             } else if (itemData.type === 'markdown') {
                 html += `
                     <div class="nav-item" data-path="${itemData.path}" data-type="markdown">
-                        <span class="nav-icon">${itemData.icon || '📄'}</span>
+                        <span class="nav-icon">${this.renderIcon(itemData.icon || '📄')}</span>
                         <span class="nav-title">${itemData.name || this.formatTitle(itemName)}</span>
                     </div>
                 `;

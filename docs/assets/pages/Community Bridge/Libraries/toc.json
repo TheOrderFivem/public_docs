@@ -3,133 +3,140 @@
     "type": "folder",
     "name": "Anim",
     "title": "Animation System",
-    "icon": "🎭",
+    "icon": "fas fa-play",
     "description": "Handle player and entity animations with built-in playback controls and callback support"
   },
   {
     "type": "folder",
     "name": "Batch",
     "title": "Event Batching",
-    "icon": "📦",
+    "icon": "fas fa-layer-group",
     "description": "Optimize network performance by batching multiple events together before sending"
   },
   {
     "type": "folder",
     "name": "Cache",
     "title": "Caching System",
-    "icon": "💾",
+    "icon": "fas fa-database",
     "description": "Store and retrieve data efficiently with automatic cache updates and change tracking"
   },
   {
     "type": "folder",
     "name": "Callback",
     "title": "Callback System",
-    "icon": "🔄",
+    "icon": "fas fa-phone",
     "description": "Send data between client and server with promise support and automatic timeout handling"
   },
   {
     "type": "folder",
     "name": "Cutscenes",
     "title": "Cutscene Manager",
-    "icon": "🎬",
+    "icon": "fas fa-film",
     "description": "Create and manage cinematic sequences with character control and multiplayer synchronization"
   },
   {
     "type": "folder",
     "name": "Entities",
     "title": "Entity Management",
-    "icon": "🎭",
+    "icon": "fas fa-cube",
     "description": "Spawn and manage networked entities with proximity-based loading and action queues"
   },
   {
     "type": "folder",
     "name": "Ids",
     "title": "ID Generation",
-    "icon": "🆔",
+    "icon": "fas fa-fingerprint",
     "description": "Generate unique identifiers with customizable patterns for your server resources"
   },
   {
     "type": "folder",
     "name": "Logs",
     "title": "Logging System",
-    "icon": "📝",
+    "icon": "fas fa-file-alt",
     "description": "Log events and errors with Discord webhook integration and multiple storage backends"
   },
   {
     "type": "folder",
     "name": "Markers",
     "title": "3D Markers",
-    "icon": "📌",
+    "icon": "fas fa-map-pin",
     "description": "Display 3D markers in the world with proximity detection and customizable appearance"
   },
   {
     "type": "folder",
     "name": "Math",
     "title": "Mathematical Operations",
-    "icon": "🔢",
+    "icon": "fas fa-calculator",
     "description": "Useful math functions for game development including vector calculations and distance checks"
   },
   {
     "type": "folder",
     "name": "Particles",
     "title": "Particle Effects",
-    "icon": "✨",
+    "icon": "fas fa-sparkles",
     "description": "Create and manage particle effects with support for attaching to entities and vehicles"
   },
   {
     "type": "folder",
     "name": "Placers",
     "title": "Object Placement",
-    "icon": "🏗️",
+    "icon": "fas fa-cube",
     "description": "Interactive object placement tools with live preview and collision validation"
   },
   {
     "type": "folder",
     "name": "Points",
     "title": "Proximity System",
-    "icon": "📍",
+    "icon": "fas fa-map-marker-alt",
     "description": "Detect when players enter or leave specific areas using an efficient grid-based system"
   },
   {
     "type": "folder",
     "name": "Raycast",
     "title": "Ray Casting",
-    "icon": "🎯",
+    "icon": "fas fa-crosshairs",
     "description": "Cast rays into the world for collision detection and interaction with objects"
   },
   {
     "type": "folder",
     "name": "Scaleform",
     "title": "Scaleform UI",
-    "icon": "📺",
+    "icon": "fas fa-tv",
     "description": "Use GTA V's native Scaleform system for instructional buttons and UI elements"
   },
   {
     "type": "folder",
     "name": "Shells",
     "title": "MLO Shell Management",
-    "icon": "🏠",
+    "icon": "fas fa-terminal",
     "description": "Manage interior shells with smooth transitions and routing bucket integration"
   },
   {
     "type": "folder",
     "name": "SQL",
     "title": "Database Operations",
-    "icon": "🗄️",
+    "icon": "fas fa-database",
     "description": "Simplified database interactions with easy-to-use CRUD operations"
   },
   {
     "type": "folder",
     "name": "Table",
     "title": "Table Utilities",
-    "icon": "📊",
-    "description": "Work with Lua tables more easily with helper functions for common operations"
+    "icon": "fas fa-table",
+    "description": "Collection of helpful functions for entity creation, distance checks, and world interactions"
+  },
+  {
+    "type": "folder",
+    "name": "Test",
+    "title": "Test Module",
+    "icon": "🧪",
+    "description": "Example using emoji icon instead of Font Awesome"
   },
   {
     "type": "folder",
     "name": "Utility",
     "title": "General Utilities",
-    "icon": "🔧",
+    "icon": "fas fa-tools",
     "description": "Collection of helpful functions for entity creation, distance checks, and world interactions"
   }
 ]

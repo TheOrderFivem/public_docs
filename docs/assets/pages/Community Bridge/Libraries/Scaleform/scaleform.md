@@ -1,4 +1,4 @@
-# Scaleform 📺
+# <i class="fas fa-tv"></i> Scaleform
 
 <!--META
 nav: true

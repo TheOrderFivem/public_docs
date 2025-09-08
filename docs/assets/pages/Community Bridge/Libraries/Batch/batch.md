@@ -1,4 +1,4 @@
-# Batch 📦
+# <i class="fas fa-layer-group"></i> Batch
 
 <!--META
 nav: true

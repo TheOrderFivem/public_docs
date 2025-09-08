@@ -1,4 +1,4 @@
-# Entities 🎭
+# <i class="fas fa-cube"></i> Entities
 
 <!--META
 nav: true

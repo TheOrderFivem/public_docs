@@ -1,4 +1,4 @@
-# VehicleKey 🔑
+# <i class="fas fa-key"></i> VehicleKey
 
 <!--META
 nav: true

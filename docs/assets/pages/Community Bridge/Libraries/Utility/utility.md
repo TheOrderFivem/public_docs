@@ -1,4 +1,4 @@
-# Utility 🛠️
+# <i class="fas fa-tools"></i> Utility
 
 <!--META
 nav: true

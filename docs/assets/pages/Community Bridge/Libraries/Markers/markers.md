@@ -1,4 +1,4 @@
-# Markers 📌
+# <i class="fas fa-map-pin"></i> Markers
 
 <!--META
 nav: true
