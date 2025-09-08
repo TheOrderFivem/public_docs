@@ -1,6 +1,6 @@
 {
   "name": "Skills",
-  "icon": "🎯",
+  "icon": "fas fa-chart-line",
   "description": "The Skills module provides functions for managing player skills and experience points. It supports various skill systems with a unified interface.",
   "clientFunctions": [
     {

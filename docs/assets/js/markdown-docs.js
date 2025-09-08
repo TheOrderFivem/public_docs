@@ -519,8 +519,23 @@ class CommunityBridgeDocumentation {
         }
 
         let html = '';
+        let contributorsHtml = '';
 
         for (const [categoryName, categoryData] of Object.entries(this.allModules)) {
+            // Special handling for Contributors and Partners - render at bottom
+            if (categoryName.toLowerCase().includes('contributors') || categoryName.toLowerCase().includes('partners')) {
+                if (categoryData.type === 'markdown') {
+                    const iconHtml = this.renderIcon(categoryData.icon || 'fas fa-users');
+                    contributorsHtml = `
+                        <div class="nav-item nav-item-bottom" data-path="${categoryData.path}" data-type="markdown">
+                            <span class="nav-icon">${iconHtml}</span>
+                            <span class="nav-title">${categoryData.name || categoryName}</span>
+                        </div>
+                    `;
+                }
+                continue; // Skip normal rendering for this item
+            }
+
             // Handle root-level pages (direct markdown files)
             if (categoryData.type === 'markdown') {
                 const iconHtml = this.renderIcon(categoryData.icon || 'fas fa-file-alt');
@@ -547,6 +562,15 @@ class CommunityBridgeDocumentation {
             }
         }
 
+        // Add contributors at the bottom with special styling
+        if (contributorsHtml) {
+            html += `
+                <div class="nav-bottom-section">
+                    ${contributorsHtml}
+                </div>
+            `;
+        }
+
         navMenu.innerHTML = html;
 
         // IMPORTANT: Set up navigation events AFTER rendering
@@ -563,18 +587,29 @@ class CommunityBridgeDocumentation {
     renderIcon(icon) {
         if (!icon) return '📄';
         
+        // Check if the icon includes a color parameter (syntax: "fas fa-icon|#color" or "fas fa-icon|colorname")
+        let iconClass = icon;
+        let color = '';
+        
+        if (icon.includes('|')) {
+            const parts = icon.split('|');
+            iconClass = parts[0];
+            color = parts[1];
+        }
+        
         // Check if it's a Font Awesome icon class
-        if (icon.includes('fa-') || icon.includes('fas ') || icon.includes('far ') || icon.includes('fab ') || icon.includes('fal ') || icon.includes('fad ')) {
-            return `<i class="${icon}"></i>`;
+        if (iconClass.includes('fa-') || iconClass.includes('fas ') || iconClass.includes('far ') || iconClass.includes('fab ') || iconClass.includes('fal ') || iconClass.includes('fad ')) {
+            const style = color ? ` style="color: ${color};"` : '';
+            return `<i class="${iconClass}"${style}></i>`;
         }
         
         // Check if it's already HTML (Font Awesome wrapped in <i> tags)
-        if (icon.startsWith('<i ') && icon.includes('class=') && icon.endsWith('</i>')) {
-            return icon;
+        if (iconClass.startsWith('<i ') && iconClass.includes('class=') && iconClass.endsWith('</i>')) {
+            return iconClass;
         }
         
         // For emojis and plain text, return as-is
-        return icon;
+        return iconClass;
     }
 
     renderNavItems(items) {

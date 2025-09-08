@@ -1,6 +1,6 @@
 {
   "name": "Menu",
-  "icon": "📋",
+  "icon": "fas fa-bars",
   "description": "The Menu module provides a unified interface for creating interactive menus. It supports both ox_lib and qb-menu formats with automatic conversion.",
   "clientFunctions": [
     {

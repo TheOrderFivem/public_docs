@@ -1,6 +1,6 @@
 {
   "name": "Housing",
-  "icon": "🏠",
+  "icon": "fas fa-home",
   "description": "The Housing module provides integration with various housing systems and tracks when players enter or leave properties. It standardizes housing events across different housing resources.",
   "clientFunctions": [],
   "serverFunctions": [],

@@ -1,6 +1,6 @@
 {
   "name": "Fuel",
-  "icon": "⛽",
+  "icon": "fas fa-gas-pump",
   "description": "The Fuel module provides functions for managing vehicle fuel levels across different fuel systems. It handles getting and setting fuel for vehicles.",
   "clientFunctions": [
     {

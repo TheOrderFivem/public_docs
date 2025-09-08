@@ -2,10 +2,10 @@
 <html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" c    <script src="assets/js/markdown-docs.js?v=13"></script>ntent="width=device-width, initial-scale=1.0">
     <title>The Order Framework Documentation</title>
     <meta name="description" content="Comprehensive documentation for Community Bridge FiveM modules and libraries">
-    <link rel="stylesheet" href="assets/css/styles.css?v=4">
+    <link rel="stylesheet" href="assets/css/styles.css?v=21">
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <!-- Marked.js for markdown parsing -->
@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/lua.min.js"></script>
+    <!-- JS Confetti library -->
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏗️</text></svg>">
 </head>
 <body>
@@ -31,6 +33,11 @@
         </div>
 
         <div class="header-controls">
+            <a href="https://discord.gg/MukwBuJjP7" target="_blank" class="discord-button" title="Join our Discord">
+                <i class="fab fa-discord"></i>
+                <span>Join Discord</span>
+            </a>
+
             <div class="search-container">
                 <span class="search-icon">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -109,7 +116,79 @@
                 }
             });
         }, 100);
+
+        // Discord button click effect
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize JS Confetti
+            let jsConfetti;
+            try {
+                jsConfetti = new JSConfetti();
+                console.log('JS Confetti initialized successfully');
+            } catch (error) {
+                console.log('JS Confetti initialization failed:', error);
+            }
+            
+            const discordButton = document.querySelector('.discord-button');
+            if (discordButton) {
+                discordButton.addEventListener('click', function(e) {
+                    // Prevent default link behavior
+                    e.preventDefault();
+                    
+                    // Get the Discord URL
+                    const discordUrl = this.href;
+                    
+                    // Add clicked class for animation
+                    this.classList.add('clicked');
+                    
+                    // Try JS Confetti effect
+                    let confettiWorked = false;
+                    try {
+                        if (jsConfetti) {
+                            console.log('Triggering JS Confetti...');
+                            
+                            // Main confetti burst
+                            jsConfetti.addConfetti({
+                                confettiColors: ['#5865f2', '#7289da', '#ffffff', '#99aab5'],
+                                confettiRadius: 6,
+                                confettiNumber: 200,
+                            });
+                            
+                            // Additional burst after delay
+                            setTimeout(() => {
+                                jsConfetti.addConfetti({
+                                    emojis: ['🎉', '🎊', '✨', '🌟', '💫'],
+                                    emojiSize: 30,
+                                    confettiNumber: 50,
+                                });
+                            }, 500);
+                            
+                            confettiWorked = true;
+                            console.log('JS Confetti executed successfully');
+                        } else {
+                            console.log('JS Confetti not available');
+                        }
+                    } catch (error) {
+                        console.log('JS Confetti error:', error);
+                    }
+                    
+                    // Use CSS fallback if confetti didn't work
+                    if (!confettiWorked) {
+                        console.log('Using CSS fallback effect');
+                        this.classList.add('confetti-fallback');
+                        setTimeout(() => {
+                            this.classList.remove('confetti-fallback');
+                        }, 3000);
+                    }
+                    
+                    // Open Discord link after animation completes (with extra delay)
+                    setTimeout(() => {
+                        this.classList.remove('clicked');
+                        window.open(discordUrl, '_blank');
+                    }, 1300); // 300ms + 1000ms extra delay
+                });
+            }
+        });
     </script>
-    <script src="assets/js/markdown-docs.js?v=44"></script>
+    <script src="assets/js/markdown-docs.js?v=47"></script>
 </body>
 </html>

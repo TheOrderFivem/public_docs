@@ -1,6 +1,6 @@
 {
   "name": "Shops",
-  "icon": "🛍️",
+  "icon": "fas fa-shopping-bag",
   "description": "The Shops module provides a fallback shop system when inventory modules don't support native shop functionality. It creates a simple, universal shop interface that works across all frameworks.",
   "clientFunctions": [
     {

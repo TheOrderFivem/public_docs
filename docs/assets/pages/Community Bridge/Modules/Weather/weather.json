@@ -1,6 +1,6 @@
 {
   "name": "Weather",
-  "icon": "🌤️",
+  "icon": "fas fa-cloud-sun",
   "description": "The Weather module provides control over weather and time synchronization systems. It bridges various weather sync resources to provide unified weather control.",
   "clientFunctions": [
     {

@@ -1,6 +1,6 @@
 {
   "name": "Clothing",
-  "icon": "👕",
+  "icon": "fas fa-tshirt",
   "description": "The Clothing module provides functions for managing player appearance and clothing across different clothing systems. It handles appearance data conversion and caching.",
   "clientFunctions": [
     {

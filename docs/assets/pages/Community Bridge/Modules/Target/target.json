@@ -1,6 +1,6 @@
 {
   "name": "Target",
-  "icon": "🎯",
+  "icon": "fas fa-crosshairs",
   "description": "The Target module provides a unified interface for adding interactive targets to players, vehicles, entities, and zones. It supports various targeting systems like ox_target and qb-target.",
   "clientFunctions": [
     {

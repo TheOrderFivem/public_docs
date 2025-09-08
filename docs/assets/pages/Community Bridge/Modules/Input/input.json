@@ -1,6 +1,6 @@
 {
   "name": "Input",
-  "icon": "⌨️",
+  "icon": "fas fa-keyboard",
   "description": "The Input module provides a unified interface for creating input dialogs and forms. It supports both ox_lib and qb-input formats with automatic conversion.",
   "clientFunctions": [
     {

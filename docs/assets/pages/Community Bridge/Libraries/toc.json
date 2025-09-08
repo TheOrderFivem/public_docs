@@ -85,7 +85,7 @@
   },
   {
     "type": "folder",
-    "name": "Points",
+    "name": "Point",
     "title": "Proximity System",
     "icon": "fas fa-map-marker-alt",
     "description": "Detect when players enter or leave specific areas using an efficient grid-based system"
@@ -124,13 +124,6 @@
     "title": "Table Utilities",
     "icon": "fas fa-table",
     "description": "Collection of helpful functions for entity creation, distance checks, and world interactions"
-  },
-  {
-    "type": "folder",
-    "name": "Test",
-    "title": "Test Module",
-    "icon": "🧪",
-    "description": "Example using emoji icon instead of Font Awesome"
   },
   {
     "type": "folder",

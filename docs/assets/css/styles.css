@@ -186,6 +186,108 @@ body {
   background-color: var(--nav-hover);
   border-color: var(--border-light);
   color: var(--text-primary);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+/* Discord Button */
+.discord-button {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.discord-button:hover {
+  background-color: var(--nav-hover);
+  border-color: var(--border-light);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  color: var(--text-primary);
+}
+
+.discord-button i {
+  font-size: 16px;
+  color: #5865f2; /* Keep Discord purple for the icon */
+}
+
+/* Discord button click effect */
+.discord-button.clicked {
+  animation: discordClick 0.3s ease-out;
+}
+
+@keyframes discordClick {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  }
+  50% {
+    transform: scale(0.95);
+    box-shadow: 0 4px 16px rgba(88, 101, 242, 0.4);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 2px 8px rgba(88, 101, 242, 0.2);
+  }
+}
+
+/* CSS Confetti fallback effect - full page coverage */
+.discord-button.confetti-fallback {
+  position: relative;
+  overflow: visible;
+}
+
+.discord-button.confetti-fallback::before,
+.discord-button.confetti-fallback::after {
+  content: "🎉🎊✨🎉�✨�🎉🎊✨";
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  text-align: center;
+  font-size: 24px;
+  animation: confettiFallback 3s ease-out;
+  pointer-events: none;
+  z-index: 10000;
+  letter-spacing: 50px;
+}
+
+.discord-button.confetti-fallback::before {
+  left: 0;
+  animation-delay: 0s;
+}
+
+.discord-button.confetti-fallback::after {
+  left: 0;
+  animation-delay: 0.5s;
+  content: "🌟💫🎈🌟💫🎈🌟💫🎈";
+}
+
+@keyframes confettiFallback {
+  0% {
+    opacity: 1;
+    transform: translateY(-50px) scale(0.5) rotate(0deg);
+  }
+  25% {
+    opacity: 1;
+    transform: translateY(20vh) scale(1.2) rotate(180deg);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translateY(50vh) scale(1) rotate(360deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(100vh) scale(0.5) rotate(540deg);
+  }
 }
 
 /* Layout - Nextra style */
@@ -200,17 +302,43 @@ body {
   width: 280px;
   background-color: var(--bg-primary);
   border-right: 1px solid var(--border-color);
-  overflow-y: auto;
+  overflow: hidden; /* Changed from overflow-y: auto */
   position: fixed;
   left: 0;
   top: 64px;
   bottom: 0;
   z-index: 100;
-  padding: 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+}
+
+#nav-menu {
+  flex: 1;
+  padding: 1.5rem 1.5rem 0 1.5rem;
+  position: relative;
+  min-height: 0; /* Allow shrinking */
+  overflow-y: auto;
 }
 
 .nav-section {
   margin-bottom: 1.5rem;
+  position: relative;
+}
+
+/* Remove section dividers - only keep page-level dividers */
+/* .nav-section:not(:first-child) - commented out */
+
+/* Add subtle background for main sections */
+.nav-section {
+  border-radius: 8px;
+  padding: 8px 0;
+  transition: all 0.2s ease;
+}
+
+.nav-section:hover {
+  background-color: rgba(var(--accent-rgb), 0.08);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .nav-section-header {
@@ -244,6 +372,9 @@ body {
 
 .nav-section-header:hover {
   color: var(--text-primary);
+  background-color: rgba(var(--accent-rgb), 0.06);
+  border-radius: 6px;
+  transform: translateX(2px);
 }
 
 .nav-section-header:hover::after {
@@ -277,6 +408,8 @@ body {
 .nav-item:hover {
   background-color: var(--nav-hover);
   color: var(--text-primary);
+  transform: translateX(4px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .nav-item.active {
@@ -545,6 +678,8 @@ body {
 .toc-link:hover {
     background: var(--nav-hover);
     color: var(--text-primary);
+    transform: translateX(3px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
 .toc-link.active {
@@ -669,16 +804,77 @@ body {
     font-size: 14px;
     border-left: 3px solid transparent;
     cursor: pointer;
+    margin: 4px 0;
 }
+
+/* Remove dividers between individual pages */
+/* .nav-item:not(:last-child) {
+    border-bottom: 1px solid var(--border-light);
+    border-radius: 0;
+    margin-bottom: 6px;
+    padding-bottom: 6px;
+} */
+
+/* Add flat dividers between main sections only */
+.nav-section:not(:first-child) {
+    border-top: 1px solid var(--border-light);
+    border-radius: 0; /* Ensure completely flat edges */
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+}
+
+/* Alternative flat line implementation using pseudo-element */
+.nav-section:not(:first-child)::before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: var(--border-light);
+    margin: -1.5rem 0 1.5rem 0;
+    border-radius: 0; /* Perfectly flat line */
+}
+
+/* Remove dividers between subsections - commented out */
+/* .nav-subsection:not(:last-child) {
+    border-bottom: 1px solid var(--border-light);
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+} */
 
 .nav-subsection-header:hover {
     background-color: var(--nav-hover);
     border-left-color: var(--accent-color);
+    transform: translateX(2px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
 /* Items inside subsections should be more indented */
 .nav-subsection .nav-items .nav-item {
     padding-left: 40px; /* More indented than the subsection header */
+}
+
+/* Ensure hover effects work on nested nav items */
+.nav-items .nav-item:hover {
+    background-color: var(--nav-hover);
+    color: var(--text-primary);
+    transform: translateX(4px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.nav-section .nav-items .nav-item:hover {
+    background-color: var(--nav-hover);
+    color: var(--text-primary);
+    transform: translateX(4px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Specific hover effects for subsection items */
+.nav-subsection .nav-items .nav-item:hover {
+    background-color: var(--nav-hover);
+    color: var(--text-primary);
+    transform: translateX(6px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    border-left: 3px solid var(--accent-color);
 }
 
 .nav-subsection-header::after {
@@ -747,6 +943,63 @@ body {
 /* Icon rotation for collapsed state */
 .nav-section.collapsed .nav-section-header .icon {
     transform: rotate(-90deg);
+}
+
+/* Bottom navigation section for Contributors */
+.nav-bottom-section {
+  flex-shrink: 0;
+  padding: 8px 0; /* Match other sections padding */
+  border-top: 1px solid var(--border-color);
+  margin-top: auto;
+  background-color: var(--bg-primary);
+}
+
+.nav-item-bottom {
+    background-color: rgba(var(--accent-rgb), 0.06);
+    border: 1px solid rgba(var(--accent-rgb), 0.2);
+    border-radius: 8px;
+    padding: 12px 24px !important; /* Match other nav items padding */
+    margin: 1px 12px; /* Match other nav items margin */
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.nav-item-bottom:hover {
+    background-color: rgba(var(--accent-rgb), 0.12);
+    border-color: rgba(var(--accent-rgb), 0.4);
+    transform: translateX(4px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.nav-item-bottom .nav-icon {
+    color: var(--accent-color);
+}
+
+.nav-item-bottom .nav-title {
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+/* Enhanced emoji styling with colors and effects */
+.nav-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    transition: all 0.2s ease;
+}
+
+/* Make emojis more vibrant and add subtle effects */
+.nav-icon:not(:has(i)) {
+    filter: brightness(1.2) saturate(1.3);
+    transform: scale(1.1);
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+.nav-icon:not(:has(i)):hover {
+    filter: brightness(1.4) saturate(1.5);
+    transform: scale(1.2);
+    text-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
 }
 
 /* Search Results - Improved Nextra style */

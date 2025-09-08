@@ -1,6 +1,6 @@
 {
   "name": "Framework",
-  "icon": "🏗️",
+  "icon": "fas fa-layer-group",
   "description": "Universal framework compatibility layer that provides consistent access to player data, jobs, and framework-specific functions across QB-Core, ESX, QBox, and custom frameworks. This is the foundation module that enables cross-framework development.",
   "note": "This is a core module that automatically detects and adapts to your server's framework. All functions are framework-agnostic and return consistent data formats regardless of the underlying framework.",
   "compatibleResources": [

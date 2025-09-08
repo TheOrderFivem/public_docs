@@ -1,6 +1,6 @@
 {
   "name": "Notify",
-  "icon": "🔔",
+  "icon": "fas fa-bell",
   "description": "The Notify module provides a unified interface for sending notifications across different notification systems. It automatically detects and uses the configured notification system.",
   "clientFunctions": [
     {

@@ -1,6 +1,6 @@
 {
   "name": "Phone",
-  "icon": "📱",
+  "icon": "fas fa-mobile-alt",
   "description": "The Phone module provides functions for integrating with various phone systems, including retrieving player phone numbers and sending emails.",
   "clientFunctions": [
     {
