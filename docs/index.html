@@ -146,21 +146,24 @@
                         if (jsConfetti) {
                             console.log('Triggering JS Confetti...');
                             
-                            // Main confetti burst
+                            // Optimized main confetti burst (reduced for Chrome performance)
                             jsConfetti.addConfetti({
                                 confettiColors: ['#5865f2', '#7289da', '#ffffff', '#99aab5'],
-                                confettiRadius: 6,
-                                confettiNumber: 200,
+                                confettiRadius: 4,
+                                confettiNumber: 80,
+                                spread: 70,
+                                force: 0.8
                             });
                             
-                            // Additional burst after delay
+                            // Smaller additional burst after delay
                             setTimeout(() => {
                                 jsConfetti.addConfetti({
-                                    emojis: ['🎉', '🎊', '✨', '🌟', '💫'],
-                                    emojiSize: 30,
-                                    confettiNumber: 50,
+                                    emojis: ['🎉', '🎊', '✨'],
+                                    emojiSize: 20,
+                                    confettiNumber: 20,
+                                    spread: 50
                                 });
-                            }, 500);
+                            }, 300);
                             
                             confettiWorked = true;
                             console.log('JS Confetti executed successfully');
