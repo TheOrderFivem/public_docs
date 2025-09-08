@@ -46,9 +46,18 @@ class CommunityBridgeDocumentation {
 
     setupTheme() {
         document.documentElement.setAttribute('data-theme', this.currentTheme);
-        const themeToggle = document.getElementById('theme-toggle');
-        if (themeToggle) {
-            themeToggle.textContent = this.currentTheme === 'dark' ? '☀️ Light' : '🌙 Dark';
+        
+        const darkIcon = document.querySelector('.theme-toggle-dark');
+        const lightIcon = document.querySelector('.theme-toggle-light');
+        
+        if (darkIcon && lightIcon) {
+            if (this.currentTheme === 'dark') {
+                darkIcon.style.display = 'none';
+                lightIcon.style.display = 'block';
+            } else {
+                darkIcon.style.display = 'block';
+                lightIcon.style.display = 'none';
+            }
         }
     }
 
@@ -171,11 +180,7 @@ class CommunityBridgeDocumentation {
         this.currentTheme = this.currentTheme === 'dark' ? 'light' : 'dark';
         document.documentElement.setAttribute('data-theme', this.currentTheme);
         localStorage.setItem('theme', this.currentTheme);
-
-        const themeToggle = document.getElementById('theme-toggle');
-        if (themeToggle) {
-            themeToggle.textContent = this.currentTheme === 'dark' ? '☀️ Light' : '🌙 Dark';
-        }
+        this.setupTheme(); // Update icon display
     }
 
     async loadModuleStructure() {
