@@ -1304,6 +1304,11 @@ body {
 }
 
 @media (max-width: 768px) {
+  /* Force hide TOC on mobile */
+  .toc {
+    display: none !important;
+  }
+
   .sidebar {
     transform: translateX(-100%);
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1316,7 +1321,9 @@ body {
 
   .main-content {
     margin-left: 0;
+    margin-right: 0;
     padding: 1.5rem 1rem;
+    width: 100%;
   }
 
   .header {
@@ -1330,10 +1337,6 @@ body {
   }
 
   .sidebar {
-    top: 56px;
-  }
-
-  .toc {
     top: 56px;
   }
 
@@ -1407,6 +1410,69 @@ body {
 
   .function-badges {
     margin-top: 0;
+  }
+
+  /* Mobile-specific layout fixes */
+  .content-area {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .content-area pre {
+    margin: 1rem -1rem;
+    border-radius: 0;
+    padding: 1rem;
+  }
+
+  .content-area .function-card {
+    margin: 1rem -1rem;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+
+  /* Improve mobile typography */
+  .content-area h1 {
+    font-size: 1.875rem;
+    line-height: 1.2;
+  }
+
+  .content-area h2 {
+    font-size: 1.5rem;
+  }
+
+  .content-area h3 {
+    font-size: 1.25rem;
+  }
+
+  /* Better mobile search */
+  .header-controls {
+    gap: 0.25rem;
+  }
+
+  .search-container {
+    position: static;
+  }
+
+  /* Hide any potential overflow issues */
+  body {
+    overflow-x: hidden;
+  }
+}
+
+/* Tablet-specific adjustments */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .toc {
+    width: 240px;
+  }
+
+  .main-content {
+    margin-right: 240px;
+    padding: 2rem 2rem;
+  }
+
+  .search-input {
+    width: 240px;
   }
 }
 
