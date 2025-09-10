@@ -69,3 +69,12 @@ local menuId = Bridge.Menu.Open({
 })
 ```
 
+## Supported Systems
+
+| System | Resource Name |
+|--------|---------------|
+| Lation UI | `lation_ui` |
+| Ox Lib | `ox_lib` |
+| QB Menu | `qb-menu` |
+
+The system automatically detects which menu resource is available and uses the appropriate implementation. Format conversion between QB-Core table input style and Ox formats is handled automatically when using the `useQb` parameter.

@@ -186,3 +186,20 @@ local Bridge = exports['community_bridge']:Bridge()
 Bridge.Notify.ShowHelpText(source, "Press E to interact")
 ```
 
+## Supported Systems
+
+| System | Resource Name |
+|--------|---------------|
+| Brutal Notify | `brutal_notify` |
+| FL Notify | `fl-notify` |
+| Lation UI | `lation_ui` |
+| Mythic Notify | `mythic_notify` |
+| Okok Notify | `okokNotify` |
+| Ox Lib | `ox_lib` |
+| pNotify | `pNotify` |
+| R Notify | `r_notify` |
+| T-Notify | `t-notify` |
+| Wasabi Notify | `wasabi_notify` |
+| Default Fallback | `_default` |
+
+The system automatically detects which notification resource is available and uses the appropriate implementation. If no supported notification system is found, it falls back to the default system using framework notifications. All notification types (success, error, info, warning) are standardized across different systems.

@@ -164,3 +164,12 @@ if success then
 end
 ```
 
+## Supported Systems
+
+| System | Resource Name |
+|--------|---------------|
+| Evolent Skills | `evolent_skills` |
+| OT Skills | `ot_skills` |
+| Pickle XP | `pickle_xp` |
+
+The system automatically detects which skills resource is available and uses the appropriate implementation. If no supported skills system is found, it falls back to the default system with basic functionality similar to popular mmo scaling systems. XP and skill level functions are standardized across different systems where supported.

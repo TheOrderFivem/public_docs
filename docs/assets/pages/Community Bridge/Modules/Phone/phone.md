@@ -140,3 +140,15 @@ else
 end
 ```
 
+## Supported Systems
+
+| System | Resource Name |
+|--------|---------------|
+| GKS Phone | `gksphone` |
+| LB Phone | `lb-phone` |
+| Okok Phone | `okokPhone` |
+| QS Smartphone | `qs-smartphone` |
+| Y Series | `yseries` |
+| Default Fallback | `_default` |
+
+The system automatically detects which phone resource is available and uses the appropriate implementation. If no supported phone system is found, it falls back to the default system with limited functionality. Phone functions are standardized across different systems where supported.

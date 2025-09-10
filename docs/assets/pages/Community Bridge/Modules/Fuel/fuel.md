@@ -94,3 +94,22 @@ end
 Bridge.Fuel.SetFuel(vehicle, 25.0)
 ```
 
+## Supported Systems
+
+| System | Resource Name |
+|--------|---------------|
+| BigDaddy Fuel | `bigDaddy-Fuel` |
+| CDN Fuel | `cdn-fuel` |
+| ESX SNA Fuel | `esx-sna-fuel` |
+| LC Fuel | `lc_fuel` |
+| Legacy Fuel | `legacyfuel` |
+| Okok Gas Station | `okokGasStation` |
+| Ox Fuel | `ox_fuel` |
+| PS Fuel | `ps-fuel` |
+| QB Fuel | `qb-fuel` |
+| QS Fuel Stations | `qs-fuelstations` |
+| Renewed Fuel | `renewed-Fuel` |
+| TI Fuel | `ti_fuel` |
+| X-Fuel | `x-fuel` |
+
+The system automatically detects which fuel resource is available and uses the appropriate implementation. If no supported fuel system is found, it falls back to the default natives for basic vehicle fuel management. Fuel levels and operations are standardized across different systems.

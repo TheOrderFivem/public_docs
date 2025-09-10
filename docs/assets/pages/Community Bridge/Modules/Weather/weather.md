@@ -39,3 +39,13 @@ Bridge.Weather.ToggleSync(true)
 Bridge.Weather.ToggleSync(false)
 ```
 
+## Supported Systems
+
+| System | Resource Name |
+|--------|---------------|
+| CD Easy Time | `cd_easytime` |
+| QB Weather Sync | `qb-weathersync` |
+| Renewed Weather Sync | `renewed-weathersync` |
+| Default Fallback | `_default` |
+
+The system automatically detects which weather resource is available and uses the appropriate implementation. If no supported weather system is found, it falls back to the default system with basic functionality and no advanced features. Weather synchronization functions are standardized across different systems.

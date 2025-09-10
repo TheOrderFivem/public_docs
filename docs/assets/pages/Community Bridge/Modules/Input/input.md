@@ -70,3 +70,13 @@ else
 end
 ```
 
+## Supported Systems
+
+| System | Resource Name |
+|--------|---------------|
+| Lation UI | `lation_ui` |
+| Ox Lib | `ox_lib` |
+| QB Input | `qb-input` |
+| Default Fallback | `_default` |
+
+The system automatically detects which input resource is available and uses the appropriate implementation. If no supported input system is found, it falls back to the default system using basic input functionality. Format conversion between QB-Core and Ox formats is handled automatically when using the `isQBFormat` parameter.

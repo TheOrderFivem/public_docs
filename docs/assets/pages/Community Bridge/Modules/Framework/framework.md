@@ -1472,3 +1472,12 @@ local Bridge = exports["community_bridge"]:Bridge()
 Bridge.Framework.HasItem()
 ```
 
+## Supported Systems
+
+| System | Resource Name |
+|--------|---------------|
+| QB-Core | `qb-core` |
+| QBox | `qbx_core` |
+| ESX | `es_extended` |
+
+The Framework module automatically detects which framework is running and provides a unified interface for all core functions. This is the foundation that enables all other modules to work across different frameworks seamlessly.

@@ -63,3 +63,21 @@ Bridge.Dispatch.SendAlert({
 })
 ```
 
+## Supported Systems
+
+| System | Resource Name |
+|--------|---------------|
+| Bub MDT | `bub-mdt` |
+| CD Dispatch | `cd_dispatch` |
+| Kartik MDT | `kartik-mdt` |
+| LB Tablet | `lb-tablet` |
+| Linden Outlaw Alert | `linden_outlawalert` |
+| Origen Police | `origen_police` |
+| Piotreq GPT | `piotreq_gpt` |
+| PS Dispatch | `ps-dispatch` |
+| QS Dispatch | `qs_dispatch` |
+| Redutzu MDT | `redutzu-mdt` |
+| TK Dispatch | `tk_dispatch` |
+
+The system automatically detects which dispatch resource is available and uses the appropriate implementation. If no supported dispatch system is found, it falls back to the default system using basic notification methods to job players. Alert data is normalized across different systems to ensure compatibility.
+

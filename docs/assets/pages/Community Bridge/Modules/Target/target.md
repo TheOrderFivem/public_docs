@@ -402,3 +402,13 @@ local Bridge = exports['community_bridge']:Bridge()
 Bridge.Target.RemoveZone("shop_entrance")
 ```
 
+## Supported Systems
+
+| System | Resource Name |
+|--------|---------------|
+| Ox Target | `ox_target` |
+| QB Target | `qb-target` |
+| Sleepless Interact | `sleepless_interact` |
+| Default Fallback | `_default` |
+
+The system automatically detects which targeting resource is available and uses the appropriate implementation. If no supported targeting system is found, it falls back to the default system using basic drawtext methods. All target options are normalized across different systems to ensure compatibility.

@@ -67,3 +67,12 @@ if accountData.balance then
     print("Account balance: $" .. accountData.balance)
 end
 ```
+## Supported Systems
+
+| System | Resource Name |
+|--------|---------------|
+| esx_society | `esx_society` |
+| qb-management | `qb-management` |
+| qbx_management | `qbx_management` |
+
+The system automatically detects which banking resource is available and uses the appropriate implementation. If no supported banking system is found, it falls back to a default implementation that provides basic functionality without actual account management. All account operations are standardized across different systems where supported.

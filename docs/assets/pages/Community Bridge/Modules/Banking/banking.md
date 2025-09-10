@@ -109,3 +109,18 @@ local success = Bridge.Banking.RemoveAccountMoney("bank", 200, "Purchase")
 print(success)
 ```
 
+## Supported Systems
+
+| System | Resource Name |
+|--------|---------------|
+| FD Banking | `fd_banking` |
+| Kartik Banking | `kartik-banking` |
+| Okok Banking | `okokBanking` |
+| QB Banking | `qb-banking` |
+| Renewed Banking | `renewed-banking` |
+| TGG Banking | `tgg-banking` |
+| Tgiann Bank | `tgiann-bank` |
+| Wasabi Banking | `wasabi_banking` |
+
+The system automatically detects which banking resource is available and uses the appropriate implementation. All banking functions are standardized across different systems to ensure compatibility. If no supported banking system is found, it falls back to a default system with basic functionality.
+

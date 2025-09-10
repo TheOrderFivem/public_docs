@@ -62,3 +62,13 @@ Bridge.Doorlock.ToggleDoorLock("hospital_entrance", false)
 print("Hospital entrance unlocked")
 ```
 
+## Supported Systems
+
+| System | Resource Name |
+|--------|---------------|
+| Doors Creator | `doors_creator` |
+| Ox Doorlock | `ox_doorlock` |
+| QB Doorlock | `qb-doorlock` |
+| RCore Doorlock | `rcore_doorlock` |
+
+The system automatically detects which doorlock resource is available and uses the appropriate implementation. If no supported doorlock system is found, it falls back to the default system with basic functionality. Door locking functions are standardized across different systems.

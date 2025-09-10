@@ -690,3 +690,19 @@ local Bridge = exports['community_bridge']:Bridge()
 Bridge.Inventory.UpdatePlate("ABC123", "XYZ789")
 ```
 
+## Supported Systems
+
+| System | Resource Name |
+|--------|---------------|
+| Codem Inventory | `codem-inventory` |
+| Core Inventory | `core_inventory` |
+| JPR Inventory | `jpr-inventory` |
+| Origen Inventory | `origen_inventory` |
+| Ox Inventory | `ox_inventory` |
+| PS Inventory | `ps-inventory` |
+| QB Inventory | `qb-inventory` |
+| QS Inventory | `qs-inventory` |
+| Tgiann Inventory | `tgiann-inventory` |
+
+The system automatically detects which inventory resource is available and uses the appropriate implementation. If no supported inventory system is found, it falls back to the default system using framework inventory functions. All inventory functions are standardized across different systems to ensure compatibility.
+

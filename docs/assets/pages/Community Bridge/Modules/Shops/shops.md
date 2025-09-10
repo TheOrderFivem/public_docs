@@ -183,3 +183,11 @@ else
 end
 ```
 
+## Supported Systems
+
+| System | Resource Name |
+|--------|---------------|
+| ox_inventory | `ox_inventory` |
+| qb-inventory | `qb-inventory` |
+
+The Shops module provides a universal fallback when inventory systems don't have native shop support. It creates a standardized shopping interface that works across all frameworks and inventory systems, handling payments through the framework's money system. If no supported inventory system is found, it uses a basic default implementation of context menus.

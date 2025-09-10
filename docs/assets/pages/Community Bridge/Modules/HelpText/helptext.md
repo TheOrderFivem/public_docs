@@ -114,3 +114,16 @@ Bridge.HelpText.ShowHelpText(source, "Welcome! Press [F1] for help")
 Bridge.HelpText.ShowHelpText(source, "You are now in a safe zone", "bottom")
 ```
 
+## Supported Systems
+
+| System | Resource Name |
+|--------|---------------|
+| Default | `_default` |
+| cd drawtext | `cd_drawtext` |
+| jg textui | `jg_textui` |
+| lab hintui | `lab-hintui` |
+| lation ui | `lation_ui` |
+| okok textui | `okok_textui` |
+| ox_lib | `ox_lib` |
+
+The HelpText module provides a standardized interface for displaying contextual help messages. If no supported system is found, the system uses the default implementation which leverages native GTA V help text functionality.

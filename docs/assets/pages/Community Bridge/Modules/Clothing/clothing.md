@@ -249,6 +249,8 @@ local uniformData = {
 Bridge.Clothing.SetAppearanceExt(source, uniformData)
 ```
 
+```
+
 ## RestoreAppearance (Server)
 
 ### Description
@@ -267,6 +269,20 @@ Bridge.Clothing.RestoreAppearance(src)
 
 ### Example
 ```lua
-local Bridge = exports["community_bridge"]:Bridge()\n\nBridge.Clothing.RestoreAppearance()
+local Bridge = exports["community_bridge"]:Bridge()
+
+Bridge.Clothing.RestoreAppearance()
 ```
+
+## Supported Systems
+
+| System | Resource Name |
+|--------|---------------|
+| ESX Skin | `esx_skin` |
+| FiveM Appearance | `fivem-appearance` |
+| Illenium Appearance | `illenium-appearance` |
+| QB Clothing | `qb-clothing` |
+| RCore Clothing | `rcore_clothing` |
+
+The system automatically detects which clothing resource is available and uses the appropriate implementation. If no supported clothing system is found, it falls back to the default system using basic native appearance functions. Appearance data is converted between different formats to ensure compatibility across systems.
 
