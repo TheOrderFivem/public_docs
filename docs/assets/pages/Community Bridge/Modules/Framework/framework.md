@@ -25,7 +25,7 @@ Bridge.Framework.GetAccountBalance(_type)
 ```
 
 ### Parameters
-- **_type** (string): 'money' / 'cash'
+- **_type** (string): 'bank' / 'cash'
 
 ### Returns
 - (number): | nil
@@ -1369,7 +1369,7 @@ Bridge.Framework.GetAccountBalance(src, _type)
 
 ### Parameters
 - **src** (number): Player source
-- **_type** (string):  'money' / 'cash'
+- **_type** (string):  'bank' / 'cash'
 
 ### Returns
 - (number): | nil
@@ -1377,7 +1377,7 @@ Bridge.Framework.GetAccountBalance(src, _type)
 ### Example
 ```lua
 local Bridge = exports["community_bridge"]:Bridge()
-Bridge.Framework.GetAccountBalance('money')
+Bridge.Framework.GetAccountBalance('bank')
 ```
 
 ## GetItemCount (Server)
