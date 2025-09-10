@@ -32,7 +32,8 @@ Bridge.Framework.GetAccountBalance(_type)
 
 ### Example
 ```lua
-local Bridge = exports["community_bridge"]:Bridge()\n\nBridge.Framework.GetAccountBalance('cash')
+local Bridge = exports["community_bridge"]:Bridge()
+Bridge.Framework.GetAccountBalance('cash')
 ```
 
 ## GetFrameworkJobs (Client)
@@ -446,7 +447,8 @@ Bridge.Framework.GetItemCount(item)
 
 ### Example
 ```lua
-local Bridge = exports["community_bridge"]:Bridge()\n\nBridge.Framework.GetItemCount()
+local Bridge = exports["community_bridge"]:Bridge()
+Bridge.Framework.GetItemCount()
 ```
 
 ## AddHunger (Server)
@@ -1328,7 +1330,8 @@ Bridge.Framework.AddAccountBalance(src, _type, amount)
 
 ### Example
 ```lua
-local Bridge = exports["community_bridge"]:Bridge()\n\nBridge.Framework.AddAccountBalance()
+local Bridge = exports["community_bridge"]:Bridge()
+Bridge.Framework.AddAccountBalance()
 ```
 
 ## GetStatus (Server)
@@ -1350,7 +1353,8 @@ Bridge.Framework.GetStatus(src, column)
 
 ### Example
 ```lua
-local Bridge = exports["community_bridge"]:Bridge()\n\nBridge.Framework.GetStatus()
+local Bridge = exports["community_bridge"]:Bridge()
+Bridge.Framework.GetStatus()
 ```
 
 ## GetAccountBalance (Server)
@@ -1372,7 +1376,8 @@ Bridge.Framework.GetAccountBalance(src, _type)
 
 ### Example
 ```lua
-local Bridge = exports["community_bridge"]:Bridge()\n\nBridge.Framework.GetAccountBalance('money')
+local Bridge = exports["community_bridge"]:Bridge()
+Bridge.Framework.GetAccountBalance('money')
 ```
 
 ## GetItemCount (Server)
@@ -1395,7 +1400,8 @@ Bridge.Framework.GetItemCount(src, item, metadata)
 
 ### Example
 ```lua
-local Bridge = exports["community_bridge"]:Bridge()\n\nBridge.Framework.GetItemCount()
+local Bridge = exports["community_bridge"]:Bridge()
+Bridge.Framework.GetItemCount()
 ```
 
 ## RemoveAccountBalance (Server)
@@ -1418,7 +1424,7 @@ Bridge.Framework.RemoveAccountBalance(src, _type, amount)
 
 ### Example
 ```lua
-local Bridge = exports["community_bridge"]:Bridge()\n\nBridge.Framework.RemoveAccountBalance()
+local Bridge = exports["community_bridge"]:Bridge()Bridge.Framework.RemoveAccountBalance()
 ```
 
 ## GetItemInfo (Server)
@@ -1439,7 +1445,8 @@ Bridge.Framework.GetItemInfo(item)
 
 ### Example
 ```lua
-local Bridge = exports["community_bridge"]:Bridge()\n\nBridge.Framework.GetItemInfo()
+local Bridge = exports["community_bridge"]:Bridge()
+Bridge.Framework.GetItemInfo()
 ```
 
 ## HasItem (Server)
@@ -1461,6 +1468,7 @@ Bridge.Framework.HasItem(src, item)
 
 ### Example
 ```lua
-local Bridge = exports["community_bridge"]:Bridge()\n\nBridge.Framework.HasItem()
+local Bridge = exports["community_bridge"]:Bridge()
+Bridge.Framework.HasItem()
 ```
 
