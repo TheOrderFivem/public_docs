@@ -12,6 +12,29 @@ Universal framework compatibility layer that provides consistent access to playe
 
 The Framework module provides core integration functions that bridge different FiveM frameworks and resources.
 
+## GetAccountBalance (Client)
+
+### Description
+Returns the player's account balance of the specified type.
+
+NOTE: Do not use this for purchase validation. Things like checking if they have enough money before triggering a server event that does not check, should not be done. Use this for quick UI values and always check on the server.
+
+### Syntax
+```lua
+Bridge.Framework.GetAccountBalance(_type)
+```
+
+### Parameters
+- **_type** (string): 'money' / 'cash'
+
+### Returns
+- (number): | nil
+
+### Example
+```lua
+local Bridge = exports["community_bridge"]:Bridge()\n\nBridge.Framework.GetAccountBalance('cash')
+```
+
 ## GetFrameworkJobs (Client)
 
 ### Description
@@ -1341,15 +1364,15 @@ Bridge.Framework.GetAccountBalance(src, _type)
 ```
 
 ### Parameters
-- **src** (number): 
-- **_type** (string): 
+- **src** (number): Player source
+- **_type** (string):  'money' / 'cash'
 
 ### Returns
 - (number): | nil
 
 ### Example
 ```lua
-local Bridge = exports["community_bridge"]:Bridge()\n\nBridge.Framework.GetAccountBalance()
+local Bridge = exports["community_bridge"]:Bridge()\n\nBridge.Framework.GetAccountBalance('money')
 ```
 
 ## GetItemCount (Server)
