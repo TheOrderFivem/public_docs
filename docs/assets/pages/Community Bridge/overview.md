@@ -20,38 +20,73 @@
 Community Bridge automatically detects and provides translation layers for the following resources:
 
 ### <i class="fas fa-layer-group"></i> Frameworks
-- **ESX Legacy** - Complete player data, money, and job system integration
-- **QBCore/Qb forks** - Full framework compatibility including player management
+- **ESX (es_extended)** - Complete player data, money, and job system integration
+- **QBCore (qb-core)** - Full framework compatibility including player management
+- **QBX Core (qbx_core)** - Extended QBCore framework support
 - **Custom Frameworks** - Extensible detection for custom implementations
 
 ### <i class="fas fa-cube"></i> Inventory Systems
 - **ox_inventory** - Modern inventory with metadata support
 - **qb-inventory** - QBCore's default inventory system
 - **qs-inventory** - QuasarStore inventory implementation
+- **codem-inventory** - Codem inventory system
+- **core_inventory** - Core inventory implementation
+- **jpr-inventory** - JPR inventory system
+- **origen_inventory** - Origen inventory implementation
+- **ps-inventory** - Project Sloth inventory
+- **tgiann-inventory** - Tgiann inventory system
 - **Custom Inventories** - Plugin system for custom inventory resources
 
 ### <i class="fas fa-bell"></i> Notification Systems
 - **ox_lib** - Modern notification system
-- **qb-core** - QBCore's built-in notifications
-- **esx_notify** - ESX notification system
 - **okokNotify** - Popular notification resource
+- **mythic_notify** - Mythic notification system
+- **brutal_notify** - Brutal Scripts notification
+- **pNotify** - Classic pNotify system
+- **t-notify** - T-notify implementation
+- **r_notify** - R-notify system
+- **wasabi_notify** - Wasabi notification system
+- **fl-notify** - FL-notify implementation
+- **lation_ui** - Lation UI notifications
 - **Custom Notify** - Extensible for any notification system
 
 ### <i class="fas fa-crosshairs"></i> Targeting Systems
 - **ox_target** - Optimized targeting system
 - **qb-target** - QBCore's targeting implementation
+- **sleepless_interact** - Sleepless interaction system
 - **Custom Target** - Support for custom targeting systems
 
 ### <i class="fas fa-home"></i> Housing Systems
-- **qb-houses** - QBCore housing system
-- **okokHousing** - Advanced housing implementation
+- **Multiple housing implementations** - Various housing systems supported
 - **Custom Housing** - Extensible housing detection
 
 ### <i class="fas fa-university"></i> Banking Systems
-- **qb-banking** - QBCore banking integration
-- **esx_banking** - ESX banking systems
+- **fd_banking** - FD banking system
+- **kartik-banking** - Kartik banking implementation
 - **okokBanking** - Feature-rich banking system
+- **qb-banking** - QBCore banking integration
+- **renewed-banking** - Renewed banking system
+- **tgg-banking** - TGG banking implementation
+- **tgiann-bank** - Tgiann banking system
+- **wasabi_banking** - Wasabi banking implementation
 - **Custom Banking** - Plugin support for banking resources
+
+### <i class="fas fa-plus-circle"></i> Additional Systems
+- **Clothing Systems** - Multiple clothing/appearance system integrations
+- **Boss Menu** - Management systems (qb-management, esx_society, etc.)
+- **Dispatch Systems** - Various MDT and dispatch integrations
+- **Door Lock** - Door management systems
+- **Fuel Systems** - Vehicle fuel management
+- **Help Text** - Help text display systems
+- **Input Systems** - Input dialog integrations
+- **Menu Systems** - Various menu implementations
+- **Phone Systems** - Phone resource integrations
+- **Progress Bars** - Progress bar implementations
+- **Shop Systems** - Shop and store integrations
+- **Skills Systems** - Player skill/leveling systems
+- **Vehicle Keys** - Vehicle key management
+- **Weather Systems** - Weather control integrations
+- **Zone Systems** - Area/zone management
 
 ---
 
@@ -112,15 +147,30 @@ Bridge.Notify.SendNotify('Hello World!', 'success')
 ### <i class="fas fa-sliders-h"></i> Translation Categories
 
 #### <i class="fas fa-cubes"></i> Core Systems
-- **Framework**: Player data, money, jobs (ESX ↔ QBCore ↔ Custom)
-- **Inventory**: Item management across different inventory systems
-- **Notify**: Notifications across different notification resources
-- **Target**: Targeting systems (qb-target, ox_target, etc.)
+- **Framework**: Player data, money, jobs (ESX ↔ QBCore ↔ QBX ↔ Custom)
+- **Inventory**: Item management across 9+ different inventory systems
+- **Notify**: Notifications across 10+ different notification resources
+- **Target**: Targeting systems (qb-target, ox_target, sleepless_interact)
 
 #### <i class="fas fa-home"></i> Advanced Systems
 - **Housing**: Various housing resources
-- **Banking**: Economy systems integration
+- **Banking**: 8+ economy systems integration
 - **Vehicle Systems**: Fuel, keys, and vehicle management
+- **Clothing**: Multiple appearance/clothing systems
+- **Dispatch**: MDT and dispatch system integrations
+
+#### <i class="fas fa-cogs"></i> Utility Systems
+- **Boss Menu**: Management systems (esx_society, qb-management, etc.)
+- **Door Lock**: Door management and security systems
+- **Help Text**: Help text and tutorial systems
+- **Input**: Input dialog and form systems
+- **Menu**: Various menu system implementations
+- **Phone**: Phone resource integrations
+- **Progress Bars**: Progress indicator systems
+- **Shops**: Shop and store management
+- **Skills**: Player skill and leveling systems
+- **Weather**: Weather control and management
+- **Zones**: Area and zone management systems
 
 #### <i class="fas fa-book"></i> Utility Libraries
 - **Anim**: Animation utilities
