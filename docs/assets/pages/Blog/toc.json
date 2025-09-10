@@ -1,0 +1,16 @@
+{
+  "title": "Blog",
+  "icon": "fas fa-blog",
+  "items": {
+    "overview": {
+      "title": "Blog Home",
+      "icon": "fas fa-home"
+    }
+  },
+  "subsections": {
+    "Tutorials": {
+      "title": "Tutorials",
+      "icon": "fas fa-graduation-cap"
+    }
+  }
+}

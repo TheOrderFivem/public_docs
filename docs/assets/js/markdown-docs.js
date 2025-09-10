@@ -310,6 +310,16 @@ class CommunityBridgeDocumentation {
             // Discover The Orders Recipe content
             await this.discoverOrdersRecipeSection(structure);
 
+            // Create Blog as a separate main section
+            structure['Blog'] = {
+                icon: 'fas fa-blog',
+                items: {},
+                type: 'section'
+            };
+
+            // Discover Blog content
+            await this.discoverBlogSection(structure);
+
             // Discover root-level pages
             await this.discoverRootLevelPages(structure);
 
@@ -390,6 +400,66 @@ class CommunityBridgeDocumentation {
         }
 
         console.log(`✅ Added The Orders Recipe section with ${Object.keys(structure['The Orders Recipe'].items).length} items`);
+    }
+
+    async discoverBlogSection(structure) {
+        console.log('🔍 Discovering Blog content...');
+
+        // Add overview file
+        try {
+            const response = await fetch(`./assets/pages/Blog/overview.md`);
+            if (response.ok) {
+                const content = await response.text();
+                const icon = this.extractIconFromMarkdown(content) || 'fas fa-home';
+
+                structure['Blog'].items['overview'] = {
+                    path: `Blog/overview`,
+                    type: 'markdown',
+                    name: 'Blog Home',
+                    icon: icon
+                };
+                console.log(`✅ Found Blog overview with icon: ${icon}`);
+            }
+        } catch (e) {
+            console.log(`⚠️ Blog overview not found`);
+        }
+
+        // Discover Tutorials subsection
+        const tutorialItems = {};
+        const tutorialFiles = ['first-bridge-project'];
+        
+        for (const fileName of tutorialFiles) {
+            try {
+                const response = await fetch(`./assets/pages/Blog/Tutorials/${fileName}.md`);
+                if (response.ok) {
+                    const content = await response.text();
+                    const icon = this.extractIconFromMarkdown(content) || '📝';
+
+                    tutorialItems[fileName] = {
+                        path: `Blog/Tutorials/${fileName}`,
+                        type: 'markdown',
+                        name: this.formatTitle(fileName.replace(/-/g, ' ')),
+                        icon: icon
+                    };
+                    console.log(`✅ Found tutorial: ${fileName}.md with icon: ${icon}`);
+                }
+            } catch (e) {
+                console.log(`⚠️ Tutorial not found: ${fileName}.md`);
+            }
+        }
+
+        // Add Tutorials subsection if any tutorials were found
+        if (Object.keys(tutorialItems).length > 0) {
+            structure['Blog'].items['Tutorials'] = {
+                icon: 'fas fa-graduation-cap',
+                items: tutorialItems,
+                type: 'subsection',
+                name: 'Tutorials'
+            };
+            console.log(`✅ Added Tutorials subsection with ${Object.keys(tutorialItems).length} items`);
+        }
+
+        console.log(`✅ Added Blog section with ${Object.keys(structure['Blog'].items).length} items`);
     }
 
     async discoverRootLevelPages(structure) {

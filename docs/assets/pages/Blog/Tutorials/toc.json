@@ -1,0 +1,10 @@
+{
+  "title": "Tutorials",
+  "icon": "fas fa-graduation-cap",
+  "items": {
+    "first-bridge-project": {
+      "title": "Your First Bridge Project",
+      "icon": "fas fa-rocket"
+    }
+  }
+}
