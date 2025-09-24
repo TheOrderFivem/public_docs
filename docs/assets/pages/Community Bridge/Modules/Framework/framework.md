@@ -1321,9 +1321,9 @@ Bridge.Framework.AddAccountBalance(src, _type, amount)
 ```
 
 ### Parameters
-- **src** (number): 
-- **_type** (string): 
-- **amount** (number): 
+- **src** (number): Player source ID
+- **_type** (string): 'bank' / 'cash' 
+- **amount** (number): Value of money to add
 
 ### Returns
 - (boolean): | nil
@@ -1391,9 +1391,9 @@ Bridge.Framework.GetItemCount(src, item, metadata)
 ```
 
 ### Parameters
-- **src** (number): 
-- **item** (string): 
-- **metadata** (table): 
+- **src** (number): Player source
+- **item** (string): Item name
+- **metadata** (table): Item metadata
 
 ### Returns
 - (number): | nil
@@ -1415,9 +1415,9 @@ Bridge.Framework.RemoveAccountBalance(src, _type, amount)
 ```
 
 ### Parameters
-- **src** (number): 
-- **_type** (string): 
-- **amount** (number): 
+- **src** (number): Player source
+- **_type** (string): 'cash' / 'bank'
+- **amount** (number): Value of money to remove
 
 ### Returns
 - (boolean): | nil
@@ -1438,7 +1438,7 @@ Bridge.Framework.GetItemInfo(item)
 ```
 
 ### Parameters
-- **item** (string): 
+- **item** (string): Item name
 
 ### Returns
 - (table): 
@@ -1460,8 +1460,8 @@ Bridge.Framework.HasItem(src, item)
 ```
 
 ### Parameters
-- **src** (number): 
-- **item** (string): 
+- **src** (number): Player source
+- **item** (string): Item name
 
 ### Returns
 - (boolean): 
